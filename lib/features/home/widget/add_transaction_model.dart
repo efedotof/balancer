@@ -6,9 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddTransactionModel extends StatefulWidget {
-  const AddTransactionModel({
-    super.key,
-  });
+  const AddTransactionModel({super.key});
 
   @override
   State<AddTransactionModel> createState() => _AddTransactionModelState();
@@ -24,20 +22,38 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
   Color _dateColor = Colors.grey;
   Color _categoryColor = Colors.grey;
 
+  // Define the maximum limit (1 quintillion)
+  static const double _maxAmount = 1e18;
+
   void _validateFields() {
     setState(() {
-      _amountColor = _amountController.text.isEmpty ? Colors.red : Colors.grey;
-      _dateColor = _selectedDate == null
-          ? Colors.grey
-          : Colors.grey; 
+      _amountColor = _isValidAmount(_amountController.text) ? Colors.grey : Colors.red;
+      _dateColor = _selectedDate == null ? Colors.red : Colors.grey;
       _categoryColor = _selectedCategory == null ? Colors.red : Colors.grey;
 
+      // Ensure date is set if not selected
       _selectedDate ??= DateTime.now();
     });
   }
 
-  bool _hasValidPrefix(String value) {
-    return value.startsWith('+') || value.startsWith('-');
+  bool _isValidAmount(String value) {
+    // Regular expression to check if the string matches "+/- amount" format
+    final RegExp regex = RegExp(r'^[+-]\d*\.?\d{0,2}$');
+    if (!regex.hasMatch(value)) {
+      return false;
+    }
+
+    // Remove the "+" or "-" sign and parse the number
+    String amountStr = value.substring(1);
+    double amount;
+    try {
+      amount = double.parse(amountStr.isEmpty ? '0' : amountStr);
+    } catch (e) {
+      return false;
+    }
+
+    // Check if the amount exceeds the maximum allowed
+    return amount <= _maxAmount;
   }
 
   @override
@@ -77,9 +93,7 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
                         ),
                         onChanged: (value) {
                           setState(() {
-                            _amountColor = (value.isEmpty || !_hasValidPrefix(value))
-                                ? Colors.red
-                                : Colors.grey;
+                            _amountColor = _isValidAmount(value) ? Colors.grey : Colors.red;
                           });
                         },
                       ),
@@ -127,7 +141,7 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
                       ),
                     ),
                     const SizedBox(height: 20),
-   
+
                     Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 5, horizontal: 15),
@@ -163,9 +177,7 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
                       ),
                     ),
                     const SizedBox(height: 20),
-        
-                    const SizedBox(height: 20),
-           
+
                     BlocBuilder<HomeCubit, HomeState>(
                       builder: (context, state) {
                         if (state is AddNewBox) {
@@ -188,8 +200,7 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
                           return GestureDetector(
                             onTap: () {
                               _validateFields();
-                              if (_amountController.text.isNotEmpty &&
-                                  _hasValidPrefix(_amountController.text) &&
+                              if (_isValidAmount(_amountController.text) &&
                                   _selectedDate != null &&
                                   _selectedCategory != null) {
                                 context.read<HomeCubit>().addNewBoxTransaction(

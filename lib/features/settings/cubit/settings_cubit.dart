@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:balancer/box/repository/box_interface.dart';
 import 'package:balancer/features/home/cubit/balancer_cubit.dart';
 import 'package:balancer/features/home/cubit/home_cubit.dart';
@@ -21,12 +22,14 @@ class SettingsCubit extends Cubit<SettingsState> {
   final HomeCubit homeCubit;
   final BalancerCubit balancerCubit;
 
-  void _clearAppCash() async {
+  void _clearAppCash(BuildContext context) async {
     await _boxInterface.removeAllBox();
     prefs.clear();
     
     homeCubit.clearTransactions();
     balancerCubit.resetBalance();
+
+    context.maybePop();
   }
 
   void clearAll(BuildContext context) async {
@@ -38,11 +41,11 @@ class SettingsCubit extends Cubit<SettingsState> {
           content: const Text("Вы уверены, что хотите удалить этот элемент?"),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
+              onPressed: () => context.maybePop(),
               child: const Text("Отмена"),
             ),
             TextButton(
-              onPressed: () => _clearAppCash(),
+              onPressed: () => _clearAppCash(context),
               child: const Text("Удалить"),
             ),
           ],
