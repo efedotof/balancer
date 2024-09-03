@@ -83,5 +83,26 @@ class HomeCubit extends Cubit<HomeState> {
     context.maybePop();
   }
 
+  String formatNumber(double number) {
+    final absNumber = number.abs();
+    if (absNumber >= 1e18) {
+      return '${(number / 1e18).toStringAsFixed(2)} квинт'; 
+    } else if (absNumber >= 1e15) {
+      return '${(number / 1e15).toStringAsFixed(2)} квадр'; 
+    } else if (absNumber >= 1e12) {
+      return '${(number / 1e12).toStringAsFixed(2)} трлн'; 
+    } else if (absNumber >= 1e9) {
+      return '${(number / 1e9).toStringAsFixed(2)} млрд'; 
+    } else if (absNumber >= 1e6) {
+      return '${(number / 1e6).toStringAsFixed(2)} млн'; 
+    } else if (absNumber >= 1e3) {
+      return '${(number / 1e3).toStringAsFixed(2)} тыс'; 
+    } else {
+      return number.toStringAsFixed(2);
+    }
+  }
+
+
+
   ValueListenable<List<Transaction>> get transactionsNotifier => _transactionsNotifier;
 }
