@@ -1,9 +1,12 @@
 import 'package:balancer/features/home/cubit/balancer_cubit.dart';
+import 'package:balancer/features/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardInfo extends StatelessWidget {
   const CardInfo({super.key});
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -16,60 +19,60 @@ class CardInfo extends StatelessWidget {
               color: const Color(0xFF2A2A2A),
               borderRadius: BorderRadius.circular(12),
             ),
+            width: double.infinity,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Номер карты',
-                          style: TextStyle(color: Colors.white70, fontSize: 18),
-                        ),
-                        Text(
-                          'Нет',
-                          style: TextStyle(color: Colors.white, fontSize: 22),
-                        ),
-                      ],
+                    const Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Номер карты',
+                            style: TextStyle(color: Colors.white70, fontSize: 16),
+                          ),
+                          Text(
+                            'Нет',
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                        ],
+                      ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const Text(
-                          'Баланс',
-                          style: TextStyle(color: Colors.white70, fontSize: 18),
-                        ),
-                        Text(
-                          '${state.balance}₽',
-                          style: const TextStyle(color: Colors.white, fontSize: 22),
-                        ),
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const Text(
+                            'Баланс',
+                            style: TextStyle(color: Colors.white70, fontSize: 16),
+                          ),
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 200),
+                            child: Text(
+                              '${context.read<HomeCubit>().formatNumber(state.balance)} ₽',
+                              style: const TextStyle(color: Colors.white, fontSize: 18),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 20),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'Доходы',
-                      style: TextStyle(color: Colors.green, fontSize: 18),
+                    Text(
+                      'Доход: ${context.read<HomeCubit>().formatNumber(state.income)} ₽  ', 
+                      style: const TextStyle(color: Colors.green, fontSize: 16),
                     ),
                     Text(
-                      '${state.income}₽',
-                      maxLines: 2,
-                      style: const TextStyle(color: Colors.green, fontSize: 15),
-                    ),
-                    const Text(
-                      'Расходы',
-                      style: TextStyle(color: Colors.red, fontSize: 18),
-                    ),
-                    Text(
-                      '${state.expenses}₽',
-                      maxLines: 2,
-                      style: const TextStyle(color: Colors.red, fontSize: 15),
+                      'Расход: ${context.read<HomeCubit>().formatNumber(state.expenses)} ₽', 
+                      style: const TextStyle(color: Colors.red, fontSize: 16),
                     ),
                   ],
                 ),
