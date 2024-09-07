@@ -17,12 +17,13 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit({required HomeInterface interface})
       : _interface = interface,
         super(const HomeInitial()) {
-    filterTransactions(0); 
+    filterTransactions(0);
   }
 
   final HomeInterface _interface;
   final transactionBox = Hive.box<Transaction>('transaction_box');
-  final ValueNotifier<List<Transaction>> _transactionsNotifier = ValueNotifier([]);
+  final ValueNotifier<List<Transaction>> _transactionsNotifier =
+      ValueNotifier([]);
 
   int _selectedIndex = 0;
   List<String> get nameChip => AppStrings.filterNames;
@@ -37,10 +38,15 @@ class HomeCubit extends Cubit<HomeState> {
     final now = DateTime.now();
     final filteredTransactions = transactionBox.values.where((transaction) {
       final transactionDate = transaction.date;
-      if (index == 0) return true; 
-      if (index == 1) return _isSameDay(transactionDate, now); 
-      if (index == 2) return _isSameDay(transactionDate, now.subtract(const Duration(days: 1))); 
-      if (index == 3) return transactionDate.isAfter(now.subtract(const Duration(days: 7)));
+      if (index == 0) return true;
+      if (index == 1) return _isSameDay(transactionDate, now);
+      if (index == 2) {
+        return _isSameDay(
+            transactionDate, now.subtract(const Duration(days: 1)));
+      }
+      if (index == 3) {
+        return transactionDate.isAfter(now.subtract(const Duration(days: 7)));
+      }
       return false;
     }).toList();
 
@@ -54,7 +60,9 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   bool _isSameDay(DateTime date1, DateTime date2) {
-    return date1.year == date2.year && date1.month == date2.month && date1.day == date2.day;
+    return date1.year == date2.year &&
+        date1.month == date2.month &&
+        date1.day == date2.day;
   }
 
   void showAddModel(BuildContext context) {
@@ -68,17 +76,20 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  Future<void> addNewBoxTransaction(BuildContext context, String amount, DateTime time, String title) async {
+  Future<void> addNewBoxTransaction(
+      BuildContext context, String amount, DateTime time, String title) async {
     emit(AddNewBox());
+    if (!amount.startsWith('+') && !amount.startsWith('-')) {
+      amount = '+$amount';
+    }
 
     final isIncome = amount.startsWith('+');
     final parsedAmount = double.parse(amount.replaceAll(RegExp(r'[^\d.]'), ''));
 
-    context.read<BalancerCubit>().updateBalance(parsedAmount, isIncome: isIncome);
-
+    context
+        .read<BalancerCubit>()
+        .updateBalance(parsedAmount, isIncome: isIncome);
     await _interface.addNewBox(title, amount, time);
-
-
     filterTransactions(_selectedIndex);
     context.maybePop();
   }
@@ -86,23 +97,22 @@ class HomeCubit extends Cubit<HomeState> {
   String formatNumber(double number) {
     final absNumber = number.abs();
     if (absNumber >= 1e18) {
-      return '${(number / 1e18).toStringAsFixed(2)} квинт'; 
+      return '${(number / 1e18).toStringAsFixed(2)} квинт';
     } else if (absNumber >= 1e15) {
-      return '${(number / 1e15).toStringAsFixed(2)} квадр'; 
+      return '${(number / 1e15).toStringAsFixed(2)} квадр';
     } else if (absNumber >= 1e12) {
-      return '${(number / 1e12).toStringAsFixed(2)} трлн'; 
+      return '${(number / 1e12).toStringAsFixed(2)} трлн';
     } else if (absNumber >= 1e9) {
-      return '${(number / 1e9).toStringAsFixed(2)} млрд'; 
+      return '${(number / 1e9).toStringAsFixed(2)} млрд';
     } else if (absNumber >= 1e6) {
-      return '${(number / 1e6).toStringAsFixed(2)} млн'; 
+      return '${(number / 1e6).toStringAsFixed(2)} млн';
     } else if (absNumber >= 1e3) {
-      return '${(number / 1e3).toStringAsFixed(2)} тыс'; 
+      return '${(number / 1e3).toStringAsFixed(2)} тыс';
     } else {
       return number.toStringAsFixed(2);
     }
   }
 
-
-
-  ValueListenable<List<Transaction>> get transactionsNotifier => _transactionsNotifier;
+  ValueListenable<List<Transaction>> get transactionsNotifier =>
+      _transactionsNotifier;
 }
