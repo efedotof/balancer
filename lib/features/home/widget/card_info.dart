@@ -1,28 +1,12 @@
 import 'package:balancer/features/home/cubit/balancer_cubit.dart';
+import 'package:balancer/features/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardInfo extends StatelessWidget {
   const CardInfo({super.key});
 
-  String _formatNumber(double number) {
-    final absNumber = number.abs();
-    if (absNumber >= 1e18) {
-      return '${(number / 1e18).toStringAsFixed(2)} квинт'; // квинтильон
-    } else if (absNumber >= 1e15) {
-      return '${(number / 1e15).toStringAsFixed(2)} квадр'; // квадриллион
-    } else if (absNumber >= 1e12) {
-      return '${(number / 1e12).toStringAsFixed(2)} трлн'; // триллион
-    } else if (absNumber >= 1e9) {
-      return '${(number / 1e9).toStringAsFixed(2)} млрд'; // миллиард
-    } else if (absNumber >= 1e6) {
-      return '${(number / 1e6).toStringAsFixed(2)} млн'; // миллион
-    } else if (absNumber >= 1e3) {
-      return '${(number / 1e3).toStringAsFixed(2)} тыс'; // тысяча
-    } else {
-      return number.toStringAsFixed(2); // обычное число
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +52,7 @@ class CardInfo extends StatelessWidget {
                           Container(
                             constraints: const BoxConstraints(maxWidth: 200),
                             child: Text(
-                              '${_formatNumber(state.balance)} ₽',
+                              '${context.read<HomeCubit>().formatNumber(state.balance)} ₽',
                               style: const TextStyle(color: Colors.white, fontSize: 18),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
@@ -83,11 +67,11 @@ class CardInfo extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'Доход: ${_formatNumber(state.income)} ₽  ', // Пробел после суммы
+                      'Доход: ${context.read<HomeCubit>().formatNumber(state.income)} ₽  ', 
                       style: const TextStyle(color: Colors.green, fontSize: 16),
                     ),
                     Text(
-                      'Расход: ${_formatNumber(state.expenses)} ₽', // Пробел перед текстом
+                      'Расход: ${context.read<HomeCubit>().formatNumber(state.expenses)} ₽', 
                       style: const TextStyle(color: Colors.red, fontSize: 16),
                     ),
                   ],

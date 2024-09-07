@@ -1,4 +1,6 @@
+import 'package:balancer/features/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TransactionItem extends StatelessWidget {
   final String title;
@@ -14,24 +16,7 @@ class TransactionItem extends StatelessWidget {
     required this.date,
   });
 
-  String _formatNumber(double number) {
-    final absNumber = number.abs();
-    if (absNumber >= 1e18) {
-      return '${(number / 1e18).toStringAsFixed(2)} квинт'; // квинтильон
-    } else if (absNumber >= 1e15) {
-      return '${(number / 1e15).toStringAsFixed(2)} квадр'; // квадриллион
-    } else if (absNumber >= 1e12) {
-      return '${(number / 1e12).toStringAsFixed(2)} трлн'; // триллион
-    } else if (absNumber >= 1e9) {
-      return '${(number / 1e9).toStringAsFixed(2)} млрд'; // миллиард
-    } else if (absNumber >= 1e6) {
-      return '${(number / 1e6).toStringAsFixed(2)} млн'; // миллион
-    } else if (absNumber >= 1e3) {
-      return '${(number / 1e3).toStringAsFixed(2)} тыс'; // тысяча
-    } else {
-      return number.toStringAsFixed(2); // обычное число
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,31 +28,31 @@ class TransactionItem extends StatelessWidget {
 
     final formattedDate = '$day.$month.$year  $hour:$minute';
 
-    // Parse the amount string to a double and format it
+
     final doubleAmount = double.tryParse(amount.replaceAll(',', '.')) ?? 0.0;
-    final formattedAmount = _formatNumber(doubleAmount);
+    final formattedAmount =context.read<HomeCubit>().formatNumber(doubleAmount);
 
     return ListTile(
       contentPadding:
-          const EdgeInsets.symmetric(horizontal: 10.0), // Adjust padding if necessary
+          const EdgeInsets.symmetric(horizontal: 10.0), 
       title: Text(
         title,
         style: const TextStyle(color: Colors.white),
-        overflow: TextOverflow.ellipsis, // Ensure text does not overflow
+        overflow: TextOverflow.ellipsis, 
       ),
       subtitle: Text(
         formattedDate,
         style: const TextStyle(color: Colors.white70),
-        overflow: TextOverflow.ellipsis, // Ensure text does not overflow
+        overflow: TextOverflow.ellipsis, 
       ),
       trailing: SizedBox(
-        width: 120, // Set a fixed width for trailing text
+        width: 120, 
         child: Text(
           textAlign: TextAlign.end,
           '$formattedAmount ₽',
           style: TextStyle(color: amountColor, fontSize: 18),
-          overflow: TextOverflow.ellipsis, // Ensure text does not overflow
-          maxLines: 1, // Ensure the text is limited to a single line
+          overflow: TextOverflow.ellipsis, 
+          maxLines: 1, 
         ),
       ),
     );

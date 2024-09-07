@@ -17,33 +17,33 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
   DateTime? _selectedDate;
   String? _selectedCategory;
 
-  // Colors for fields
   Color _amountColor = Colors.grey;
   Color _dateColor = Colors.grey;
   Color _categoryColor = Colors.grey;
 
-  // Define the maximum limit (1 quintillion)
   static const double _maxAmount = 1e18;
 
   void _validateFields() {
     setState(() {
-      _amountColor = _isValidAmount(_amountController.text) ? Colors.grey : Colors.red;
+      _amountColor =
+          _isValidAmount(_amountController.text) ? Colors.grey : Colors.red;
       _dateColor = _selectedDate == null ? Colors.red : Colors.grey;
       _categoryColor = _selectedCategory == null ? Colors.red : Colors.grey;
 
-      // Ensure date is set if not selected
       _selectedDate ??= DateTime.now();
     });
   }
 
   bool _isValidAmount(String value) {
-    // Regular expression to check if the string matches "+/- amount" format
+    if (!value.startsWith('+') && !value.startsWith('-')) {
+      value = '+$value';
+    }
+
     final RegExp regex = RegExp(r'^[+-]\d*\.?\d{0,2}$');
     if (!regex.hasMatch(value)) {
       return false;
     }
 
-    // Remove the "+" or "-" sign and parse the number
     String amountStr = value.substring(1);
     double amount;
     try {
@@ -52,7 +52,6 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
       return false;
     }
 
-    // Check if the amount exceeds the maximum allowed
     return amount <= _maxAmount;
   }
 
@@ -73,7 +72,6 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 20),
-
                     SizedBox(
                       child: TextField(
                         controller: _amountController,
@@ -93,13 +91,14 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
                         ),
                         onChanged: (value) {
                           setState(() {
-                            _amountColor = _isValidAmount(value) ? Colors.grey : Colors.red;
+                            _amountColor = _isValidAmount(value)
+                                ? Colors.grey
+                                : Colors.red;
                           });
                         },
                       ),
                     ),
                     const SizedBox(height: 20),
-
                     GestureDetector(
                       onTap: () async {
                         DateTime? pickedDate = await showDatePicker(
@@ -141,7 +140,6 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
                       ),
                     ),
                     const SizedBox(height: 20),
-
                     Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 5, horizontal: 15),
@@ -177,7 +175,6 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
                       ),
                     ),
                     const SizedBox(height: 20),
-
                     BlocBuilder<HomeCubit, HomeState>(
                       builder: (context, state) {
                         if (state is AddNewBox) {
