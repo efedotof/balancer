@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:balancer/box/repository/box_interface.dart';
 import 'package:balancer/features/home/cubit/balancer_cubit.dart';
 import 'package:balancer/features/home/cubit/home_cubit.dart';
+import 'package:balancer/router/router.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,11 @@ class SettingsCubit extends Cubit<SettingsState> {
       },
     );
 
+  }
+
+
+  void pushAbout(BuildContext context){
+    context.replaceRoute(const AboutRoute());
   }
 
 

@@ -19,11 +19,9 @@ class TransactionList extends StatelessWidget {
       );
     }
 
-    return Expanded(
-      child: ListView.builder(
-        itemCount: transactions.length,
-        itemBuilder: (context, index) {
-          final transaction = transactions[index];
+    return SingleChildScrollView(
+      child: Column(
+        children: transactions.map((transaction) {
           final isIncome = transaction.amount.startsWith('+');
           final day = transaction.date.day.toString().padLeft(2, '0');
           final month = transaction.date.month.toString().padLeft(2, '0');
@@ -39,7 +37,7 @@ class TransactionList extends StatelessWidget {
             amount: transaction.amount,
             amountColor: isIncome ? Colors.green : Colors.red,
           );
-        },
+        }).toList(),
       ),
     );
   }

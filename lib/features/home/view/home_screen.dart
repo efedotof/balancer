@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
           body: ValueListenableBuilder<List<Transaction>>(
             valueListenable: transactionsNotifier,
             builder: (context, transactions, _) {
-              final groupedTransactions = _groupTransactionsByDate(transactions);
+              final groupedTransactions = context.read<HomeCubit>().groupTransactionsByDate(transactions);
 
           
               final sortedDates = groupedTransactions.keys.toList()
@@ -57,9 +57,9 @@ class HomeScreen extends StatelessWidget {
                               children: sortedDates.map((date) {
                                 final transactionsForDate = groupedTransactions[date]!.reversed.toList();
 
-                                final headerTitle = _isToday(date)
+                                final headerTitle = context.read<HomeCubit>().isToday(date)
                                     ? 'Сегодня'
-                                    : _formatDate(date); 
+                                    : context.read<HomeCubit>().formatDate(date); 
 
                                 return TransactionList(
                                   headerTitle: headerTitle,
@@ -77,39 +77,5 @@ class HomeScreen extends StatelessWidget {
       },
     );
   }
-
-  bool _isToday(DateTime date) {
-    final now = DateTime.now();
-    return now.year == date.year &&
-        now.month == date.month &&
-        now.day == date.day;
-  }
-
-  Map<DateTime, List<Transaction>> _groupTransactionsByDate(List<Transaction> transactions) {
-    final Map<DateTime, List<Transaction>> groupedTransactions = {};
-
-    for (var transaction in transactions) {
-      final transactionDate = DateTime(
-        transaction.date.year,
-        transaction.date.month,
-        transaction.date.day,
-      ); 
-
-      if (!groupedTransactions.containsKey(transactionDate)) {
-        groupedTransactions[transactionDate] = [];
-      }
-      groupedTransactions[transactionDate]!.add(transaction);
-    }
-
-    return groupedTransactions;
-  }
-
-
-  String _formatDate(DateTime date) {
-    final day = date.day.toString().padLeft(2, '0');
-    final month = date.month.toString().padLeft(2, '0');
-    final year = date.year;
-
-    return '$day.$month.$year'; 
-  }
+  
 }

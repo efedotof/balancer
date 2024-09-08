@@ -25,18 +25,34 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
 
   void _validateFields() {
     setState(() {
-      _amountColor = _amountController.text.isEmpty ? Colors.red : Colors.grey;
-      _dateColor = _selectedDate == null
-          ? Colors.grey
-          : Colors.grey; 
+      _amountColor =
+          _isValidAmount(_amountController.text) ? Colors.grey : Colors.red;
+      _dateColor = _selectedDate == null ? Colors.red : Colors.grey;
       _categoryColor = _selectedCategory == null ? Colors.red : Colors.grey;
 
       _selectedDate ??= DateTime.now();
     });
   }
 
-  bool _hasValidPrefix(String value) {
-    return value.startsWith('+') || value.startsWith('-');
+  bool _isValidAmount(String value) {
+    if (!value.startsWith('+') && !value.startsWith('-')) {
+      value = '+$value';
+    }
+
+    final RegExp regex = RegExp(r'^[+-]\d*\.?\d{0,2}$');
+    if (!regex.hasMatch(value)) {
+      return false;
+    }
+
+    String amountStr = value.substring(1);
+    double amount;
+    try {
+      amount = double.parse(amountStr.isEmpty ? '0' : amountStr);
+    } catch (e) {
+      return false;
+    }
+
+    return amount <= _maxAmount;
   }
 
   @override
@@ -75,9 +91,9 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
                         ),
                         onChanged: (value) {
                           setState(() {
-                            _amountColor = (value.isEmpty || !_hasValidPrefix(value))
-                                ? Colors.red
-                                : Colors.grey;
+                            _amountColor = _isValidAmount(value)
+                                ? Colors.grey
+                                : Colors.red;
                           });
                         },
                       ),
@@ -124,7 +140,6 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
                       ),
                     ),
                     const SizedBox(height: 20),
-   
                     Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 5, horizontal: 15),
@@ -160,9 +175,6 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
                       ),
                     ),
                     const SizedBox(height: 20),
-        
-                    const SizedBox(height: 20),
-           
                     BlocBuilder<HomeCubit, HomeState>(
                       builder: (context, state) {
                         if (state is AddNewBox) {

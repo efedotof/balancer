@@ -28,7 +28,7 @@ class TransactionItem extends StatelessWidget {
         style: const TextStyle(color: Colors.white70),
       ),
       trailing: Text(
-        '${context.read<ReportCubit>().formatAmount(amount)} ₽', // Форматируем сумму
+        '${context.read<ReportCubit>().formatAmount(amount)} ₽',
         style: TextStyle(color: amountColor, fontSize: 18),
       ),
     );

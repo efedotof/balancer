@@ -26,7 +26,7 @@ class ReportCubit extends Cubit<ReportState> {
             isIncome ? transaction.amount.startsWith('+') : transaction.amount.startsWith('-'))
         .toList()
         .reversed
-        .toList();  // Transactions shown in reverse order
+        .toList();  
   }
 
   double calculateTotal(List<Transaction> transactions) {

@@ -32,6 +32,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 horizontal: MediaQuery.of(context).size.width * 0.05),
             child: Wrap(
               children: [
+                 Card(
+                  child: ListTile(
+                    trailing: const Icon(
+                      Icons.info,
+                      color: Colors.green,
+                    ),
+                    title: const Text('О Приложении'),
+                    onTap: () => context.read<SettingsCubit>().pushAbout(context),
+                  ),
+                ),
                 Card(
                   child: ListTile(
                     trailing: const Icon(
@@ -42,6 +52,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onTap: () => context.read<SettingsCubit>().clearAll(context),
                   ),
                 ),
+                
               ],
             ),
           ),

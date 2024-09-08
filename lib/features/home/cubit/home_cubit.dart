@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:balancer/features/home/cubit/balancer_cubit.dart';
+import 'package:balancer/features/report/cubit/switch_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,6 +67,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void showAddModel(BuildContext context) {
+    context.read<SwitchCubit>().resetSwitch();
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -114,25 +116,41 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
 
+  String formatDate(DateTime date) {
+    final day = date.day.toString().padLeft(2, '0');
+    final month = date.month.toString().padLeft(2, '0');
+    final year = date.year;
 
-  String formatNumber(double number) {
-    final absNumber = number.abs();
-    if (absNumber >= 1e18) {
-      return '${(number / 1e18).toStringAsFixed(2)} квинт';
-    } else if (absNumber >= 1e15) {
-      return '${(number / 1e15).toStringAsFixed(2)} квадр';
-    } else if (absNumber >= 1e12) {
-      return '${(number / 1e12).toStringAsFixed(2)} трлн';
-    } else if (absNumber >= 1e9) {
-      return '${(number / 1e9).toStringAsFixed(2)} млрд';
-    } else if (absNumber >= 1e6) {
-      return '${(number / 1e6).toStringAsFixed(2)} млн';
-    } else if (absNumber >= 1e3) {
-      return '${(number / 1e3).toStringAsFixed(2)} тыс';
-    } else {
-      return number.toStringAsFixed(2);
-    }
+    return '$day.$month.$year'; 
   }
+
+   Map<DateTime, List<Transaction>> groupTransactionsByDate(List<Transaction> transactions) {
+    final Map<DateTime, List<Transaction>> groupedTransactions = {};
+
+    for (var transaction in transactions) {
+      final transactionDate = DateTime(
+        transaction.date.year,
+        transaction.date.month,
+        transaction.date.day,
+      ); 
+
+      if (!groupedTransactions.containsKey(transactionDate)) {
+        groupedTransactions[transactionDate] = [];
+      }
+      groupedTransactions[transactionDate]!.add(transaction);
+    }
+
+    return groupedTransactions;
+  }
+
+
+  bool isToday(DateTime date) {
+    final now = DateTime.now();
+    return now.year == date.year &&
+        now.month == date.month &&
+        now.day == date.day;
+  }
+
 
   ValueListenable<List<Transaction>> get transactionsNotifier =>
       _transactionsNotifier;

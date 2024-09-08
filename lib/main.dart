@@ -3,6 +3,7 @@ import 'package:balancer/box/repository/box_repository.dart';
 import 'package:balancer/features/home/cubit/home_cubit.dart';
 import 'package:balancer/features/home/repository/home_repository.dart';
 import 'package:balancer/features/report/cubit/report_cubit.dart';
+import 'package:balancer/features/report/cubit/switch_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +38,7 @@ void main() async {
     providers: [
       BlocProvider(
         create: (context) => ThemeCubit(interf: themeRepository),
-      ),
+      ), 
 
       BlocProvider(
         create: (context) => homeCubit,
@@ -58,6 +59,9 @@ void main() async {
 
       BlocProvider(
         create: (context) => balancerCubit,
+      ),
+      BlocProvider(
+        create: (context) => SwitchCubit(),
       ),
       
     ],
