@@ -15,12 +15,10 @@ If you want to better understand where your money is going, plan your budget, an
 <img  width = '200' heigth = '200' src ='https://github.com/user-attachments/assets/b9ef6bd9-1da0-4ceb-9e9c-c4ab0a0cf73a' />
 
 # Downloads
-
 You can download it here: <a href ="https://www.rustore.ru/catalog/app/com.efedotov.balancer"> link </a>
-
-[Релизы программы]: https://github.com/efedotof/balancer/releases
+[In the release program]: https://github.com/efedotof/balancer/releases
 
 <!--Поддержка-->
-## Поддержка
-Если у вас возникли сложности или вопросы по использованию пакета, создайте 
-[обсуждение](https://github.com/efedotof/balancer/issues/new) в данном репозитории или напишите на электронную почту <fedmehol@icloud.com>.
+## Support
+If you have any difficulties or questions about using the package, create 
+[discussion](https://github.com/efedotof/balancer/issues/new ) in this repository or send an email <fedmehol@icloud.com >.
