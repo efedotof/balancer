@@ -58,7 +58,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
 
   void pushAbout(BuildContext context){
-    context.replaceRoute(const AboutRoute());
+    context.pushRoute(const AboutRoute());
   }
 
 
