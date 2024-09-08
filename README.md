@@ -18,3 +18,9 @@ If you want to better understand where your money is going, plan your budget, an
 
 You can download it here: <a href ="https://www.rustore.ru/catalog/app/com.efedotov.balancer"> link </a>
 
+[Релизы программы]: https://github.com/efedotof/balancer/releases
+
+<!--Поддержка-->
+## Поддержка
+Если у вас возникли сложности или вопросы по использованию пакета, создайте 
+[обсуждение](https://github.com/efedotof/balancer/issues/new) в данном репозитории или напишите на электронную почту <fedmehol@icloud.com>.
