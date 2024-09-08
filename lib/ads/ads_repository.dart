@@ -12,7 +12,7 @@ class AdsRepository with WidgetsBindingObserver {
   static var isColdStartAdShow = false;
 
 
-  String adUnitId = 'R-M-11819422-1';
+  String adUnitId = '';
 
   Future<void> initAds() async {
     MobileAds.setUserConsent(true);
