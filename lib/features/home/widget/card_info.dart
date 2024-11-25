@@ -1,94 +1,81 @@
-import 'package:balancer/features/home/cubit/balancer_cubit.dart';
-import 'package:balancer/features/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardInfo extends StatelessWidget {
-  const CardInfo({super.key});
-
-
+  const CardInfo(
+      {super.key,
+      required this.nameCard,
+      this.goalAmount,
+      required this.leadingWindget,
+      this.spent,
+      this.left,
+      this.progress,
+      this.loading,
+      this.subtitles,
+      this.trailingW, this.onTap});
+  final String nameCard;
+  final String? goalAmount;
+  final Widget? leadingWindget;
+  final String? spent;
+  final String? left;
+  final double? progress;
+  final bool? loading;
+  final String? subtitles;
+  final Widget? trailingW;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BalancerCubit, BalancerState>(
-      builder: (context, state) {
-        if (state is HomeUpdated) {
-          return Container(
-            padding: const EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              color: const Color(0xFF2A2A2A),
-              borderRadius: BorderRadius.circular(12),
+    return Card(
+    
+      child: (loading != null) && loading!
+          ? const ListTile()
+          : ListTile(
+              onTap: onTap,
+
+              leading: leadingWindget,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(nameCard),
+                  goalAmount != null ? Text(goalAmount!) : const Text(''),
+                ],
+              ),
+              trailing: trailingW,
+              subtitle: progress != null
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        ClipRRect(
+                          borderRadius:
+                              BorderRadius.circular(16), // Радиус закругления
+                          child: LinearProgressIndicator(
+                            value: progress!.clamp(0.0,
+                                1.0), // Убедитесь, что progress в диапазоне [0, 1]
+                            valueColor: const AlwaysStoppedAnimation<Color>(
+                                Colors.blue), // Цвет прогресса
+                            backgroundColor: Colors.grey[200], // Цвет фона
+                            minHeight: 8, // Толщина индикатора
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: (spent != null) && (left != null)
+                              ? [Text(spent!), Text(left!)]
+                              : [],
+                        )
+                      ],
+                    )
+                  : subtitles != '' && subtitles != null
+                      ?Text(subtitles!): const Text('Add your saving goals')
+                      ,
             ),
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Номер карты',
-                            style: TextStyle(color: Colors.white70, fontSize: 16),
-                          ),
-                          Text(
-                            'Нет',
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          const Text(
-                            'Баланс',
-                            style: TextStyle(color: Colors.white70, fontSize: 16),
-                          ),
-                          Container(
-                            constraints: const BoxConstraints(maxWidth: 200),
-                            child: Text(
-                              '${context.read<HomeCubit>().formatNumber(state.balance)} ₽',
-                              style: const TextStyle(color: Colors.white, fontSize: 18),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Text(
-                      'Доход: ${context.read<HomeCubit>().formatNumber(state.income)} ₽  ', 
-                      style: const TextStyle(color: Colors.green, fontSize: 16),
-                    ),
-                    Text(
-                      'Расход: ${context.read<HomeCubit>().formatNumber(state.expenses)} ₽', 
-                      style: const TextStyle(color: Colors.red, fontSize: 16),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          );
-        }
-        return Container(
-          padding: const EdgeInsets.all(16.0),
-          decoration: BoxDecoration(
-            color: const Color(0xFF2A2A2A),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: const Center(child: CircularProgressIndicator()),
-        );
-      },
     );
   }
 }

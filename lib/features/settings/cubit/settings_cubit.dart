@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:balancer/box/repository/box_interface.dart';
+import 'package:balancer/box/transaction/repository/box_interface.dart';
 import 'package:balancer/features/home/cubit/balancer_cubit.dart';
 import 'package:balancer/features/home/cubit/home_cubit.dart';
 import 'package:balancer/router/router.dart';

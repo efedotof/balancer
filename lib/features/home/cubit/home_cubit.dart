@@ -4,7 +4,7 @@ import 'package:balancer/features/report/cubit/switch_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:balancer/box/transaction.dart';
+import 'package:balancer/box/transaction/transaction.dart';
 import 'package:balancer/features/home/repository/home_interface.dart';
 import 'package:balancer/features/home/widget/widget.dart';
 import 'package:equatable/equatable.dart';
@@ -150,6 +150,15 @@ class HomeCubit extends Cubit<HomeState> {
         now.month == date.month &&
         now.day == date.day;
   }
+
+  double calculateProgress(double spent, double goalAmount) {
+    if (goalAmount == 0) return 0; 
+    debugPrint('progressDouble: ${spent / goalAmount}');
+    return spent / goalAmount;
+  }
+
+
+
 
 
   ValueListenable<List<Transaction>> get transactionsNotifier =>

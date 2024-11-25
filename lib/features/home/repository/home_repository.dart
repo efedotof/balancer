@@ -1,4 +1,4 @@
-import 'package:balancer/box/repository/box_interface.dart';
+import 'package:balancer/box/transaction/repository/box_interface.dart';
 import 'package:balancer/features/home/repository/home_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,7 +7,7 @@ class  HomeRepository implements HomeInterface {
 
   final SharedPreferences preferences;
 
-  HomeRepository( {required this.preferences, required BoxInterface boxInterface}) : _boxInterface = boxInterface{
+  HomeRepository({ required this.preferences, required BoxInterface boxInterface}) :  _boxInterface = boxInterface{
     getBalance();
     getExpenses();
     getIncome();
@@ -20,6 +20,8 @@ class  HomeRepository implements HomeInterface {
 
 
   final BoxInterface _boxInterface;
+
+
 
 
   @override 

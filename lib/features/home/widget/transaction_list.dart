@@ -1,4 +1,4 @@
-import 'package:balancer/box/transaction.dart';
+import 'package:balancer/box/transaction/transaction.dart';
 import 'package:flutter/material.dart';
 import 'transaction_item.dart';
 

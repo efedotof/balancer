@@ -4,3 +4,4 @@ export 'filter_chip_widget.dart';
 export 'transaction_list.dart';
 export 'transaction_item.dart';
 export 'add_transaction_model.dart';
+export 'statistics_w.dart';

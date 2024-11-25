@@ -67,6 +67,25 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [NewTransactionScreen]
+class NewTransactionRoute extends PageRouteInfo<void> {
+  const NewTransactionRoute({List<PageRouteInfo>? children})
+      : super(
+          NewTransactionRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'NewTransactionRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const NewTransactionScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [ReportScreen]
 class ReportRoute extends PageRouteInfo<void> {
   const ReportRoute({List<PageRouteInfo>? children})
