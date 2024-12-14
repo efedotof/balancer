@@ -1,5 +1,7 @@
+import 'package:balancer/features/home/provider/budget_provider.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'items_to_budget_state.dart';
@@ -19,15 +21,21 @@ class ItemsToBudgetCubit extends Cubit<ItemsToBudgetState> {
     required TextEditingController controller,
   }) async {
     try {
-      switch (index) {
+
+       switch (index) {
         case 1:
-          emit(const ItemsToBudgetState.twoPage());
-          break;
-        case 2:
+          // emit(const ItemsToBudgetState.twoPage());
           double budget = double.parse(controller.text);
           emit(ItemsToBudgetState.threePage(budget: budget, selected: 0));
+          context.read<BudgetProvider>().changeIsLast();
           break;
+          // break;
+        // case 2:
+          // double budget = double.parse(controller.text);
+          // emit(ItemsToBudgetState.threePage(budget: budget, selected: 0));
+          // break;
       }
+     
     } catch (e) {
       debugPrint(e.toString());
     }

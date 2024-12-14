@@ -1,7 +1,7 @@
 import 'export_providers.dart';
 
 class AppProviders {
-   Future<void> initialize() async {
+  Future<void> initialize() async {
     WidgetsFlutterBinding.ensureInitialized();
 
     await SystemChrome.setPreferredOrientations([
@@ -38,6 +38,10 @@ class AppProviders {
             prefs: prefs,
             homeCubit: homeCubit,
             balancerCubit: balancerCubit,
+            budgetInterface: budgetRepository,
+            statiscticsInterface: statisticsRepository,
+            goalsInterface: goalsRepository,
+            incomeAndExpenseInterface: incomeAndExpenseRepository,
           ),
         ),
         BlocProvider(
@@ -64,11 +68,13 @@ class AppProviders {
           create: (context) => AddRowCubit(),
         ),
         BlocProvider(
-          create: (context) =>
-              StatisticsCubit(interface: statisticsRepository)),
+            create: (context) =>
+                StatisticsCubit(interface: statisticsRepository)),
         BlocProvider(create: (context) => ReportCubit()),
-        BlocProvider(create: (context) => ChartCubit(interface: incomeAndExpenseRepository)),
-        BlocProvider(create: (context) => TransactionsCubit()),
+        BlocProvider(
+            create: (context) =>
+                ChartCubit(interface: incomeAndExpenseRepository)),
+        ChangeNotifierProvider(create: (context) => GoalsProvider())
       ],
       child: const MyApp(),
     ));

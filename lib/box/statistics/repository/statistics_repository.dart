@@ -14,15 +14,15 @@ class StatisticsRepository implements StatisticsInterface {
 
   Future<void> initHive() async {
     await Hive.initFlutter();
-    debugPrint('Hive initialized');
+    debugPrint('Hive Statistics initialized');
 
     if (!Hive.isAdapterRegistered(StatisticsAdapter().typeId)) {
       Hive.registerAdapter(StatisticsAdapter());
-      debugPrint('Hive registrationAdapter');
+      debugPrint('Hive registration Statistics Adapter');
     }
 
     await Hive.openBox<Statistics>(boxInitName);
-    debugPrint('Hive opened');
+    debugPrint('Hive Statistics opened');
   }
 
   @override

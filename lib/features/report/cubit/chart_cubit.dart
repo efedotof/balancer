@@ -1,6 +1,7 @@
 import 'package:balancer/box/incomeAndExpense/repository/income_and_expense_interface.dart';
 import 'package:balancer/features/new_transaction/widget/category.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'chart_state.dart';
@@ -19,6 +20,10 @@ class ChartCubit extends Cubit<ChartState> {
       final expenseStats = await _interface.getExpenseStats();
       final adjustedIncomeStats = _adjustCategoryStats(incomeStats, 'income');
       final adjustedExpenseStats = _adjustCategoryStats(expenseStats, 'expenses');
+
+      debugPrint('incomeStats : $expenseStats');
+
+
 
       emit(ChartState.loaded(
         incomeStats: adjustedIncomeStats,

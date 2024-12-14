@@ -28,4 +28,3 @@ export '../../main.dart';
 
 export 'package:flutter/services.dart';
 export 'package:balancer/features/home/view/goal_setting/cubit/create_the_goals_cubit.dart';
-export 'package:balancer/features/report/cubit/transactions_cubit.dart';

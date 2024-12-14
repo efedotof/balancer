@@ -35,11 +35,6 @@ class AddBudgetScreen extends StatelessWidget {
                 'Value for the income received in the previous month. You may edit this value',
           ),
           ItemsRoute(
-            title: 'You may set some expense limits for each category',
-            subtitle:
-                'We selected your top-5 expense categories last month. You can limit more categories',
-          ),
-          ItemsRoute(
             title: 'How much do you want to spend monthly?',
             subtitle:
                 'We sugges that your monthly expenses do not exceed 80% of your income. but you can set your own limits.',
@@ -55,9 +50,14 @@ class AddBudgetScreen extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: const Text('Monthly budget'),
-              actions: [TextButton(onPressed: () {
-                 if(model.amountBudget > 0){
-                     
+              actions: [
+              
+             context.read<BudgetProvider>().isLast? TextButton(
+             isSemanticButton: context.read<BudgetProvider>().isPercentageSelected,
+             onPressed: () {
+                   if(context.read<BudgetProvider>().isPercentageSelected){
+                    if(model.amountBudget > 0){
+                
                       context.read<BudgetCubit>().addBudget(
                         amountBudget: model.amountBudget,
                         spent: model.spent,
@@ -65,33 +65,44 @@ class AddBudgetScreen extends StatelessWidget {
                         expenses: model.expenses);
                         context.maybePop();
                     }
-              }, child: const Text('OK'))],
+                   }else{
+                    null;
+                   }
+                
+                
+              }, child: const Text('OK')): const SizedBox.shrink()
+              ],
               leading: IconButton(
                   onPressed: () =>  context.maybePop(),
                   icon: const Icon(Icons.arrow_back_ios)),
             ),
             body: child,
-            bottomNavigationBar: Padding(
+            bottomNavigationBar:context.read<BudgetProvider>().isLast? null: Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextButton(
                 isSemanticButton: false,
                 onPressed: () {
-                  if (tabsRouter.activeIndex + 1 <= 2) {
-                    tabsRouter.setActiveIndex(tabsRouter.activeIndex + 1);
-                    final index = tabsRouter.activeIndex + 1;
-                    context.read<ItemsToBudgetCubit>().setEmit(context,
-                        index: index, controller: monthlyBudget);
+                  if(context.read<BudgetProvider>().isSumm){
+                     if (tabsRouter.activeIndex + 1 <= 2) {
+                      tabsRouter.setActiveIndex(tabsRouter.activeIndex + 1);
+                      final index = tabsRouter.activeIndex + 1;
+                      context.read<ItemsToBudgetCubit>().setEmit(context,
+                          index: index, controller: monthlyBudget);
+                    } 
+                  }else{
+                    null;
                   }
+                 
                 },
                 style: TextButton.styleFrom(
-                  backgroundColor: const Color(0xFF5283FF),
+                  backgroundColor:context.read<BudgetProvider>().isSumm? const Color(0xFF5283FF): Colors.grey,
                 ),
                 child: const Text(
                   'Next',
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-            ),
+            )
           );
         },
       ),

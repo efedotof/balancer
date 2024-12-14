@@ -19,28 +19,34 @@ class TransactionsList extends StatelessWidget {
         builder: (context, Box<Expense> box, _) {
           if (box.values.isNotEmpty) {
             return Column(
-              children: List.generate(
-                box.values.toList().reversed.toList().length,
-                (index) {
-                  final Expense res = box.getAt(index)!;
-                  return ExpansionTile(
-                    title: Text(context.read<ReportCubit>().formatDate(res.time)),
-                    children: List.generate(
-                      res.names.length,
-                      (index) => ListTile(
-                        title: Text(res.names[index]),
-                        trailing: Text(
-                          '${res.amounts[index]} ₽',
-                          style: const TextStyle(fontSize: 18),
+            crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+               const Text('Transactions', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                Column(
+                  children: List.generate(
+                    box.values.toList().reversed.toList().length,
+                    (index) {
+                      final Expense res = box.getAt(index)!;
+                      return ExpansionTile(
+                        title: Text(context.read<ReportCubit>().formatDate(res.time)),
+                        children: List.generate(
+                          res.names.length,
+                          (index) => ListTile(
+                            title: Text(res.names[index]),
+                            trailing: Text(
+                              '${res.amounts[index]} ₽',
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  );
-                },
-              ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             );
           } else {
-            return const Center(child: Text('No transactions', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),));
+            return const SizedBox.shrink();
           }
         },
       );
@@ -50,28 +56,34 @@ class TransactionsList extends StatelessWidget {
         builder: (context, Box<Income> box, _) {
           if (box.values.isNotEmpty) {
             return Column(
-              children: List.generate(
-                box.values.toList().reversed.toList().length,
-                (index) {
-                  final Income res = box.getAt(index)!;
-                  return ExpansionTile(
-                    title: Text(context.read<ReportCubit>().formatDate(res.time)),
-                    children: List.generate(
-                      res.names.length,
-                      (index) => ListTile(
-                        title: Text(res.names[index]),
-                        trailing: Text(
-                          ' ${res.amounts[index]} ₽',
-                          style: const TextStyle(fontSize: 18),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+               const Text('Transactions', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                Column(
+                  children: List.generate(
+                    box.values.toList().reversed.toList().length,
+                    (index) {
+                      final Income res = box.getAt(index)!;
+                      return ExpansionTile(
+                        title: Text(context.read<ReportCubit>().formatDate(res.time)),
+                        children: List.generate(
+                          res.names.length,
+                          (index) => ListTile(
+                            title: Text(res.names[index]),
+                            trailing: Text(
+                              ' ${res.amounts[index]} ₽',
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  );
-                },
-              ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             );
           } else {
-            return const Center(child: Text('No income', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),));
+            return const SizedBox.shrink();
           }
         },
       );

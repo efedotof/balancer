@@ -27,7 +27,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: AddBudgetRoute.page, path: '/add_budget',
           children: [
             AutoRoute(page: ItemsRoute.page, path: 'items_one'),
-            AutoRoute(page: ItemsRoute.page, path: 'items_two'),
+            // AutoRoute(page: ItemsRoute.page, path: 'items_two'),
             AutoRoute(page: ItemsRoute.page, path: 'items_three'),
           ]
         ),

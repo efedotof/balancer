@@ -29,7 +29,7 @@ class IncomeAndExpenseRepository implements IncomeAndExpenseInterface {
 
     await Hive.openBox<Income>(boxInitName);
     await Hive.openBox<Expense>(boxInitNameExpense);
-    debugPrint('Hive box opened');
+    debugPrint('Hive box Income and Expense opened');
   }
 
   @override
@@ -56,117 +56,102 @@ class IncomeAndExpenseRepository implements IncomeAndExpenseInterface {
     expense.deleteAt(index);
   }
 
- @override
-Future boxAddExpense({
-  required DateTime time,
-  required int amountExpense,
-  required List<Transactions> transExpense,
-}) async {
-  var box = Hive.box<Expense>(boxInitNameExpense);
-  debugPrint('transExpense ^ $transExpense');
+  @override
+  Future boxAddExpense({
+    required DateTime time,
+    required int amountExpense,
+    required List<Transactions> transExpense,
+  }) async {
+    var box = Hive.box<Expense>(boxInitNameExpense);
+    debugPrint('transExpense ^ $transExpense');
 
-  List<int> amounts = [];
-  List<String> names = [];
-  List<DateTime> dates = [];
+    List<int> amounts = [];
+    List<String> names = [];
+    List<DateTime> dates = [];
 
-  for (var trans in transExpense) {
-    amounts.add(trans.amount);
-    names.add(trans.nameTrans);
-    dates.add(trans.date); 
+    for (var trans in transExpense) {
+      amounts.add(trans.amount);
+      names.add(trans.nameTrans);
+      dates.add(trans.date);
+    }
+
+    box.add(Expense(
+      time: time,
+      amountExpense: amountExpense,
+      amounts: amounts,
+      names: names,
+      dates: dates,
+    ));
   }
-
-
-  box.add(Expense(
-    time: time,
-    amountExpense: amountExpense,
-    amounts: amounts,
-    names: names,
-    dates: dates,
-  ));
-}
 
   @override
-Future boxAddIncome({
-  required DateTime time,
-  required int amountIncome,
-  required List<Transactions> transIncome,
-}) async {
-  var box = Hive.box<Income>(boxInitName);
-  debugPrint('transIncome ^ $transIncome');
+  Future boxAddIncome({
+    required DateTime time,
+    required int amountIncome,
+    required List<Transactions> transIncome,
+  }) async {
+    var box = Hive.box<Income>(boxInitName);
+    debugPrint('transIncome ^ $transIncome');
 
-  List<int> amounts = [];
-  List<String> names = [];
-  List<DateTime> dates = [];
+    List<int> amounts = [];
+    List<String> names = [];
+    List<DateTime> dates = [];
 
-  for (var trans in transIncome) {
-    amounts.add(trans.amount);
-    names.add(trans.nameTrans); 
-    dates.add(trans.date); 
+    for (var trans in transIncome) {
+      amounts.add(trans.amount);
+      names.add(trans.nameTrans);
+      dates.add(trans.date);
+    }
+
+    box.add(Income(
+      time: time,
+      amountIncome: amountIncome,
+      amounts: amounts,
+      names: names,
+      dates: dates,
+    ));
   }
 
+  @override
+  Future<Map<TransactionCategoryTitle, int>> getIncomeStats() async {
+    var box = Hive.box<Income>(boxInitName);
+    Map<TransactionCategoryTitle, int> categorySums = {};
 
-  box.add(Income(
-    time: time,
-    amountIncome: amountIncome,
-    amounts: amounts,
-    names: names,
-    dates: dates,
-  ));
-}
+    for (var income in box.values) {
+      for (int i = 0; i < income.amounts.length; i++) {
+        var category = TransactionCategoryTitle.values[i];
+        var amount = income.amounts[i];
 
- @override
-Future<Map<TransactionCategoryTitle, int>> getIncomeStats() async {
-  var box = Hive.box<Income>(boxInitName);
-  Map<TransactionCategoryTitle, int> categorySums = {};
-
-
-  for (var income in box.values) {
-    for (int i = 0; i < income.amounts.length; i++) {
-      var category = TransactionCategoryTitle.values[i];
-      var amount = income.amounts[i];
-
-
-      if (categorySums.containsKey(category)) {
-        categorySums[category] = categorySums[category]! + amount;
-      } else {
-        categorySums[category] = amount;
+        if (categorySums.containsKey(category)) {
+          categorySums[category] = categorySums[category]! + amount;
+        } else {
+          categorySums[category] = amount;
+        }
       }
     }
+
+    return categorySums;
   }
 
+  @override
+  Future<Map<TransactionCategoryTitle, int>> getExpenseStats() async {
+    var box = Hive.box<Expense>(boxInitNameExpense);
+    Map<TransactionCategoryTitle, int> categorySums = {};
 
-  int totalIncome = categorySums.values.fold(0, (sum, amount) => sum + amount);
-  categorySums[TransactionCategoryTitle.otherIncome] = totalIncome; 
+    for (var expense in box.values) {
+      for (int i = 0; i < expense.amounts.length; i++) {
+        var category = TransactionCategoryTitle
+            .values[i + TransactionCategoryTitle.values.length ~/ 2];
+        var amount = expense.amounts[i];
 
-  return categorySums;
-}
-
- @override
-Future<Map<TransactionCategoryTitle, int>> getExpenseStats() async {
-  var box = Hive.box<Expense>(boxInitNameExpense);
-  Map<TransactionCategoryTitle, int> categorySums = {};
-
-
-  for (var expense in box.values) {
-    for (int i = 0; i < expense.amounts.length; i++) {
-      var category = TransactionCategoryTitle.values[i + TransactionCategoryTitle.values.length ~/ 2]; 
-      var amount = expense.amounts[i];
-
-      if (categorySums.containsKey(category)) {
-        categorySums[category] = categorySums[category]! + amount;
-      } else {
-        categorySums[category] = amount;
+        if (categorySums.containsKey(category)) {
+          categorySums[category] = categorySums[category]! + amount;
+        } else {
+          categorySums[category] = amount;
+        }
       }
     }
+
+    return categorySums;
   }
-
-
-  int totalExpense = categorySums.values.fold(0, (sum, amount) => sum + amount);
-  categorySums[TransactionCategoryTitle.otherExpense] = totalExpense; 
-
-  return categorySums;
-}
-
-
-
 }

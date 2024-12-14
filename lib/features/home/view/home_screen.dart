@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:balancer/box/budget/budget.dart';
 import 'package:balancer/box/goals/goals.dart';
 import 'package:balancer/features/home/cubit/budget_cubit.dart';
 
@@ -151,7 +152,9 @@ class HomeScreen extends StatelessWidget {
                                               nameCard: res.nameGoals,
                                               goalAmount:
                                                   '${res.goalsAmount} ₽',
-                                              leadingWindget:  Icon(IconData(res.iconCode, fontFamily: 'MaterialIcons')),
+                                              leadingWindget: Icon(IconData(
+                                                  res.iconCode,
+                                                  fontFamily: 'MaterialIcons')),
                                               spent:
                                                   '${res.spentAmount} ₽/ ${(context.read<HomeCubit>().calculateProgress((res.spentAmount).toDouble(), (res.goalsAmount).toDouble())).toInt()}%',
                                               left: '',
@@ -174,11 +177,13 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          floatingActionButton: FloatingActionButton(
+          floatingActionButton:  FloatingActionButton(
             onPressed: () {
+            if(Hive.box<Budget>('Budget_box').isNotEmpty){
               context.pushRoute(const NewTransactionRoute());
-              context.read<TotalCubit>().totalToClean();
-              context.read<AddRowCubit>().transToClean();
+                context.read<TotalCubit>().totalToClean();
+                context.read<AddRowCubit>().transToClean();
+            }
             },
             child: const Icon(Icons.add),
           ),

@@ -13,15 +13,15 @@ class BudgetRepository implements BudgetInterface {
 
   Future<void> initHive() async {
     await Hive.initFlutter();
-    debugPrint('Hive initialized');
+    debugPrint('Hive initialized to Budget');
 
     if (!Hive.isAdapterRegistered(BudgetAdapter().typeId)) {
       Hive.registerAdapter(BudgetAdapter());
-      debugPrint('Hive adapter registered');
+      debugPrint('Hive adapter Budget registered');
     }
 
     await Hive.openBox<Budget>(boxInitName);
-    debugPrint('Hive box opened');
+    debugPrint('Hive box Budget opened');
   }
 
   @override
@@ -58,7 +58,6 @@ class BudgetRepository implements BudgetInterface {
       var updatedSpent = (budget.spent ?? 0) + newSpent;
       var updatedLeft = (budget.left ?? 0) - newSpent;
 
-      // Условие для проверки, если значения меньше 0
       updatedSpent = updatedSpent < 0 ? 0 : updatedSpent;
       updatedLeft = updatedLeft < 0 ? 0 : updatedLeft;
 
@@ -86,7 +85,6 @@ class BudgetRepository implements BudgetInterface {
     var budget = box.getAt(index);
 
     if (budget != null) {
-      // Проверка на минимальные значения для spent и left
       newSpent = ((newSpent ?? budget.spent)! < 0) ? 0 : newSpent;
       newLeft = ((newLeft ?? budget.left)! < 0)? 0 : newLeft;
 
@@ -117,7 +115,6 @@ class BudgetRepository implements BudgetInterface {
       var updatedLeft = (budget.left ?? 0) + value;
       var updatedSpent = (budget.spent ?? 0) - value;
 
-      // Условие для проверки, если значения меньше 0
       updatedLeft = updatedLeft < 0 ? 0 : updatedLeft;
       updatedSpent = updatedSpent < 0 ? 0 : updatedSpent;
 

@@ -45,7 +45,9 @@ class ItemsScreen extends StatelessWidget {
                           controller: controller,
                           onChanged: (value){
                           if(value != ''){
-                             context.read<BudgetProvider>().setAmountBudget(amountBudgetw: int.parse(value));
+                            context.read<BudgetProvider>().setAmountBudget(amountBudgetw: int.parse(value));
+                            context.read<BudgetProvider>().changeIsSumm();
+
                             controller.text = value;
                           }else{
                             controller.text = '0';
@@ -79,9 +81,9 @@ class ItemsScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                twoPage: () => const Center(
-                  child: Text('TwoPage'),
-                ),
+                // twoPage: () => const Center(
+                //   child: Text('TwoPage'),
+                // ),
                 threePage: (budget, selected) {
                   return Center(
                     child: Column(
@@ -104,6 +106,11 @@ class ItemsScreen extends StatelessWidget {
                             context
                                 .read<ItemsToBudgetCubit>()
                                 .updateSelectedValue(value);
+                            if(value > 0){
+                              context.read<BudgetProvider>().changePercantageSelector(value: true);
+                          }else{
+                             context.read<BudgetProvider>().changePercantageSelector(value: false);
+                          }
                           },
                         ),
                         Text(

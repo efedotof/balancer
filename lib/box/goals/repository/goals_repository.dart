@@ -18,11 +18,11 @@ class GoalsRepository implements GoalsInterface {
 
     if (!Hive.isAdapterRegistered(GoalsAdapter().typeId)) {
       Hive.registerAdapter(GoalsAdapter());
-      debugPrint('Hive registrationAdapter');
+      debugPrint('Hive registr Goals Adapter');
     }
 
     await Hive.openBox<Goals>(boxInitName);
-    debugPrint('Hive opened', );
+    debugPrint('Hive Goals opened', );
   }
 
   @override

@@ -19,61 +19,95 @@ class ReportScreen extends StatelessWidget {
         title: const Text('Отчет', style: TextStyle(color: Colors.white)),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            BlocBuilder<ReportCubit, ReportState>(
-              builder: (context, state) {
-                final selectedCategory = state.maybeWhen(
-                  selected: (category) => category,
-                  initial: (category) => category,
-                  orElse: () => TransactionCategory.expenses,
-                );
-                return CategorySelector(selectedCategory: selectedCategory);
-              },
-            ),
-            const SizedBox(height: 30),
-            BlocBuilder<ChartCubit, ChartState>(
-              builder: (context, state) {
-                return state.when(
-                  initial: () {
-                    context.read<ChartCubit>().getStatisticsToPie();
-                    return const Center(child: CircularProgressIndicator());
-                  },
-                  error: (message) {
-                    return Center(child: Text('Error: $message'));
-                  },
-                  loaded: (incomeStats, expenseStats) {
-                    return PieChartDisplay(
-                      selectedCategory:
-                          context.read<ReportCubit>().state.maybeWhen(
-                                selected: (category) => category,
-                                initial: (category) => category,
-                                orElse: () => TransactionCategory.expenses,
+        child: Padding(
+          padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.05),
+          child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BlocBuilder<ReportCubit, ReportState>(
+                builder: (context, state) {
+                  final selectedCategory = state.maybeWhen(
+                    selected: (category) => category,
+                    initial: (category) => category,
+                    orElse: () => TransactionCategory.expenses,
+                  );
+                  return CategorySelector(selectedCategory: selectedCategory);
+                },
+              ),
+              const SizedBox(height: 30),
+              BlocBuilder<ReportCubit, ReportState>(
+                builder: (context, reportState) {
+                  final selectedCategory = reportState.maybeWhen(
+                    selected: (category) => category,
+                    initial: (category) => category,
+                    orElse: () => TransactionCategory.expenses,
+                  );
+          
+                  return BlocBuilder<ChartCubit, ChartState>(
+                    builder: (context, chartState) {
+                      return chartState.when(
+                        initial: () {
+                          context.read<ChartCubit>().getStatisticsToPie();
+                          return const Center(child: CircularProgressIndicator());
+                        },
+                        error: (message) {
+                          return Center(child: Text('Error: $message'));
+                        },
+                        loaded: (incomeStats, expenseStats) {
+                          final hasNoData = selectedCategory ==
+                                  TransactionCategory.income
+                              ? incomeStats.values.every((value) => value == 0.0)
+                              : expenseStats.values
+                                  .every((value) => value == 0.0);
+          
+                          if (hasNoData) {
+                            return Center(
+                              child: Text(
+                                selectedCategory == TransactionCategory.income
+                                    ? 'Доходов нет'
+                                    : 'Трат нет',
+                                style: const TextStyle(
+                                    fontSize: 18, color: Colors.grey),
                               ),
-                      incomeStats: context
-                          .read<ReportCubit>()
-                          .adjustStatsToPieData(incomeStats),
-                      expenseStats: context
-                          .read<ReportCubit>()
-                          .adjustStatsToPieData(expenseStats),
-                    );
-                  }, empty: () => const  Center(child: Text('Трат нет'),),
-                );
-              },
-            ),
-            const SizedBox(height: 30),
-            const Text('Transactions'),
-            BlocBuilder<ReportCubit, ReportState>(
-              builder: (context, state) {
-                final category = state.maybeWhen(
-                  selected: (category) => category,
-                  initial: (category) => category,
-                  orElse: () => TransactionCategory.expenses,
-                );
-                return TransactionsList(category: category);
-              },
-            ),
-          ],
+                            );
+                          }
+          
+                          return PieChartDisplay(
+                            selectedCategory: selectedCategory,
+                            incomeStats:
+                                selectedCategory == TransactionCategory.income
+                                    ? context
+                                        .read<ReportCubit>()
+                                        .adjustStatsToPieData(incomeStats)
+                                    : {},
+                            expenseStats:
+                                selectedCategory == TransactionCategory.expenses
+                                    ? context
+                                        .read<ReportCubit>()
+                                        .adjustStatsToPieData(expenseStats)
+                                    : {},
+                          );
+                        },
+                        empty: () => const Center(child: Text('Трат нет')),
+                      );
+                    },
+                  );
+                },
+              ),
+              const SizedBox(height: 30),
+            
+              BlocBuilder<ReportCubit, ReportState>(
+                builder: (context, state) {
+                  final category = state.maybeWhen(
+                    selected: (category) => category,
+                    initial: (category) => category,
+                    orElse: () => TransactionCategory.expenses,
+                  );
+                  return TransactionsList(category: category);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

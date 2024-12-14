@@ -7,6 +7,12 @@ class BudgetProvider with ChangeNotifier {
 
   int expenses = 0;
 
+  bool isLast = false;
+  bool isSumm = false;
+  bool isPercentageSelected = false;
+
+  bool isStartToAdd = false;
+
   void setSpent({required int spentw}) {
     spent = spentw;
     notifyListeners();
@@ -24,6 +30,22 @@ class BudgetProvider with ChangeNotifier {
 
   void setExpenses({required int expensesw}) {
     expenses = expensesw;
+    notifyListeners();
+  }
+
+
+
+  void changeIsLast(){
+    isLast = true;
+    notifyListeners();
+  }
+  void changeIsSumm(){
+    isSumm = true;
+    notifyListeners();
+  }
+
+  void changePercantageSelector({required bool value}){
+    isPercentageSelected = value;
     notifyListeners();
   }
 }
