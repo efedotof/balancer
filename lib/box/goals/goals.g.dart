@@ -23,13 +23,14 @@ class GoalsAdapter extends TypeAdapter<Goals> {
       goalsFilled: fields[3] as int,
       percentageOfTheBudget: fields[4] as int,
       transactionts: (fields[5] as List).cast<Transactions>(),
+      iconCode: fields[6] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Goals obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.nameGoals)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class GoalsAdapter extends TypeAdapter<Goals> {
       ..writeByte(4)
       ..write(obj.percentageOfTheBudget)
       ..writeByte(5)
-      ..write(obj.transactionts);
+      ..write(obj.transactionts)
+      ..writeByte(6)
+      ..write(obj.iconCode);
   }
 
   @override

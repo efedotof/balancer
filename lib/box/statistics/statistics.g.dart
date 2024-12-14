@@ -19,23 +19,17 @@ class StatisticsAdapter extends TypeAdapter<Statistics> {
     return Statistics(
       amountExpenses: fields[0] as int,
       amountIncome: fields[1] as int,
-      transExpense: (fields[2] as List).cast<Transactions>(),
-      transIncome: (fields[3] as List).cast<Transactions>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Statistics obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(2)
       ..writeByte(0)
       ..write(obj.amountExpenses)
       ..writeByte(1)
-      ..write(obj.amountIncome)
-      ..writeByte(2)
-      ..write(obj.transExpense)
-      ..writeByte(3)
-      ..write(obj.transIncome);
+      ..write(obj.amountIncome);
   }
 
   @override

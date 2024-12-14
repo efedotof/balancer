@@ -1,7 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:balancer/constants.dart';
-import 'package:balancer/features/home/cubit/balancer_cubit.dart';
-import 'package:balancer/features/home/cubit/home_cubit.dart';
+import 'package:balancer/Theme/constants/constants.dart';
 import 'package:balancer/features/settings/cubit/settings_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,9 +15,6 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    context.read<HomeCubit>();
-    context.read<BalancerCubit>();
-
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
         return Scaffold(

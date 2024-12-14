@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:balancer/features/about/view/about_screen.dart';
+import 'package:balancer/features/home/view/add_budget/widget/items_screen.dart';
 import 'package:balancer/features/new_transaction/new_transaction.dart';
+import 'package:flutter/material.dart';
 
 import '../features/home/home.dart';
 import '../features/main_home/main_home.dart';
@@ -18,10 +20,17 @@ class AppRouter extends RootStackRouter {
           AutoRoute(page: HomeRoute.page, path: 'home'),
           AutoRoute(page: ReportRoute.page, path: 'report'),
           AutoRoute(page: SettingsRoute.page, path: 'profile'),
-          AutoRoute(page: NewTransactionRoute.page, path: 'new_transaction')
         ]),
 
         AutoRoute(page: AboutRoute.page, path: '/about'),
-        AutoRoute(page: NewTransactionRoute.page, path: '/new_transaction')
+        AutoRoute(page: NewTransactionRoute.page, path: '/new_transaction'),
+        AutoRoute(page: AddBudgetRoute.page, path: '/add_budget',
+          children: [
+            AutoRoute(page: ItemsRoute.page, path: 'items_one'),
+            AutoRoute(page: ItemsRoute.page, path: 'items_two'),
+            AutoRoute(page: ItemsRoute.page, path: 'items_three'),
+          ]
+        ),
+         AutoRoute(page: GoalSettingsRoute.page, path: '/goal_setting'),
       ];
 }

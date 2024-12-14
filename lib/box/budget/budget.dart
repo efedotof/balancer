@@ -16,10 +16,16 @@ class Budget extends HiveObject {
   @HiveField(2)
   int? left;
 
+  @HiveField(3)
+  int? expenses;
+
+
+
   Budget({
     required this.amountBudget,
     required this.spent,
-    required this.left
+    required this.left,
+    required this.expenses,
   });
 
 

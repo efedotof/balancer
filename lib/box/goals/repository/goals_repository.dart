@@ -1,5 +1,6 @@
 
 import 'package:balancer/box/goals/goals.dart';
+import 'package:balancer/box/models/transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -32,9 +33,9 @@ class GoalsRepository implements GoalsInterface {
   }
 
   @override
-  Future<void> boxAdd(String title, int goalsAmount) async {
+  Future<void> boxAdd(String title, int goalsAmount, int? goalsFilled, int? percentageOfBudget, List<Transactions>? transactions, int? spentAmount, int inCode) async {
     var box = Hive.box<Goals>(boxInitName);
-    box.add(Goals(nameGoals: title, goalsAmount: goalsAmount, goalsFilled: 0, percentageOfTheBudget: 0, transactionts: [], spentAmount: 0));
+    box.add(Goals(nameGoals: title, goalsAmount: goalsAmount, goalsFilled: goalsFilled ?? 0, percentageOfTheBudget: percentageOfBudget ?? 0, transactionts: transactions ?? [], spentAmount: spentAmount ?? 0, iconCode: inCode ));
   }
 
   @override

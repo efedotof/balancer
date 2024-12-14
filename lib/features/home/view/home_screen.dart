@@ -1,14 +1,18 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:balancer/box/goals/goals.dart';
 import 'package:balancer/features/home/cubit/budget_cubit.dart';
-import 'package:balancer/features/home/cubit/goals_cubit.dart';
+
 import 'package:balancer/features/home/cubit/home_cubit.dart';
 import 'package:balancer/features/home/cubit/statistics_cubit.dart';
+import 'package:balancer/features/new_transaction/cubit/add_row_cubit.dart';
+import 'package:balancer/features/new_transaction/cubit/total_cubit.dart';
+import 'package:balancer/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../widget/widget.dart';
+import 'goal_setting/cubit/goals_cubit.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -45,49 +49,45 @@ class HomeScreen extends StatelessWidget {
                     builder: (context, state) {
                       final state = context.read<BudgetCubit>().state;
                       return state.when(
-                          initial: () => const CardInfo(
-                                nameCard: "",
-                                goalAmount: '',
-                                leadingWindget: null,
-                                spent: '',
-                                left: '',
-                                loading: true,
-                              ),
-                          empty: () => const CardInfo(
-                                nameCard: "Monthly budget",
-                                leadingWindget: Icon(Icons.add),
-                                subtitles: 'Определите ежемесячный бюджет',
-                              ),
-                          isNotEmpty: (amount, spent, left) => CardInfo(
-                                nameCard: "Monthly budget",
-                                goalAmount: amount.toString(),
-                                leadingWindget:
-                                    const Icon(Icons.monetization_on),
-                                spent:
-                                    'spent $spent / ${(context.read<HomeCubit>().calculateProgress(spent != null ? spent.toDouble() : 0, amount.toDouble())) * 100}%',
-                                left:
-                                    'left $left / ${(context.read<HomeCubit>().calculateProgress(left != null ? left.toDouble() : 0, amount.toDouble())) * 100}%',
-                                progress: context
-                                    .read<HomeCubit>()
-                                    .calculateProgress(
-                                        spent != null ? spent.toDouble() : 0,
-                                        amount.toDouble()),
-                              ),
-                          updateBudget: (amountBudget, spent, left) => CardInfo(
-                                nameCard: "Monthly budget",
-                                goalAmount: amountBudget.toString(),
-                                leadingWindget:
-                                    const Icon(Icons.monetization_on),
-                                spent:
-                                    'spent $spent / ${(context.read<HomeCubit>().calculateProgress(spent != null ? spent.toDouble() : 0, amountBudget.toDouble())) * 100}%',
-                                left:
-                                    'left $left / ${(context.read<HomeCubit>().calculateProgress(left != null ? left.toDouble() : 0, amountBudget.toDouble())) * 100}%',
-                                progress: context
-                                    .read<HomeCubit>()
-                                    .calculateProgress(
-                                        spent != null ? spent.toDouble() : 0,
-                                        amountBudget.toDouble()),
-                              ));
+                        initial: () => const CardInfo(
+                          nameCard: "",
+                          goalAmount: '',
+                          leadingWindget: null,
+                          spent: '',
+                          left: '',
+                          loading: true,
+                        ),
+                        empty: () => CardInfo(
+                          nameCard: "Monthly budget",
+                          leadingWindget: const Icon(Icons.add),
+                          subtitles: 'Определите ежемесячный бюджет',
+                          onTap: () =>
+                              context.pushRoute(const AddBudgetRoute()),
+                        ),
+                        isNotEmpty: (amount, spent, left) => CardInfo(
+                          nameCard: "Monthly budget",
+                          goalAmount:
+                              "${(amount.toInt()).toString()} ₽", // округляем до 2 знаков
+                          leadingWindget: const Icon(Icons.monetization_on),
+                          spent:
+                              'spent ${spent!.toStringAsFixed(2)} ₽/${(context.read<HomeCubit>().calculateProgress(spent.toDouble(), amount.toDouble()) * 100).toStringAsFixed(2)}%',
+                          left:
+                              'left ${left!.toStringAsFixed(2)} ₽/${(context.read<HomeCubit>().calculateProgress(left.toDouble(), amount.toDouble()) * 100).toStringAsFixed(2)}%',
+                          progress: context.read<HomeCubit>().calculateProgress(
+                              spent.toDouble(), amount.toDouble()),
+                        ),
+                        updateBudget: (amountBudget, spent, left) => CardInfo(
+                          nameCard: "Monthly budget",
+                          goalAmount: "${(amountBudget.toInt()).toString()} ₽",
+                          leadingWindget: const Icon(Icons.monetization_on),
+                          spent:
+                              'spent ${spent!.toStringAsFixed(2)} ₽/${(context.read<HomeCubit>().calculateProgress(spent.toDouble(), amountBudget.toDouble()) * 100).toStringAsFixed(2)}%',
+                          left:
+                              'left ${left!.toStringAsFixed(2)} ₽/${(context.read<HomeCubit>().calculateProgress(left.toDouble(), amountBudget.toDouble()) * 100).toStringAsFixed(2)}%',
+                          progress: context.read<HomeCubit>().calculateProgress(
+                              spent.toDouble(), amountBudget.toDouble()),
+                        ),
+                      );
                     },
                   ),
                   BlocBuilder<StatisticsCubit, StatisticsState>(
@@ -123,7 +123,8 @@ class HomeScreen extends StatelessWidget {
                         BlocBuilder<GoalsCubit, GoalsState>(
                           builder: (context, state) {
                             return GestureDetector(
-                            onTap: () => context.read<GoalsCubit>().addBox(title: 'Task1', goalsAmount: 1000),
+                              onTap: () =>
+                                  context.pushRoute(const GoalSettingsRoute()),
                               child: const CardInfo(
                                 nameCard: 'Add new goals',
                                 goalAmount: '',
@@ -150,8 +151,7 @@ class HomeScreen extends StatelessWidget {
                                               nameCard: res.nameGoals,
                                               goalAmount:
                                                   '${res.goalsAmount} ₽',
-                                              leadingWindget: const Icon(
-                                                  Icons.monetization_on),
+                                              leadingWindget:  Icon(IconData(res.iconCode, fontFamily: 'MaterialIcons')),
                                               spent:
                                                   '${res.spentAmount} ₽/ ${(context.read<HomeCubit>().calculateProgress((res.spentAmount).toDouble(), (res.goalsAmount).toDouble())).toInt()}%',
                                               left: '',
@@ -173,6 +173,14 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              context.pushRoute(const NewTransactionRoute());
+              context.read<TotalCubit>().totalToClean();
+              context.read<AddRowCubit>().transToClean();
+            },
+            child: const Icon(Icons.add),
           ),
         );
       },

@@ -29,6 +29,44 @@ class AboutRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AddBudgetScreen]
+class AddBudgetRoute extends PageRouteInfo<void> {
+  const AddBudgetRoute({List<PageRouteInfo>? children})
+      : super(
+          AddBudgetRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AddBudgetRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AddBudgetScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [GoalSettingsScreen]
+class GoalSettingsRoute extends PageRouteInfo<void> {
+  const GoalSettingsRoute({List<PageRouteInfo>? children})
+      : super(
+          GoalSettingsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'GoalSettingsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const GoalSettingsScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [HomeMainScreen]
 class HomeMainRoute extends PageRouteInfo<void> {
   const HomeMainRoute({List<PageRouteInfo>? children})
@@ -64,6 +102,58 @@ class HomeRoute extends PageRouteInfo<void> {
       return const HomeScreen();
     },
   );
+}
+
+/// generated route for
+/// [ItemsScreen]
+class ItemsRoute extends PageRouteInfo<ItemsRouteArgs> {
+  ItemsRoute({
+    Key? key,
+    required String title,
+    required String subtitle,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ItemsRoute.name,
+          args: ItemsRouteArgs(
+            key: key,
+            title: title,
+            subtitle: subtitle,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ItemsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ItemsRouteArgs>();
+      return ItemsScreen(
+        key: args.key,
+        title: args.title,
+        subtitle: args.subtitle,
+      );
+    },
+  );
+}
+
+class ItemsRouteArgs {
+  const ItemsRouteArgs({
+    this.key,
+    required this.title,
+    required this.subtitle,
+  });
+
+  final Key? key;
+
+  final String title;
+
+  final String subtitle;
+
+  @override
+  String toString() {
+    return 'ItemsRouteArgs{key: $key, title: $title, subtitle: $subtitle}';
+  }
 }
 
 /// generated route for

@@ -34,11 +34,26 @@ class BudgetCubit extends Cubit<BudgetState> {
     }
   }
 
-  Future<void> addBudget({required int amountBudget, required int? spent, required int? left}) async{
+  Future<void> addBudget({required int amountBudget, required int? spent, required int? left, required int? expenses}) async{
     try {
-      _interface.boxAdd(amountBudget, spent, left);
+      _interface.boxAdd(amountBudget, spent, left, expenses);
+      emit(BudgetState.updateBudget(budgetAmount: amountBudget, spent: spent, left: left));
     } catch (e) {
       debugPrint('error to add budget: $e');
     }
   }
+
+  Future<void> updateBudget({required int amountBudget, required int? spent, required int? left, required int? expenses}) async{
+    try {
+       emit(BudgetState.updateBudget(budgetAmount: amountBudget, spent: spent, left: left));    
+    } catch (e) {
+      debugPrint('error to update budget: $e');
+    }
+
+  }
+
+
+
+
+
 }

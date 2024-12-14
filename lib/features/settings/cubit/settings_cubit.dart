@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:balancer/box/transaction/repository/box_interface.dart';
 import 'package:balancer/features/home/cubit/balancer_cubit.dart';
 import 'package:balancer/features/home/cubit/home_cubit.dart';
 import 'package:balancer/router/router.dart';
@@ -12,25 +11,24 @@ part 'settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit({
-    required BoxInterface boxInterface,
     required this.prefs,
     required this.homeCubit,
     required this.balancerCubit,
-  }) : _boxInterface = boxInterface, super(SettingsInitial());
+  }) :  super(SettingsInitial());
 
-  final BoxInterface _boxInterface;
   final SharedPreferences prefs;
   final HomeCubit homeCubit;
   final BalancerCubit balancerCubit;
 
   void _clearAppCash(BuildContext context) async {
-    await _boxInterface.removeAllBox();
-    prefs.clear();
+       prefs.clear();
     
-    homeCubit.clearTransactions();
     balancerCubit.resetBalance();
 
+    if(context.mounted){
     context.maybePop();
+    }
+    
   }
 
   void clearAll(BuildContext context) async {

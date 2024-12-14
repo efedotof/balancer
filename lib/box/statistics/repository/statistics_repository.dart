@@ -1,6 +1,4 @@
 
-
-import 'package:balancer/box/models/transactions.dart';
 import 'package:balancer/box/statistics/statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -8,15 +6,15 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'statistics_interface.dart';
 
 class StatisticsRepository implements StatisticsInterface {
-
-var boxInitName = 'Statistics_box';
+  var boxInitName = 'Statistics_box';
 
   StatisticsRepository() {
     initHive();
   }
+
   Future<void> initHive() async {
-   await Hive.initFlutter();
-    debugPrint('Hive initialized', );
+    await Hive.initFlutter();
+    debugPrint('Hive initialized');
 
     if (!Hive.isAdapterRegistered(StatisticsAdapter().typeId)) {
       Hive.registerAdapter(StatisticsAdapter());
@@ -24,7 +22,7 @@ var boxInitName = 'Statistics_box';
     }
 
     await Hive.openBox<Statistics>(boxInitName);
-    debugPrint('Hive opened', );
+    debugPrint('Hive opened');
   }
 
   @override
@@ -35,9 +33,9 @@ var boxInitName = 'Statistics_box';
   }
 
   @override
-  Future<void> boxAdd(int amountExpenses, int amountIncome, List<Transactions>transExpense, List<Transactions> transIncome) async {
+  Future<void> boxAdd(int amountExpenses, int amountIncome) async {
     var box = Hive.box<Statistics>(boxInitName);
-    box.add(Statistics(amountExpenses: amountExpenses, amountIncome: amountIncome, transExpense: transExpense, transIncome: transIncome));
+    box.add(Statistics(amountExpenses: amountExpenses, amountIncome: amountIncome, ));
   }
 
   @override
@@ -52,5 +50,15 @@ var boxInitName = 'Statistics_box';
     box.deleteAt(index);
   }
 
+  @override
+  Future<void> updateAmounts(int index, int additionalExpenses, int additionalIncome) async {
+    var box = Hive.box<Statistics>(boxInitName);
+    final statistics = box.getAt(index);
 
+    if (statistics != null) {
+      statistics.amountExpenses += additionalExpenses;
+      statistics.amountIncome += additionalIncome; 
+      await statistics.save(); 
+    }
+  }
 }

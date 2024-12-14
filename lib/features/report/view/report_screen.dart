@@ -1,20 +1,15 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:balancer/features/new_transaction/widget/category.dart';
+import 'package:balancer/features/report/cubit/chart_cubit.dart';
 import 'package:balancer/features/report/cubit/report_cubit.dart';
-import 'package:balancer/features/report/cubit/switch_cubit.dart';
-
+import 'package:balancer/features/report/widget/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../widget/widget.dart';
 
 @RoutePage()
-class ReportScreen extends StatefulWidget {
+class ReportScreen extends StatelessWidget {
   const ReportScreen({super.key});
 
-  @override
-  State<ReportScreen> createState() => _ReportScreenState();
-}
-
-class _ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,34 +18,60 @@ class _ReportScreenState extends State<ReportScreen> {
         elevation: 0,
         title: const Text('Отчет', style: TextStyle(color: Colors.white)),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * 0.05),
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: ReportSwitch(),
+            BlocBuilder<ReportCubit, ReportState>(
+              builder: (context, state) {
+                final selectedCategory = state.maybeWhen(
+                  selected: (category) => category,
+                  initial: (category) => category,
+                  orElse: () => TransactionCategory.expenses,
+                );
+                return CategorySelector(selectedCategory: selectedCategory);
+              },
             ),
-            Expanded(
-              child: BlocListener<SwitchCubit, bool>(
-                listener: (context, valueSwitch) {
-                  context.read<ReportCubit>().toggleIncomeExpense(valueSwitch);
-                },
-                child: Column(
-                  children: [
-                    const ReportPieChart(),
-                    BlocBuilder<ReportCubit, ReportState>(
-                      builder: (context, state) {
-                        if (state is ReportUpdated) {
-                          return TransactionList(transactions: state.transactions);
-                        }
-                        return Container(); 
-                      },
-                    ),
-                  ],
-                ),
-              ),
+            const SizedBox(height: 30),
+            BlocBuilder<ChartCubit, ChartState>(
+              builder: (context, state) {
+                return state.when(
+                  initial: () {
+                    context.read<ChartCubit>().getStatisticsToPie();
+                    return const Center(child: CircularProgressIndicator());
+                  },
+                  error: (message) {
+                    return Center(child: Text('Error: $message'));
+                  },
+                  loaded: (incomeStats, expenseStats) {
+                    return PieChartDisplay(
+                      selectedCategory:
+                          context.read<ReportCubit>().state.maybeWhen(
+                                selected: (category) => category,
+                                initial: (category) => category,
+                                orElse: () => TransactionCategory.expenses,
+                              ),
+                      incomeStats: context
+                          .read<ReportCubit>()
+                          .adjustStatsToPieData(incomeStats),
+                      expenseStats: context
+                          .read<ReportCubit>()
+                          .adjustStatsToPieData(expenseStats),
+                    );
+                  }, empty: () => const  Center(child: Text('Трат нет'),),
+                );
+              },
+            ),
+            const SizedBox(height: 30),
+            const Text('Transactions'),
+            BlocBuilder<ReportCubit, ReportState>(
+              builder: (context, state) {
+                final category = state.maybeWhen(
+                  selected: (category) => category,
+                  initial: (category) => category,
+                  orElse: () => TransactionCategory.expenses,
+                );
+                return TransactionsList(category: category);
+              },
             ),
           ],
         ),

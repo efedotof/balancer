@@ -24,7 +24,8 @@ class Goals extends HiveObject {
   @HiveField(5)
   final List<Transactions> transactionts;
 
-
+  @HiveField(6)
+  final int iconCode;
 
   Goals({
     required this.nameGoals,
@@ -33,7 +34,7 @@ class Goals extends HiveObject {
     required this.goalsFilled,
     required this.percentageOfTheBudget,
     required this.transactionts,
-  
+    required this.iconCode
   });
 
 

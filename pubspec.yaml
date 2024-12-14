@@ -39,12 +39,15 @@ dependencies:
   flutter_bloc: ^8.1.6
   hive_flutter: ^1.1.0
   auto_route: ^9.2.2
-  equatable: ^2.0.5
+  equatable: ^2.0.7
   easy_pie_chart: ^1.0.0
   bloc: ^8.1.4
   yandex_mobileads: ^7.3.0
   icons_launcher: ^2.1.7
   freezed_annotation: ^2.4.4
+  provider: ^6.1.2
+  keyboard_emoji_picker: ^1.0.3
+  intl: ^0.20.1
 
 
 icons_launcher:

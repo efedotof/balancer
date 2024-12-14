@@ -1,73 +1,38 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:balancer/features/home/cubit/balancer_cubit.dart';
-import 'package:balancer/features/report/cubit/switch_cubit.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:balancer/box/transaction/transaction.dart';
-import 'package:balancer/features/home/repository/home_interface.dart';
 import 'package:balancer/features/home/widget/widget.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../../constants.dart';
+import '../../../Theme/constants/constants.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit({required HomeInterface interface})
-      : _interface = interface,
-        super(const HomeInitial()) {
-    filterTransactions(0);
-  }
+  HomeCubit()
+      : super(const HomeInitial());
 
-  final HomeInterface _interface;
-  final transactionBox = Hive.box<Transaction>('transaction_box');
-  final ValueNotifier<List<Transaction>> _transactionsNotifier =
-      ValueNotifier([]);
 
   int _selectedIndex = 0;
   List<String> get nameChip => AppStrings.filterNames;
 
   void selectFilter(int index) {
     _selectedIndex = index;
-    filterTransactions(index);
+
     emit(FilterSelected(selectedIndex: _selectedIndex));
   }
 
-  void filterTransactions(int index) {
-    final now = DateTime.now();
-    final filteredTransactions = transactionBox.values.where((transaction) {
-      final transactionDate = transaction.date;
-      if (index == 0) return true;
-      if (index == 1) return _isSameDay(transactionDate, now);
-      if (index == 2) {
-        return _isSameDay(
-            transactionDate, now.subtract(const Duration(days: 1)));
-      }
-      if (index == 3) {
-        return transactionDate.isAfter(now.subtract(const Duration(days: 7)));
-      }
-      return false;
-    }).toList();
 
-    _transactionsNotifier.value = filteredTransactions;
-    emit(TransactionsFiltered(transactions: filteredTransactions));
-  }
 
-  void clearTransactions() {
-    _transactionsNotifier.value = [];
-    emit(const TransactionsFiltered(transactions: []));
-  }
-
-  bool _isSameDay(DateTime date1, DateTime date2) {
+  bool isSameDay(DateTime date1, DateTime date2) {
     return date1.year == date2.year &&
         date1.month == date2.month &&
         date1.day == date2.day;
   }
 
   void showAddModel(BuildContext context) {
-    context.read<SwitchCubit>().resetSwitch();
+
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -91,9 +56,11 @@ class HomeCubit extends Cubit<HomeState> {
     context
         .read<BalancerCubit>()
         .updateBalance(parsedAmount, isIncome: isIncome);
-    await _interface.addNewBox(title, amount, time);
-    filterTransactions(_selectedIndex);
+
+    if(context.mounted){
     context.maybePop();
+    }
+    
   }
 
   String formatNumber(double number) {
@@ -124,24 +91,6 @@ class HomeCubit extends Cubit<HomeState> {
     return '$day.$month.$year'; 
   }
 
-   Map<DateTime, List<Transaction>> groupTransactionsByDate(List<Transaction> transactions) {
-    final Map<DateTime, List<Transaction>> groupedTransactions = {};
-
-    for (var transaction in transactions) {
-      final transactionDate = DateTime(
-        transaction.date.year,
-        transaction.date.month,
-        transaction.date.day,
-      ); 
-
-      if (!groupedTransactions.containsKey(transactionDate)) {
-        groupedTransactions[transactionDate] = [];
-      }
-      groupedTransactions[transactionDate]!.add(transaction);
-    }
-
-    return groupedTransactions;
-  }
 
 
   bool isToday(DateTime date) {
@@ -151,16 +100,20 @@ class HomeCubit extends Cubit<HomeState> {
         now.day == date.day;
   }
 
-  double calculateProgress(double spent, double goalAmount) {
-    if (goalAmount == 0) return 0; 
-    debugPrint('progressDouble: ${spent / goalAmount}');
-    return spent / goalAmount;
+double calculateProgress(double spent, double goalAmount) {
+  if (goalAmount == 0) return 0; 
+  double progress = double.parse((spent / goalAmount).toStringAsFixed(2));
+ 
+  if (progress < 0) {
+    progress = 0;
   }
 
 
+  debugPrint('progressDouble: $progress');
+  return progress;
+}
 
 
 
-  ValueListenable<List<Transaction>> get transactionsNotifier =>
-      _transactionsNotifier;
+
 }
