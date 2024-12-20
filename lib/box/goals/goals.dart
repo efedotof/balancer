@@ -1,4 +1,3 @@
-import 'package:balancer/box/models/transactions.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 part 'goals.g.dart';
@@ -21,10 +20,17 @@ class Goals extends HiveObject {
   @HiveField(4)
   final int percentageOfTheBudget;
 
+
   @HiveField(5)
-  final List<Transactions> transactionts;
+  final List<int> amounts;  
 
   @HiveField(6)
+  final List<String> namesTrans;  
+
+  @HiveField(7)
+  final List<DateTime> dates; 
+
+  @HiveField(8)
   final int iconCode;
 
   Goals({
@@ -33,14 +39,10 @@ class Goals extends HiveObject {
     required this.spentAmount,
     required this.goalsFilled,
     required this.percentageOfTheBudget,
-    required this.transactionts,
-    required this.iconCode
+    required this.amounts,
+    required this.namesTrans,
+    required this.dates,
+    required this.iconCode,
   });
-
-
-
-  // Goals({
-  // });
-
 
 }

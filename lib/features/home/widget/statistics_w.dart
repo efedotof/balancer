@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:balancer/features/home/widget/statistics_card.dart';
+import 'package:balancer/router/router.dart';
 import 'package:flutter/material.dart';
 
 class StatisticsW extends StatelessWidget {
@@ -15,21 +17,18 @@ class StatisticsW extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+             Row(
               children: [
                 Icon(Icons.bar_chart_outlined),
                 SizedBox(width: 10),
                 Text('Statistics'),
               ],
             ),
-            DropdownButton(
-                items: const [],
-                onChanged: (value) {},
-            )
+          
           ],
         ),
         subtitle: Column(
@@ -39,14 +38,14 @@ class StatisticsW extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Оборачиваем StatisticsCard в Flexible для предотвращения выхода за пределы
                 Flexible(
                   child: StatisticsCard(
+                    
                     colorsCard: const Color(0xFFD8BAC6),
                     textCard: 'Expense',
                     balanceCard: '- $expense ₽',
                     buttomColor: const Color(0xFFFFC4DB),
-                    less: less(income, expense),
+                    less: less(income, expense), onTaps: () {context.pushRoute(const ReportRoute());},
                   ),
                 ),
                 Flexible(
@@ -55,7 +54,7 @@ class StatisticsW extends StatelessWidget {
                     textCard: 'Income',
                     balanceCard: '$income ₽',
                     buttomColor: const Color(0xFFC4D0FF),
-                    less: less(expense, income),
+                    less: less(expense, income), onTaps: () {context.pushRoute(const ReportRoute());},
                   ),
                 ),
               ],

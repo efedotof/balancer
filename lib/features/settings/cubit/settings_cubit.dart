@@ -1,15 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:balancer/Theme/providers/export_providers.dart';
 import 'package:balancer/box/budget/repository/budget_interface.dart';
 import 'package:balancer/box/goals/repository/goals_interface.dart';
 import 'package:balancer/box/incomeAndExpense/repository/income_and_expense_interface.dart';
 import 'package:balancer/box/statistics/repository/statistics_interface.dart';
-import 'package:balancer/features/home/cubit/balancer_cubit.dart';
-import 'package:balancer/features/home/cubit/home_cubit.dart';
 import 'package:balancer/router/router.dart';
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part 'settings_state.dart';
 
@@ -36,11 +32,19 @@ class SettingsCubit extends Cubit<SettingsState> {
   try {
  
     await _removeAllBoxes();
-    
+    if(context.mounted){
+      context.read<BudgetCubit>().getBudget();
+      context.read<StatisticsCubit>().getStatistics();
+      context.read<ChartCubit>().getStatisticsToPie();
+    }
     if (context.mounted) {
       context.maybePop(); 
-
     }
+    if(context.mounted){
+    context.pushRoute( SuccessfullyRoute(subtitle: 'Все данные удалены'));
+    }
+    
+
   } catch (e) {
     debugPrint('Ошибка при очистке данных: $e');
   }
@@ -61,7 +65,7 @@ void clearAll(BuildContext context) async {
     builder: (BuildContext context) {
       return AlertDialog(
         title: const Text("Подтвердите удаление"),
-        content: const Text("Вы уверены, что хотите удалить все данные?"),
+        content: const Text("Внимание, если вы удалите все данные, удалятся АБСОЛЮТНО ВСЁ"),
         actions: <Widget>[
           TextButton(
             onPressed: () => context.maybePop(),

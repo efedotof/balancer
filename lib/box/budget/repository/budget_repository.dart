@@ -32,9 +32,18 @@ class BudgetRepository implements BudgetInterface {
   }
 
   @override
-  Future<void> boxAdd(int amountBudget, int? spent, int? left, int? expenses) async {
+  Future<void> boxAdd(
+      int amountBudget, int? spent, int? left, int? expenses) async {
     var box = Hive.box<Budget>(boxInitName);
-    box.add(Budget(amountBudget: amountBudget, spent: spent, left: left, expenses: expenses));
+    Budget? lastBudget = box.isNotEmpty ? box.getAt(box.length - 1) : null;
+    int updatedAmountBudget = amountBudget + (lastBudget?.amountBudget ?? 0);
+
+    box.add(Budget(
+      amountBudget: updatedAmountBudget,
+      spent: spent,
+      left: left,
+      expenses: expenses,
+    ));
   }
 
   @override
@@ -50,51 +59,82 @@ class BudgetRepository implements BudgetInterface {
   }
 
   @override
-  Future<void> replaceSpentToBox(int index, int newSpent) async {
+  Future<void> replaceSpentToBox(int newSpent) async {
     var box = Hive.box<Budget>(boxInitName);
-    var budget = box.getAt(index);
+    var budgets = box.values.toList();
 
-    if (budget != null) {
-      var updatedSpent = (budget.spent ?? 0) + newSpent;
-      var updatedLeft = (budget.left ?? 0) - newSpent;
+    if (budgets.isNotEmpty) {
+      var lastBudget = budgets.last; // получаем последний элемент
+
+      var updatedSpent = (lastBudget.spent ?? 0) + newSpent;
+      var updatedAmountBudget = (lastBudget.amountBudget) - newSpent;
 
       updatedSpent = updatedSpent < 0 ? 0 : updatedSpent;
-      updatedLeft = updatedLeft < 0 ? 0 : updatedLeft;
+      updatedAmountBudget = updatedAmountBudget < 0 ? 0 : updatedAmountBudget;
 
       box.putAt(
-        index,
+        budgets.length - 1, // обновляем последний элемент
         Budget(
-          amountBudget: budget.amountBudget,
+          amountBudget: updatedAmountBudget,
           spent: updatedSpent,
-          left: updatedLeft,
-          expenses: budget.expenses,
+          left: lastBudget.left, // left остается неизменным
+          expenses: lastBudget.expenses,
         ),
       );
     }
   }
 
   @override
-  Future<void> replaceBudgetValues(
-    int index, {
+  Future<void> replaceBudgetValues({
     int? newAmountBudget,
     int? newSpent,
     int? newLeft,
     int? newExpenses,
   }) async {
     var box = Hive.box<Budget>(boxInitName);
-    var budget = box.getAt(index);
+    var budgets = box.values.toList();
 
-    if (budget != null) {
-      newSpent = ((newSpent ?? budget.spent)! < 0) ? 0 : newSpent;
-      newLeft = ((newLeft ?? budget.left)! < 0)? 0 : newLeft;
+    if (budgets.isNotEmpty) {
+      var lastBudget = budgets.last; // получаем последний элемент
+
+      newSpent = ((newSpent ?? lastBudget.spent)! < 0) ? 0 : newSpent;
+      newAmountBudget = ((newAmountBudget ?? lastBudget.amountBudget) < 0)
+          ? 0
+          : newAmountBudget;
 
       box.putAt(
-        index,
+        budgets.length - 1, // обновляем последний элемент
         Budget(
-          amountBudget: newAmountBudget ?? budget.amountBudget,
+          amountBudget: newAmountBudget!,
           spent: newSpent,
-          left: newLeft,
-          expenses: newExpenses ?? budget.expenses,
+          left: lastBudget.left, // left остается неизменным
+          expenses: newExpenses ?? lastBudget.expenses,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<void> updateLeftAndSpent(int value) async {
+    var box = Hive.box<Budget>(boxInitName);
+    var budgets = box.values.toList();
+
+    if (budgets.isNotEmpty) {
+      var lastBudget = budgets.last; // получаем последний элемент
+
+      var updatedAmountBudget = (lastBudget.amountBudget) + value;
+      var updatedSpent = (lastBudget.spent ?? 0) - value;
+
+      updatedAmountBudget = updatedAmountBudget < 0 ? 0 : updatedAmountBudget;
+      updatedSpent = updatedSpent < 0 ? 0 : updatedSpent;
+
+      box.putAt(
+        budgets.length - 1, // обновляем последний элемент
+        Budget(
+          amountBudget: updatedAmountBudget,
+          spent: updatedSpent,
+          left: lastBudget.left, // left остается неизменным
+          expenses: lastBudget.expenses,
         ),
       );
     }
@@ -104,29 +144,5 @@ class BudgetRepository implements BudgetInterface {
   Future<List<Budget>> getAllBudgets() async {
     var box = Hive.box<Budget>(boxInitName);
     return box.values.toList();
-  }
-  
-  @override
-  Future<void> updateLeftAndSpent(int index, int value) async {
-    var box = Hive.box<Budget>(boxInitName);
-    var budget = box.getAt(index);
-
-    if (budget != null) {
-      var updatedLeft = (budget.left ?? 0) + value;
-      var updatedSpent = (budget.spent ?? 0) - value;
-
-      updatedLeft = updatedLeft < 0 ? 0 : updatedLeft;
-      updatedSpent = updatedSpent < 0 ? 0 : updatedSpent;
-
-      box.putAt(
-        index,
-        Budget(
-          amountBudget: budget.amountBudget,
-          spent: updatedSpent,
-          left: updatedLeft,
-          expenses: budget.expenses,
-        ),
-      );
-    }
   }
 }

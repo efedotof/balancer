@@ -25,16 +25,24 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            elevation: 0,
-            leading: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.person),
-            ),
-            actions: [
-              IconButton(
-                  icon: const Icon(Icons.notifications), onPressed: () {}),
-            ],
-          ),
+              elevation: 0,
+              title: Padding(
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.05),
+                child: const Text(
+                  'Analytics',
+                  style: TextStyle(fontSize: 22),
+                ),
+              )
+              // leading: IconButton(
+              //   onPressed: () {},
+              //   icon: const Icon(Icons.person),
+              // ),
+              // actions: [
+              //   IconButton(
+              //       icon: const Icon(Icons.notifications), onPressed: () {}),
+              // ],
+              ),
           body: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.symmetric(
@@ -42,10 +50,10 @@ class HomeScreen extends StatelessWidget {
               child: Wrap(
                 runSpacing: 10,
                 children: [
-                  const Text(
-                    'Analytics',
-                    style: TextStyle(fontSize: 22),
-                  ),
+                  // const Text(
+                  //   'Analytics',
+                  //   style: TextStyle(fontSize: 22),
+                  // ),
                   BlocBuilder<BudgetCubit, BudgetState>(
                     builder: (context, state) {
                       final state = context.read<BudgetCubit>().state;
@@ -149,22 +157,26 @@ class HomeScreen extends StatelessWidget {
                                           Goals res = box.getAt(index)!;
 
                                           return CardInfo(
-                                              nameCard: res.nameGoals,
-                                              goalAmount:
-                                                  '${res.goalsAmount} ₽',
-                                              leadingWindget: Icon(IconData(
-                                                  res.iconCode,
-                                                  fontFamily: 'MaterialIcons')),
-                                              spent:
-                                                  '${res.spentAmount} ₽/ ${(context.read<HomeCubit>().calculateProgress((res.spentAmount).toDouble(), (res.goalsAmount).toDouble())).toInt()}%',
-                                              left: '',
-                                              progress: context
-                                                  .read<HomeCubit>()
-                                                  .calculateProgress(
-                                                      (res.spentAmount)
-                                                          .toDouble(),
-                                                      (res.goalsAmount)
-                                                          .toDouble()));
+                                            onTap: () {
+                                              context.pushRoute(
+                                                  GoalsAddBudgetRoute(
+                                                      res: res));
+                                            },
+                                            nameCard: res.nameGoals,
+                                            goalAmount: '${res.goalsAmount} ₽',
+                                            leadingWindget: Icon(IconData(
+                                                res.iconCode,
+                                                fontFamily: 'MaterialIcons')),
+                                            spent:
+                                                '${res.goalsFilled} ₽/ ${(context.read<HomeCubit>().calculateProgress(res.goalsFilled.toDouble(), res.goalsAmount.toDouble()) * 100).toInt()}%',
+                                            left:
+                                                '${res.spentAmount} ₽/ ${(context.read<HomeCubit>().calculateProgress(res.spentAmount.toDouble(), res.goalsAmount.toDouble()) * 100).toInt()}%',
+                                            progress: context
+                                                .read<HomeCubit>()
+                                                .calculateProgress(
+                                                    res.goalsFilled.toDouble(),
+                                                    res.goalsAmount.toDouble()),
+                                          );
                                         }),
                                       ),
                                     )
@@ -177,13 +189,16 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          floatingActionButton:  FloatingActionButton(
+          floatingActionButton: FloatingActionButton(
             onPressed: () {
-            if(Hive.box<Budget>('Budget_box').isNotEmpty){
-              context.pushRoute(const NewTransactionRoute());
+              if (Hive.box<Budget>('Budget_box').isNotEmpty) {
+                context.pushRoute(const NewTransactionRoute());
                 context.read<TotalCubit>().totalToClean();
                 context.read<AddRowCubit>().transToClean();
-            }
+              } else {
+                context.pushRoute(const AddBudgetRoute());
+                // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Похоже бюджет неопределён...')),);
+              }
             },
             child: const Icon(Icons.add),
           ),

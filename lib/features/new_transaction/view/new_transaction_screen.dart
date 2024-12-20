@@ -1,10 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:balancer/features/new_transaction/cubit/add_row_cubit.dart';
-import 'package:balancer/features/new_transaction/cubit/new_transaction_cubit.dart';
-import 'package:balancer/features/new_transaction/cubit/total_cubit.dart';
+import 'package:balancer/Theme/providers/export_providers.dart';
 import 'package:balancer/features/new_transaction/widget/category.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class NewTransactionScreen extends StatelessWidget {
@@ -19,8 +15,9 @@ class NewTransactionScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              context.read<TotalCubit>().addBox(context: context, category: categorys);
-
+              context
+                  .read<TotalCubit>()
+                  .addBox(context: context, category: categorys);
             },
             child: const Text('Save', style: TextStyle(color: Colors.blue)),
           ),
@@ -45,7 +42,9 @@ class NewTransactionScreen extends StatelessWidget {
                             .selectCategory(category);
 
                         if (category == TransactionCategory.income) {
-                          context.read<TotalCubit>().updateLeftAndSpent(100); // Пример значения
+                          context
+                              .read<TotalCubit>()
+                              .updateLeftAndSpent(100); // Пример значения
                         }
                       },
                       child: Column(
@@ -184,6 +183,7 @@ class NewTransactionScreen extends StatelessWidget {
                     );
                   },
                 ),
+
                 TextButton.icon(
                   onPressed: () => context
                       .read<NewTransactionCubit>()
@@ -191,6 +191,35 @@ class NewTransactionScreen extends StatelessWidget {
                   icon: const Icon(Icons.add),
                   label: const Text('Add new row'),
                 ),
+                const SizedBox(height: 16),
+                BlocBuilder<AddNewTransactionsToGoalCubit,
+                    AddNewTransactionsToGoalState>(
+                  builder: (context, state) {
+                    final state =
+                        context.read<AddNewTransactionsToGoalCubit>().state;
+                    return state.when(
+                      initial: () => const SizedBox.shrink(),
+                      newTransactionsToEmpty: () => const SizedBox.shrink(),
+                      addNewTransactions: (icond, name) => ListTile(
+                        title: Text(name),
+                        trailing:
+                            Icon(IconData(icond, fontFamily: 'MaterialIcons')),
+                      ),
+                      updateNewTransactions: (icond, name) => ListTile(
+                          title: Text(name),
+                          trailing: Icon(
+                              IconData(icond, fontFamily: 'MaterialIcons'))),
+                    );
+                  },
+                ),
+                TextButton.icon(
+                  onPressed: () {
+                    context.read<AddNewTransactionsToGoalCubit>().addTransactions(context);
+                  },
+                  icon: const Icon(Icons.add),
+                  label: const Text('Add new transactions to goals'),
+                ),
+
                 const SizedBox(height: 16),
                 // Recurring
               ],

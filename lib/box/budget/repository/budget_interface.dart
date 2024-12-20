@@ -10,13 +10,13 @@ abstract interface class BudgetInterface {
   Future removeAllBox() async {}
 
   Future<void> replaceBudgetValues(
-    int index, {
+    {
     int? newAmountBudget,
     int? newSpent,
     int? newLeft,
     int? newExpenses,
   });
-  Future<void> replaceSpentToBox(int index, int newSpent);
+  Future<void> replaceSpentToBox( int newSpent);
   Future<List<Budget>> getAllBudgets();
-   Future<void> updateLeftAndSpent(int index, int value);
+   Future<void> updateLeftAndSpent( int value);
 }

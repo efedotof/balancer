@@ -48,7 +48,7 @@ class PieChartDisplay extends StatelessWidget {
     ];
 
     // Генератор данных для секций
-    List<PieData> _generatePieData(Map<String, double> stats) {
+    List<PieData> generatePieData(Map<String, double> stats) {
       int colorIndex = 0;
       return stats.entries.map((entry) {
         final color = sectionColors[colorIndex % sectionColors.length];
@@ -60,17 +60,19 @@ class PieChartDisplay extends StatelessWidget {
       }).toList();
     }
 
-    return EasyPieChart(
-      pieType: PieType.crust,
-      style: const TextStyle(fontSize: 10),
-      borderEdge: StrokeCap.round,
-      borderWidth: 20,
-      size: 160,
-      centerText: centerText, // Показываем сумму в центре
-      centerStyle: const TextStyle(color: Colors.white, fontSize: 25),
-      children: selectedCategory == TransactionCategory.expenses
-          ? _generatePieData(expenseStats)
-          : _generatePieData(incomeStats),
+    return Center(
+      child: EasyPieChart(
+        pieType: PieType.crust,
+        style: const TextStyle(fontSize: 10),
+        borderEdge: StrokeCap.round,
+        borderWidth: 20,
+        size: 160,
+        centerText: centerText, // Показываем сумму в центре
+        centerStyle: const TextStyle(color: Colors.white, fontSize: 25),
+        children: selectedCategory == TransactionCategory.expenses
+            ? generatePieData(expenseStats)
+            : generatePieData(incomeStats),
+      ),
     );
   }
 }

@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:balancer/box/goals/goals.dart';
 import 'package:balancer/features/about/view/about_screen.dart';
 import 'package:balancer/features/home/view/add_budget/widget/items_screen.dart';
 import 'package:balancer/features/new_transaction/new_transaction.dart';
+import 'package:balancer/features/successfully/view/successfully_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../features/home/home.dart';
@@ -32,5 +34,7 @@ class AppRouter extends RootStackRouter {
           ]
         ),
          AutoRoute(page: GoalSettingsRoute.page, path: '/goal_setting'),
+         AutoRoute(page: GoalsAddBudgetRoute.page, path: '/goal_add_budget'),
+        AutoRoute(page: SuccessfullyRoute.page, path: '/successfully'),
       ];
 }

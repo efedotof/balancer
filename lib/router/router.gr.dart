@@ -67,6 +67,52 @@ class GoalSettingsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [GoalsAddBudgetScreen]
+class GoalsAddBudgetRoute extends PageRouteInfo<GoalsAddBudgetRouteArgs> {
+  GoalsAddBudgetRoute({
+    Key? key,
+    required Goals res,
+    List<PageRouteInfo>? children,
+  }) : super(
+          GoalsAddBudgetRoute.name,
+          args: GoalsAddBudgetRouteArgs(
+            key: key,
+            res: res,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'GoalsAddBudgetRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<GoalsAddBudgetRouteArgs>();
+      return GoalsAddBudgetScreen(
+        key: args.key,
+        res: args.res,
+      );
+    },
+  );
+}
+
+class GoalsAddBudgetRouteArgs {
+  const GoalsAddBudgetRouteArgs({
+    this.key,
+    required this.res,
+  });
+
+  final Key? key;
+
+  final Goals res;
+
+  @override
+  String toString() {
+    return 'GoalsAddBudgetRouteArgs{key: $key, res: $res}';
+  }
+}
+
+/// generated route for
 /// [HomeMainScreen]
 class HomeMainRoute extends PageRouteInfo<void> {
   const HomeMainRoute({List<PageRouteInfo>? children})
@@ -211,4 +257,50 @@ class SettingsRoute extends PageRouteInfo<void> {
       return const SettingsScreen();
     },
   );
+}
+
+/// generated route for
+/// [SuccessfullyScreen]
+class SuccessfullyRoute extends PageRouteInfo<SuccessfullyRouteArgs> {
+  SuccessfullyRoute({
+    Key? key,
+    required String subtitle,
+    List<PageRouteInfo>? children,
+  }) : super(
+          SuccessfullyRoute.name,
+          args: SuccessfullyRouteArgs(
+            key: key,
+            subtitle: subtitle,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'SuccessfullyRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<SuccessfullyRouteArgs>();
+      return SuccessfullyScreen(
+        key: args.key,
+        subtitle: args.subtitle,
+      );
+    },
+  );
+}
+
+class SuccessfullyRouteArgs {
+  const SuccessfullyRouteArgs({
+    this.key,
+    required this.subtitle,
+  });
+
+  final Key? key;
+
+  final String subtitle;
+
+  @override
+  String toString() {
+    return 'SuccessfullyRouteArgs{key: $key, subtitle: $subtitle}';
+  }
 }

@@ -3,6 +3,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:balancer/features/home/view/goal_setting/cubit/goals_cubit.dart';
 import 'package:balancer/features/home/view/goal_setting/providers/goals_provider.dart';
+import 'package:balancer/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -79,6 +80,7 @@ class GoalSettingsCubit extends Cubit<GoalSettingsState> {
       inCode: codes,
     );
     context.maybePop();
+    context.pushRoute( SuccessfullyRoute(subtitle: 'Цель создана'));
   }
 }
 

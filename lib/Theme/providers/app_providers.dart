@@ -62,7 +62,7 @@ class AppProviders {
         BlocProvider(
           create: (context) => TotalCubit(
               interface: budgetRepository,
-              incomeAndExpenseInterface: incomeAndExpenseRepository),
+              incomeAndExpenseInterface: incomeAndExpenseRepository, goalsInterface: goalsRepository),
         ),
         BlocProvider(
           create: (context) => AddRowCubit(),
@@ -71,10 +71,17 @@ class AppProviders {
             create: (context) =>
                 StatisticsCubit(interface: statisticsRepository)),
         BlocProvider(create: (context) => ReportCubit()),
+         BlocProvider(
+          create: (context) => AddNewTransactionsToGoalCubit(),
+        ),
+         BlocProvider(
+          create: (context) => GoalsAddEditCubit(interface: goalsRepository),
+        ),
         BlocProvider(
             create: (context) =>
                 ChartCubit(interface: incomeAndExpenseRepository)),
-        ChangeNotifierProvider(create: (context) => GoalsProvider())
+        ChangeNotifierProvider(create: (context) => GoalsProvider()),
+        ChangeNotifierProvider(create: (context) => AddNewGoalsProvider())
       ],
       child: const MyApp(),
     ));

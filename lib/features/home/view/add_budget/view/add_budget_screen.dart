@@ -64,9 +64,10 @@ class AddBudgetScreen extends StatelessWidget {
                         left: model.expenses,
                         expenses: model.expenses);
                         context.maybePop();
+                       context.pushRoute( SuccessfullyRoute(subtitle: 'Бюджет добавлен'));
                     }
                    }else{
-                    null;
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Значение должно быть больше нуля!')));
                    }
                 
                 

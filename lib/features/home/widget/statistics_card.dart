@@ -7,7 +7,7 @@ class StatisticsCard extends StatelessWidget {
     required this.textCard,
     required this.balanceCard,
     required this.buttomColor,
-    required this.less,
+    required this.less,required this.onTaps,
   });
 
   final Color? colorsCard;
@@ -15,6 +15,7 @@ class StatisticsCard extends StatelessWidget {
   final String balanceCard;
   final Color? buttomColor;
   final bool less;
+  final Function()? onTaps;
 
   @override
   Widget build(BuildContext context) {
@@ -38,19 +39,22 @@ class StatisticsCard extends StatelessWidget {
                 ),
               ),
               // Иконка в контейнере
-              Container(
-                width: 35,
-                height: 35,
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: buttomColor,
-                ),
-                alignment: Alignment.center,
-                child: const Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.black,
-                  size: 16,
+              GestureDetector(
+              onTap: onTaps,
+                child: Container(
+                  width: 35,
+                  height: 35,
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: buttomColor,
+                  ),
+                  alignment: Alignment.center,
+                  child: const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black,
+                    size: 16,
+                  ),
                 ),
               ),
             ],
