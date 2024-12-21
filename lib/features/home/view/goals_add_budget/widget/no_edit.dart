@@ -1,5 +1,6 @@
 import 'package:balancer/Theme/providers/export_providers.dart';
 import 'package:balancer/box/goals/goals.dart';
+import 'package:balancer/generated/l10n.dart';
 
 class NoEdit extends StatelessWidget {
   const NoEdit({super.key, required this.res});
@@ -74,9 +75,9 @@ class NoEdit extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                        'Filled ${res.goalsFilled} ₽/ ${(context.read<HomeCubit>().calculateProgress(res.goalsFilled.toDouble(), res.goalsAmount.toDouble()) * 100).toInt()}%'),
+                        '${S.of(context).filled} ${res.goalsFilled} ₽/ ${(context.read<HomeCubit>().calculateProgress(res.goalsFilled.toDouble(), res.goalsAmount.toDouble()) * 100).toInt()}%'),
                     Text(
-                        'Left ${res.spentAmount}₽/ ${(context.read<HomeCubit>().calculateProgress(res.spentAmount.toDouble(), res.goalsAmount.toDouble()) * 100).toInt()}%'),
+                        '${S.of(context).left} ${res.spentAmount}₽/ ${(context.read<HomeCubit>().calculateProgress(res.spentAmount.toDouble(), res.goalsAmount.toDouble()) * 100).toInt()}%'),
                   ],
                 ),
               ],
@@ -88,9 +89,9 @@ class NoEdit extends StatelessWidget {
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Transactions',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                   Text(
+                    S.of(context).transactions,
+                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     res.namesTrans.length.toString(),
@@ -113,11 +114,11 @@ class NoEdit extends StatelessWidget {
                       ),
                     )
                   : [
-                      const Padding(
-                        padding: EdgeInsets.all(16.0),
+                       Padding(
+                        padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          'Операций пока что не было',
-                          style: TextStyle(fontSize: 16, color: Colors.grey),
+                          S.of(context).thereHaveBeenNoOperationsYet,
+                          style: const TextStyle(fontSize: 16, color: Colors.grey),
                         ),
                       ),
                     ],
@@ -134,15 +135,15 @@ class NoEdit extends StatelessWidget {
             ),
             ListTile(
               onTap: () => context.read<GoalsAddEditCubit>().toggleEditMode(isEditing: true),
-              title: const Text('Edit', style: TextStyle(color: Colors.green)),
+              title:  Text(S.of(context).edit, style: const TextStyle(color: Colors.green)),
               leading: const Icon(Icons.edit, color: Colors.green),
             ),
-            const ListTile(
+             ListTile(
               title: Text(
-                'Delete',
-                style: TextStyle(color: Colors.red),
+                S.of(context).delete,
+                style: const TextStyle(color: Colors.red),
               ),
-              leading: Icon(Icons.delete, color: Colors.red),
+              leading: const Icon(Icons.delete, color: Colors.red),
             ),
           ],
         ),

@@ -1,5 +1,7 @@
+import 'package:balancer/Theme/providers/export_providers.dart';
 import 'package:balancer/features/new_transaction/widget/category.dart';
-import 'package:bloc/bloc.dart';
+import 'package:balancer/generated/l10n.dart';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 
@@ -13,12 +15,12 @@ class ReportCubit extends Cubit<ReportState> {
     emit(ReportState.selected(category));
   }
 
-  String getCategoryName(TransactionCategory category) {
+  String getCategoryName(BuildContext context ,TransactionCategory category) {
     switch (category) {
       case TransactionCategory.expenses:
-        return 'Expenses';
+        return S.of(context).expenses;
       case TransactionCategory.income:
-        return 'Income';
+        return S.of(context).income;
     }
   }
 

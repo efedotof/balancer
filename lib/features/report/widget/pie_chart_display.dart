@@ -1,4 +1,5 @@
 import 'package:balancer/features/new_transaction/widget/category.dart';
+import 'package:balancer/generated/l10n.dart';
 import 'package:easy_pie_chart/easy_pie_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -29,9 +30,9 @@ class PieChartDisplay extends StatelessWidget {
     // Текст в центре графика
     String centerText = '';
     if (selectedCategory == TransactionCategory.expenses && allExpenseZero) {
-      centerText = 'Уххх....ты....';
+      centerText = S.of(context).uhhh_you;
     } else if (selectedCategory == TransactionCategory.income && allIncomeZero) {
-      centerText = 'Уххх....ты....';
+      centerText = S.of(context).uhhh_you;
     } else {
       centerText = total.toStringAsFixed(2); // Отображение суммы с двумя знаками после запятой
     }

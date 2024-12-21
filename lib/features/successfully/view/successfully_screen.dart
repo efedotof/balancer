@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:balancer/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -22,7 +23,7 @@ class SuccessfullyScreen extends StatelessWidget {
         children: [
           Lottie.asset('assets/animation/test1.json'),
           const SizedBox(height: 30,),
-          const Text('Successfully', style: TextStyle(fontSize: 22, ),),
+           Text(S.of(context).successfully, style: const TextStyle(fontSize: 22, ),),
           Text(subtitle, style: const TextStyle(fontSize: 18, ),)
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:balancer/Theme/constants/constants.dart';
 import 'package:balancer/features/settings/cubit/settings_cubit.dart';
+import 'package:balancer/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,7 +34,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Icons.info,
                       color: Colors.green,
                     ),
-                    title: const Text('О Приложении'),
+                    title:  Text(S.of(context).aboutTheApp),
                     onTap: () => context.read<SettingsCubit>().pushAbout(context),
                   ),
                 ),
@@ -43,7 +44,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Icons.delete,
                       color: Colors.red,
                     ),
-                    title: const Text('Очистить всё'),
+                    title:  Text(S.of(context).clear_everything),
                     onTap: () => context.read<SettingsCubit>().clearAll(context),
                   ),
                 ),

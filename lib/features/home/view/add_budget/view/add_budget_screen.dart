@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:balancer/features/home/cubit/budget_cubit.dart';
 import 'package:balancer/features/home/cubit/items_to_budget_cubit.dart';
 import 'package:balancer/features/home/provider/budget_provider.dart';
+import 'package:balancer/generated/l10n.dart';
 import 'package:balancer/router/router.dart';
 
 import 'package:flutter/material.dart';
@@ -30,14 +31,14 @@ class AddBudgetScreen extends StatelessWidget {
       child: AutoTabsRouter(
         routes: [
           ItemsRoute(
-            title: "What's your monthly income?",
+            title: S.of(context).whatsYourMonthlyIncome,
             subtitle:
-                'Value for the income received in the previous month. You may edit this value',
+                S.of(context).valueForTheIncomeReceivedInThePreviousMonthYou,
           ),
           ItemsRoute(
-            title: 'How much do you want to spend monthly?',
+            title: S.of(context).howMuchDoYouWantToSpendMonthly,
             subtitle:
-                'We sugges that your monthly expenses do not exceed 80% of your income. but you can set your own limits.',
+                S.of(context).weSuggesThatYourMonthlyExpensesDoNotExceed80,
           ),
         ],
         transitionBuilder: (context, child, animation) => FadeTransition(
@@ -49,7 +50,7 @@ class AddBudgetScreen extends StatelessWidget {
           final model = Provider.of<BudgetProvider>(context);
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Monthly budget'),
+              title:  Text(S.of(context).monthlyBudget),
               actions: [
               
              context.read<BudgetProvider>().isLast? TextButton(
@@ -64,14 +65,14 @@ class AddBudgetScreen extends StatelessWidget {
                         left: model.expenses,
                         expenses: model.expenses);
                         context.maybePop();
-                       context.pushRoute( SuccessfullyRoute(subtitle: 'Бюджет добавлен'));
+                       context.pushRoute( SuccessfullyRoute(subtitle: S.of(context).budget_added));
                     }
                    }else{
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Значение должно быть больше нуля!')));
+                    ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(S.of(context).the_value_must_be_greater_than_zero)));
                    }
                 
                 
-              }, child: const Text('OK')): const SizedBox.shrink()
+              }, child:  Text(S.of(context).ok)): const SizedBox.shrink()
               ],
               leading: IconButton(
                   onPressed: () =>  context.maybePop(),
@@ -98,9 +99,9 @@ class AddBudgetScreen extends StatelessWidget {
                 style: TextButton.styleFrom(
                   backgroundColor:context.read<BudgetProvider>().isSumm? const Color(0xFF5283FF): Colors.grey,
                 ),
-                child: const Text(
-                  'Next',
-                  style: TextStyle(color: Colors.white),
+                child:  Text(
+                  S.of(context).next,
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
             )

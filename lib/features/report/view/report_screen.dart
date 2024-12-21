@@ -3,6 +3,7 @@ import 'package:balancer/features/new_transaction/widget/category.dart';
 import 'package:balancer/features/report/cubit/chart_cubit.dart';
 import 'package:balancer/features/report/cubit/report_cubit.dart';
 import 'package:balancer/features/report/widget/widget.dart';
+import 'package:balancer/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +17,7 @@ class ReportScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF1F1F1F),
         elevation: 0,
-        title: const Text('Отчет', style: TextStyle(color: Colors.white)),
+        title:  Text(S.of(context).reply, style: const TextStyle(color: Colors.white)),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -64,8 +65,8 @@ class ReportScreen extends StatelessWidget {
                             return Center(
                               child: Text(
                                 selectedCategory == TransactionCategory.income
-                                    ? 'Доходов нет'
-                                    : 'Трат нет',
+                                    ? S.of(context).there_is_no_income
+                                    : S.of(context).t_no,
                                 style: const TextStyle(
                                     fontSize: 18, color: Colors.grey),
                               ),
@@ -88,7 +89,7 @@ class ReportScreen extends StatelessWidget {
                                     : {},
                           );
                         },
-                        empty: () => const Center(child: Text('Трат нет')),
+                        empty: () =>  Center(child: Text(S.of(context).t_no)),
                       );
                     },
                   );

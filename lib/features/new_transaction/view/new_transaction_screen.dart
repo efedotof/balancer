@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:balancer/Theme/providers/export_providers.dart';
 import 'package:balancer/features/new_transaction/widget/category.dart';
+import 'package:balancer/generated/l10n.dart';
 
 @RoutePage()
 class NewTransactionScreen extends StatelessWidget {
@@ -11,7 +12,7 @@ class NewTransactionScreen extends StatelessWidget {
     TransactionCategory categorys = TransactionCategory.values.first;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New transaction'),
+        title:  Text(S.of(context).newTransaction),
         actions: [
           TextButton(
             onPressed: () {
@@ -19,7 +20,7 @@ class NewTransactionScreen extends StatelessWidget {
                   .read<TotalCubit>()
                   .addBox(context: context, category: categorys);
             },
-            child: const Text('Save', style: TextStyle(color: Colors.blue)),
+            child:  Text(S.of(context).save, style: const TextStyle(color: Colors.blue)),
           ),
         ],
       ),
@@ -189,7 +190,7 @@ class NewTransactionScreen extends StatelessWidget {
                       .read<NewTransactionCubit>()
                       .addCategory(context: context),
                   icon: const Icon(Icons.add),
-                  label: const Text('Add new row'),
+                  label:  Text(S.of(context).addNewRow),
                 ),
                 const SizedBox(height: 16),
                 BlocBuilder<AddNewTransactionsToGoalCubit,
@@ -217,7 +218,7 @@ class NewTransactionScreen extends StatelessWidget {
                     context.read<AddNewTransactionsToGoalCubit>().addTransactions(context);
                   },
                   icon: const Icon(Icons.add),
-                  label: const Text('Add new transactions to goals'),
+                  label:  Text(S.of(context).addNewTransactionsToGoals),
                 ),
 
                 const SizedBox(height: 16),

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:balancer/Theme/providers/export_providers.dart';
 import 'package:balancer/box/goals/goals.dart';
+import 'package:balancer/generated/l10n.dart';
 
 import '../widget/widget.dart';
 
@@ -18,7 +19,7 @@ class GoalsAddBudgetScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Details'),
+        title:  Text(S.of(context).details),
         leading: IconButton(
             onPressed: () {
               context.maybePop();
@@ -29,7 +30,7 @@ class GoalsAddBudgetScreen extends StatelessWidget {
           BlocBuilder<GoalsAddEditCubit, GoalsAddEditState>(
             builder: (context, state) {
             final state = context.read<GoalsAddEditCubit>().state;
-              return state.when(noEdit: () => const SizedBox.shrink(), edit: ()=> TextButton(onPressed: () => context.read<GoalsAddEditCubit>().toggleEditMode(isEditing: false), child: const Text('Close')));
+              return state.when(noEdit: () => const SizedBox.shrink(), edit: ()=> TextButton(onPressed: () => context.read<GoalsAddEditCubit>().toggleEditMode(isEditing: false), child:  Text(S.of(context).close)));
             },
           )
         ],

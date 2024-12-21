@@ -1,3 +1,4 @@
+import 'package:balancer/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class CardInfo extends StatelessWidget {
@@ -99,7 +100,7 @@ class CardInfo extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                         )
-                      : const Text('Add your saving goals'),
+                      :  Text(S.of(context).addYourSavingGoals),
             ),
     );
   }

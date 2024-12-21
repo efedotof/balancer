@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:balancer/features/home/widget/statistics_card.dart';
+import 'package:balancer/generated/l10n.dart';
 import 'package:balancer/router/router.dart';
 import 'package:flutter/material.dart';
 
@@ -17,15 +18,15 @@ class StatisticsW extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        title: const Row(
+        title:  Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
              Row(
               children: [
-                Icon(Icons.bar_chart_outlined),
-                SizedBox(width: 10),
-                Text('Statistics'),
+                const Icon(Icons.bar_chart_outlined),
+                const SizedBox(width: 10),
+                Text(S.of(context).statistics),
               ],
             ),
           
@@ -42,7 +43,7 @@ class StatisticsW extends StatelessWidget {
                   child: StatisticsCard(
                     
                     colorsCard: const Color(0xFFD8BAC6),
-                    textCard: 'Expense',
+                    textCard: S.of(context).expense,
                     balanceCard: '- $expense ₽',
                     buttomColor: const Color(0xFFFFC4DB),
                     less: less(income, expense), onTaps: () {context.pushRoute(const ReportRoute());},
@@ -51,7 +52,7 @@ class StatisticsW extends StatelessWidget {
                 Flexible(
                   child: StatisticsCard(
                     colorsCard: const Color(0xFFBDC2DC),
-                    textCard: 'Income',
+                    textCard: S.of(context).income,
                     balanceCard: '$income ₽',
                     buttomColor: const Color(0xFFC4D0FF),
                     less: less(expense, income), onTaps: () {context.pushRoute(const ReportRoute());},

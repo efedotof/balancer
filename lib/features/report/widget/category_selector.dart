@@ -36,7 +36,7 @@ class CategorySelector extends StatelessWidget {
                   borderRadius: isSelected ? BorderRadius.circular(25) : null,
                 ),
                 child: Text(
-                  context.read<ReportCubit>().getCategoryName(category),
+                  context.read<ReportCubit>().getCategoryName(context, category),
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: isSelected ? Colors.blue : Colors.black,

@@ -10,12 +10,14 @@ class AppProviders {
     ]);
 
     final prefs = await SharedPreferences.getInstance();
+    final languageRepository = LanguageRepository(prefs: prefs);
 
+    
     final goalsRepository = GoalsRepository();
     final budgetRepository = BudgetRepository();
     final statisticsRepository = StatisticsRepository();
     final incomeAndExpenseRepository = IncomeAndExpenseRepository();
-
+    
     await budgetRepository.initHive();
     await statisticsRepository.initHive();
     await goalsRepository.initHive();
@@ -76,6 +78,9 @@ class AppProviders {
         ),
          BlocProvider(
           create: (context) => GoalsAddEditCubit(interface: goalsRepository),
+        ),
+         BlocProvider(
+          create: (context) => LanguageCubit(interface: languageRepository),
         ),
         BlocProvider(
             create: (context) =>

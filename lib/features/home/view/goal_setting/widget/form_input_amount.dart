@@ -1,5 +1,6 @@
 import 'package:balancer/features/home/view/goal_setting/cubit/goal_settings_cubit.dart';
 import 'package:balancer/features/home/view/goal_setting/providers/goals_provider.dart';
+import 'package:balancer/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,7 +19,7 @@ class FormInputAmount extends StatelessWidget {
           context.read<GoalSettingsCubit>().updateAmount(amount);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please enter a valid amount.')),
+             SnackBar(content: Text(S.of(context).pleaseEnterAValidAmount)),
           );
         }
       },

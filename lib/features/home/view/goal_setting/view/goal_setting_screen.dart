@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:balancer/features/home/view/goal_setting/cubit/goal_settings_cubit.dart';
 import 'package:balancer/features/home/view/goal_setting/widget/widget.dart';
+import 'package:balancer/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,34 +19,34 @@ class _GoalSettingsScreenState extends State<GoalSettingsScreen> {
     debugPrint('>>>>>>>>>>>>>>>>>>>>>>>>> start');
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Goal Settings'),
+        title:  Text(S.of(context).goalSettings),
         actions: [
           TextButton(
             onPressed: () {
               context.read<GoalSettingsCubit>().createTheBox(context);
             },
-            child: const Text(
-              'Создать',
-              style: TextStyle(color: Colors.white),
+            child:  Text(
+              S.of(context).to_create,
+              style: const TextStyle(color: Colors.white),
             ),
           ),
         ],
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(16.0),
+      body:  Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            FormInputTitle(),
-            SizedBox(height: 16),
-            FormInputAmount(),
-            SizedBox(height: 16),
-            Text('Select Icon:'),
-            SizedBox(height: 8),
-            IconPickerGrid(),
-            SizedBox(height: 16),
-            GoalModeSelector(),
-            GoalPercentageSlider(),
+            const FormInputTitle(),
+            const SizedBox(height: 16),
+            const FormInputAmount(),
+            const SizedBox(height: 16),
+            Text(S.of(context).selectIcon),
+            const SizedBox(height: 8),
+            const IconPickerGrid(),
+            const SizedBox(height: 16),
+            const GoalModeSelector(),
+            const GoalPercentageSlider(),
           ],
         ),
       ),

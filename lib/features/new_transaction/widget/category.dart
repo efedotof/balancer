@@ -1,3 +1,6 @@
+import 'package:balancer/Theme/providers/export_providers.dart';
+import 'package:balancer/generated/l10n.dart';
+
 enum TransactionCategory { expenses, income }
 
 
@@ -24,40 +27,40 @@ enum TransactionCategoryTitle {
 }
 
 extension TransactionCategoryTitleExtension on TransactionCategoryTitle {
-  String get name {
+  String name(BuildContext context) {
     switch (this) {
       case TransactionCategoryTitle.salary:
-        return 'Salary';
+        return S.of(context).salary;
       case TransactionCategoryTitle.gift:
-        return 'Gift';
+        return S.of(context).gift;
       case TransactionCategoryTitle.investmentIncome:
-        return 'Investment Income';
+        return S.of(context).investmentIncome;
       case TransactionCategoryTitle.freelance:
-        return 'Freelance';
+        return S.of(context).freelance;
       case TransactionCategoryTitle.otherIncome:
-        return 'Other Income';
+        return S.of(context).otherIncome;
       case TransactionCategoryTitle.groceries:
-        return 'Groceries';
+        return S.of(context).groceries;
       case TransactionCategoryTitle.transport:
-        return 'Transport';
+        return S.of(context).transport;
       case TransactionCategoryTitle.entertainment:
-        return 'Entertainment';
+        return S.of(context).entertainment;
       case TransactionCategoryTitle.health:
-        return 'Health';
+        return S.of(context).health;
       case TransactionCategoryTitle.utilities:
-        return 'Utilities';
+        return S.of(context).utilities;
       case TransactionCategoryTitle.rent:
-        return 'Rent';
+        return S.of(context).rent;
       case TransactionCategoryTitle.shopping:
-        return 'Shopping';
+        return S.of(context).shopping;
       case TransactionCategoryTitle.education:
-        return 'Education';
+        return S.of(context).education;
       case TransactionCategoryTitle.travel:
-        return 'Travel';
+        return S.of(context).travel;
       case TransactionCategoryTitle.savings:
-        return 'Savings';
+        return S.of(context).savings;
       case TransactionCategoryTitle.otherExpense:
-        return 'Other Expense';
+        return S.of(context).otherExpense;
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:balancer/features/home/cubit/items_to_budget_cubit.dart';
 import 'package:balancer/features/home/provider/budget_provider.dart';
+import 'package:balancer/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -114,7 +115,7 @@ class ItemsScreen extends StatelessWidget {
                           },
                         ),
                         Text(
-                          'Выбрано: ${selected.toStringAsFixed(2)} ₽ из ${budget.toStringAsFixed(2)} ₽',
+                          '${S.of(context).selected} ${selected.toStringAsFixed(2)} ₽ ${S.of(context).from} ${budget.toStringAsFixed(2)} ₽',
                           style: const TextStyle(fontSize: 16),
                         ),
                       ],

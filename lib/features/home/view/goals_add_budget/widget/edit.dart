@@ -1,5 +1,6 @@
 import 'package:balancer/Theme/providers/export_providers.dart';
 import 'package:balancer/box/goals/goals.dart';
+import 'package:balancer/generated/l10n.dart';
 
 class Edit extends StatefulWidget {
   const Edit({super.key, required this.res});
@@ -54,9 +55,9 @@ class _EditState extends State<Edit> {
                 Expanded(
                   child: TextField(
                     controller: nameController,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Goal Name',
+                    decoration:  InputDecoration(
+                      border: const UnderlineInputBorder(),
+                      labelText: S.of(context).goalName,
                     ),
                     style: const TextStyle(
                       fontSize: 24,
@@ -73,9 +74,9 @@ class _EditState extends State<Edit> {
               child: TextField(
                 controller: amountController,
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'Goal Amount (₽)',
+                decoration:  InputDecoration(
+                  border: const UnderlineInputBorder(),
+                  labelText: S.of(context).goalAmount,
                 ),
                 style: const TextStyle(
                   fontSize: 22,
@@ -112,9 +113,9 @@ class _EditState extends State<Edit> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                        'Filled ${widget.res.goalsFilled} ₽/ ${(context.read<HomeCubit>().calculateProgress(widget.res.goalsFilled.toDouble(), double.tryParse(amountController.text) ?? 0.0) * 100).toInt()}%'),
+                        '${S.of(context).filled} ${widget.res.goalsFilled} ₽/ ${(context.read<HomeCubit>().calculateProgress(widget.res.goalsFilled.toDouble(), double.tryParse(amountController.text) ?? 0.0) * 100).toInt()}%'),
                     Text(
-                        'Left ${widget.res.spentAmount}₽/ ${(context.read<HomeCubit>().calculateProgress(widget.res.spentAmount.toDouble(), double.tryParse(amountController.text) ?? 0.0) * 100).toInt()}%'),
+                        '${S.of(context).left} ${widget.res.spentAmount}₽/ ${(context.read<HomeCubit>().calculateProgress(widget.res.spentAmount.toDouble(), double.tryParse(amountController.text) ?? 0.0) * 100).toInt()}%'),
                   ],
                 ),
               ],
@@ -126,9 +127,9 @@ class _EditState extends State<Edit> {
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Transactions',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                   Text(
+                    S.of(context).transactions,
+                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     widget.res.namesTrans.length.toString(),
@@ -149,11 +150,11 @@ class _EditState extends State<Edit> {
                       ),
                     )
                   : [
-                      const Padding(
-                        padding: EdgeInsets.all(16.0),
+                       Padding(
+                        padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          'Операций пока что не было',
-                          style: TextStyle(fontSize: 16, color: Colors.grey),
+                          S.of(context).thereHaveBeenNoOperationsYet,
+                          style: const TextStyle(fontSize: 16, color: Colors.grey),
                         ),
                       ),
                     ],
@@ -161,11 +162,11 @@ class _EditState extends State<Edit> {
             const SizedBox(
               height: 15,
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 17.0),
+             Padding(
+              padding: const EdgeInsets.only(left: 17.0),
               child: Text(
-                'Settings',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                S.of(context).settings,
+                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
             ),
             ListTile(
@@ -179,15 +180,15 @@ class _EditState extends State<Edit> {
                       newName: nameController.text,
                     );
               },
-              title: const Text('Save', style: TextStyle(color: Colors.green)),
+              title:  Text(S.of(context).save, style: const TextStyle(color: Colors.green)),
               leading: const Icon(Icons.save, color: Colors.green),
             ),
-            const ListTile(
+             ListTile(
               title: Text(
-                'Delete',
-                style: TextStyle(color: Colors.red),
+                S.of(context).delete,
+                style: const TextStyle(color: Colors.red),
               ),
-              leading: Icon(Icons.delete, color: Colors.red),
+              leading: const Icon(Icons.delete, color: Colors.red),
             ),
           ],
         ),

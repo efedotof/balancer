@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:balancer/box/goals/goals.dart';
 import 'package:balancer/box/goals/repository/goals_interface.dart';
+import 'package:balancer/generated/l10n.dart';
 import 'package:balancer/router/router.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,7 @@ Future<void> saveGoalChanges(BuildContext context, {
 
     if (isUpdated && context.mounted) {
       context.maybePop();
-      context.pushRoute(SuccessfullyRoute(subtitle: 'Цель обновлена'));
+      context.pushRoute(SuccessfullyRoute(subtitle: S.of(context).the_goal_has_been_updated));
     }
   } catch (error) {
     debugPrint('Error saving goal changes: $error');

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:balancer/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -9,93 +10,82 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
-        title: const Text('О приложении'),
+        title:  Text(S.of(context).aboutTheApp),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(16.0),
+      body:  Padding(
+        padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Название:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                S.of(context).name,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               Text(
-                'Балансер',
-                style: TextStyle(fontSize: 16),
+                S.of(context).balancer,
+                style: const TextStyle(fontSize: 16),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
-                'Тип:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              Text(
-                'Приложение',
-                style: TextStyle(fontSize: 16),
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Основная категория:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                S.of(context).type,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               Text(
-                'Финансы',
-                style: TextStyle(fontSize: 16),
+                S.of(context).application,
+                style: const TextStyle(fontSize: 16),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
-                'Второстепенная категория:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              Text(
-                'Нет',
-                style: TextStyle(fontSize: 16),
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Возрастная категория:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                S.of(context).mainCategory,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               Text(
+                S.of(context).finance,
+                style: const TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                S.of(context).secondaryCategory,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+              Text(
+                S.of(context).none,
+                style: const TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                S.of(context).ageRating,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+              const Text(
                 '0+',
                 style: TextStyle(fontSize: 16),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
-                'Краткое описание:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                S.of(context).shortDescription,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               Text(
-                'Ваш личный финансовый трекер для ручного учета расходов и контроля бюджета.',
-                style: TextStyle(fontSize: 16),
+                S.of(context).yourPersonalFinancialTrackerForManuallyRecordingExpensesAndBudget,
+                style: const TextStyle(fontSize: 16),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
-                'Описание:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              Text(
-                'Балансер — это простое и удобное приложение для отслеживания ваших финансов. '
-                'В современном мире, где деньги могут утекать сквозь пальцы, важно иметь инструмент, '
-                'который поможет вам управлять своими финансами. Балансер — ваш надежный помощник в этом деле.\n\n'
-                'С помощью Балансера вы можете легко добавлять свои расходы вручную, классифицировать их по категориям и '
-                'всегда быть в курсе, на что именно были потрачены ваши деньги. Это приложение позволяет вам вести учет всех '
-                'своих финансовых операций, будь то ежедневные покупки, крупные траты или регулярные платежи.\n\n'
-                'Балансер подойдет как для тех, кто хочет контролировать свои повседневные траты, так и для тех, кто стремится к '
-                'более глубокому анализу своих финансовых привычек. Приложение помогает вам сделать первые шаги к финансовой '
-                'независимости, позволяя вести учет своих денег в удобном и понятном интерфейсе.\n\n'
-                'Если вы хотите лучше понимать, куда уходят ваши деньги, планировать бюджет и экономить на ненужных расходах — '
-                'Балансер станет вашим лучшим помощником. Начните контролировать свои финансы уже сегодня с помощью Балансера!',
-                style: TextStyle(fontSize: 16),
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Обратная связь:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                S.of(context).description,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               Text(
+                S.of(context).balancerIsASimpleAndConvenientApplicationForTrackingYour,
+                style: const TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                S.of(context).contact,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+              const Text(
                 'fedmehol@icloud.com',
                 style: TextStyle(fontSize: 16),
               ),

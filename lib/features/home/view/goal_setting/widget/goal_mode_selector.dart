@@ -1,5 +1,6 @@
 import 'package:balancer/features/home/view/goal_setting/cubit/goal_settings_cubit.dart';
 import 'package:balancer/features/home/view/goal_setting/providers/goals_provider.dart';
+import 'package:balancer/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,9 +24,9 @@ class GoalModeSelector extends StatelessWidget {
                   color: mode == GoalMode.manual
                       ? Colors.blue
                       : Colors.grey[200],
-                  child: const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Center(child: Text('Manual')),
+                  child:  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Center(child: Text(S.of(context).manual)),
                   ),
                 ),
               ),
@@ -41,9 +42,9 @@ class GoalModeSelector extends StatelessWidget {
                   color: mode == GoalMode.percentage
                       ? Colors.blue
                       : Colors.grey[200],
-                  child: const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Center(child: Text('Percentage')),
+                  child:  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Center(child: Text(S.of(context).percentage)),
                   ),
                 ),
               ),

@@ -1,4 +1,6 @@
 import 'package:balancer/Theme/providers/app_providers.dart';
+import 'package:balancer/generated/l10n.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'Theme/providers/export_providers.dart';
 import 'Theme/theme.dart';
 import 'router/router.dart';
@@ -36,6 +38,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
         return MaterialApp.router(
+          locale: Locale(context.watch<LanguageCubit>().checkLocale()),
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
           theme: state.isDark ? lightTheme : dartTheme,
           routerConfig: _appRouter.config(),
           debugShowCheckedModeBanner: false,

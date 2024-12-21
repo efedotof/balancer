@@ -1,4 +1,5 @@
 import 'package:balancer/features/home/view/goal_setting/cubit/goal_settings_cubit.dart';
+import 'package:balancer/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,7 +14,7 @@ class GoalPercentageSlider extends StatelessWidget {
           return Column(
             children: [
               const SizedBox(height: 16),
-              Text('Percentage: ${state.percentage?.toInt() ?? 0}%'),
+              Text('${S.of(context).percentage} ${state.percentage?.toInt() ?? 0}%'),
               Slider(
                 value: state.percentage ?? 0,
                 onChanged: (value) {
