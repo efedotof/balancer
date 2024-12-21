@@ -1,7 +1,6 @@
 import 'package:balancer/box/incomeAndExpense/expense/expense_model.dart';
 import 'package:balancer/box/incomeAndExpense/income/income_model.dart';
 import 'package:balancer/box/models/transactions.dart';
-import 'package:balancer/features/new_transaction/widget/category.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -112,46 +111,53 @@ class IncomeAndExpenseRepository implements IncomeAndExpenseInterface {
     ));
   }
 
-  @override
-  Future<Map<TransactionCategoryTitle, int>> getIncomeStats() async {
-    var box = Hive.box<Income>(boxInitName);
-    Map<TransactionCategoryTitle, int> categorySums = {};
+@override
+Future<Map<String, int>> getIncomeStats() async {
+  var box = Hive.box<Income>(boxInitName);
+  Map<String, int> categorySums = {};
 
-    for (var income in box.values) {
-      for (int i = 0; i < income.amounts.length; i++) {
-        var category = TransactionCategoryTitle.values[i];
-        var amount = income.amounts[i];
+  for (var income in box.values) {
+    for (int i = 0; i < income.names.length; i++) {
+      var name = income.names[i];
+      var amount = income.amounts[i];
 
-        if (categorySums.containsKey(category)) {
-          categorySums[category] = categorySums[category]! + amount;
-        } else {
-          categorySums[category] = amount;
-        }
+      // Если name уже есть в categorySums, прибавляем amount
+      if (categorySums.containsKey(name)) {
+        categorySums[name] = categorySums[name]! + amount;
+      } else {
+        // Если name нет, создаем новую запись
+        categorySums[name] = amount;
       }
     }
-
-    return categorySums;
   }
 
-  @override
-  Future<Map<TransactionCategoryTitle, int>> getExpenseStats() async {
-    var box = Hive.box<Expense>(boxInitNameExpense);
-    Map<TransactionCategoryTitle, int> categorySums = {};
+  debugPrint("incomeStats: $categorySums");
+  return categorySums;
+}
 
-    for (var expense in box.values) {
-      for (int i = 0; i < expense.amounts.length; i++) {
-        var category = TransactionCategoryTitle
-            .values[i + TransactionCategoryTitle.values.length ~/ 2];
-        var amount = expense.amounts[i];
+@override
+Future<Map<String, int>> getExpenseStats() async {
+  var box = Hive.box<Expense>(boxInitNameExpense);
+  Map<String, int> categorySums = {};
 
-        if (categorySums.containsKey(category)) {
-          categorySums[category] = categorySums[category]! + amount;
-        } else {
-          categorySums[category] = amount;
-        }
+  for (var expense in box.values) {
+    for (int i = 0; i < expense.names.length; i++) {
+      var name = expense.names[i];
+      var amount = expense.amounts[i];
+
+      // Если name уже есть в categorySums, прибавляем amount
+      if (categorySums.containsKey(name)) {
+        categorySums[name] = categorySums[name]! + amount;
+      } else {
+        // Если name нет, создаем новую запись
+        categorySums[name] = amount;
       }
     }
-
-    return categorySums;
   }
+
+  debugPrint("expenseStats: $categorySums");
+  return categorySums;
+}
+
+
 }

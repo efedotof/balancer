@@ -1,79 +1,85 @@
 import 'package:balancer/features/new_transaction/widget/category.dart';
-import 'package:balancer/generated/l10n.dart';
+import 'package:balancer/features/report/cubit/chart_cubit.dart';
 import 'package:easy_pie_chart/easy_pie_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PieChartDisplay extends StatelessWidget {
   final TransactionCategory selectedCategory;
-  final Map<String, double> incomeStats;
-  final Map<String, double> expenseStats;
 
   const PieChartDisplay({
     super.key,
     required this.selectedCategory,
-    required this.incomeStats,
-    required this.expenseStats,
   });
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(incomeStats.toString());
+    return BlocBuilder<ChartCubit, ChartState>(
+      builder: (context, state) {
+        return state.maybeWhen(
+          loaded: (incomeStats, expenseStats) {
+            Map<String, int> stats =
+                selectedCategory == TransactionCategory.expenses
+                    ? expenseStats
+                    : incomeStats;
 
-    bool allIncomeZero = incomeStats.values.every((value) => value == 0.0);
-    bool allExpenseZero = expenseStats.values.every((value) => value == 0.0);
+            int total = stats.values.reduce((a, b) => a + b);
+            String centerText = context.read<ChartCubit>().getCenterText(
+                  stats,
+                  selectedCategory == TransactionCategory.expenses
+                      ? 'expenses'
+                      : 'income',
+                );
 
-    // Общая сумма для расходов или доходов
-    double total = selectedCategory == TransactionCategory.expenses
-        ? expenseStats.values.reduce((a, b) => a + b)
-        : incomeStats.values.reduce((a, b) => a + b);
+            List<Color> sectionColors = [
+              Colors.red,
+              Colors.orange,
+              Colors.yellow,
+              Colors.green,
+              Colors.blue,
+              Colors.indigo,
+              Colors.purple,
+            ];
 
-    // Текст в центре графика
-    String centerText = '';
-    if (selectedCategory == TransactionCategory.expenses && allExpenseZero) {
-      centerText = S.of(context).uhhh_you;
-    } else if (selectedCategory == TransactionCategory.income && allIncomeZero) {
-      centerText = S.of(context).uhhh_you;
-    } else {
-      centerText = total.toStringAsFixed(2); // Отображение суммы с двумя знаками после запятой
-    }
-
-    // Список цветов для секций
-    List<Color> sectionColors = [
-      Colors.red,
-      Colors.orange,
-      Colors.yellow,
-      Colors.green,
-      Colors.blue,
-      Colors.indigo,
-      Colors.purple,
-    ];
-
-    // Генератор данных для секций
-    List<PieData> generatePieData(Map<String, double> stats) {
-      int colorIndex = 0;
-      return stats.entries.map((entry) {
-        final color = sectionColors[colorIndex % sectionColors.length];
-        colorIndex++;
-        return PieData(
-          value: entry.value,
-          color: color,
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // График
+                Center(
+                  child: EasyPieChart(
+                    pieType: PieType.crust,
+                    showValue: false,
+                    style: const TextStyle(fontSize: 10),
+                    borderEdge: StrokeCap.round,
+                    borderWidth: 20,
+                    size: 160,
+                    centerText: centerText,
+                    centerStyle: const TextStyle(color: Colors.white, fontSize: 25),
+                    children: context.read<ChartCubit>().generatePieData(stats, sectionColors),
+                  ),
+                ),
+                const SizedBox(height: 30),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Wrap(
+                    direction: Axis.horizontal,
+                    spacing: 10,
+                    runSpacing: 10,
+                    children: context.read<ChartCubit>().colorCategoryWidgets(
+                      stats,
+                      total,
+                      sectionColors,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+          error: (e) => Center(child: Text('Error: $e')),
+          orElse: () => const Center(child: CircularProgressIndicator())
+          
         );
-      }).toList();
-    }
-
-    return Center(
-      child: EasyPieChart(
-        pieType: PieType.crust,
-        style: const TextStyle(fontSize: 10),
-        borderEdge: StrokeCap.round,
-        borderWidth: 20,
-        size: 160,
-        centerText: centerText, // Показываем сумму в центре
-        centerStyle: const TextStyle(color: Colors.white, fontSize: 25),
-        children: selectedCategory == TransactionCategory.expenses
-            ? generatePieData(expenseStats)
-            : generatePieData(incomeStats),
-      ),
+      },
     );
   }
 }

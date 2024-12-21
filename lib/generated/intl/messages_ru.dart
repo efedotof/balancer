@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "AddGoals": MessageLookupByLibrary.simpleMessage("Добавить цель"),
         "aboutTheApp": MessageLookupByLibrary.simpleMessage("О приложении"),
         "addCategory":
             MessageLookupByLibrary.simpleMessage("Добавить категорию"),
@@ -42,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "allDataHasBeenDeleted":
             MessageLookupByLibrary.simpleMessage("Все данные успешно удалены."),
         "amount": MessageLookupByLibrary.simpleMessage("Сумма"),
+        "analytics": MessageLookupByLibrary.simpleMessage("Аналитика"),
         "application": MessageLookupByLibrary.simpleMessage("Приложение"),
         "balancer": MessageLookupByLibrary.simpleMessage("Balancer"),
         "balancerIsASimpleAndConvenientApplicationForTrackingYour":
@@ -93,6 +95,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "newTransaction":
             MessageLookupByLibrary.simpleMessage("Создать новую транзакцию"),
         "next": MessageLookupByLibrary.simpleMessage("Далее"),
+        "noGoalsAvailable":
+            MessageLookupByLibrary.simpleMessage("Нет подходящих целей"),
         "none": MessageLookupByLibrary.simpleMessage("Нет"),
         "ok": MessageLookupByLibrary.simpleMessage("ОК"),
         "otherExpense": MessageLookupByLibrary.simpleMessage("Другие расходы"),
@@ -106,7 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "rent": MessageLookupByLibrary.simpleMessage("Аренда"),
         "reply": MessageLookupByLibrary.simpleMessage("Отчет"),
         "salary": MessageLookupByLibrary.simpleMessage("Зарплата"),
-        "save": MessageLookupByLibrary.simpleMessage("Сохранить изменения"),
+        "save": MessageLookupByLibrary.simpleMessage("Сохранить"),
         "savings": MessageLookupByLibrary.simpleMessage("Сбережения"),
         "secondaryCategory":
             MessageLookupByLibrary.simpleMessage("Вторичная категория:"),
@@ -137,6 +141,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Доходы не записаны"),
         "title": MessageLookupByLibrary.simpleMessage("Название"),
         "to_create": MessageLookupByLibrary.simpleMessage("Создать"),
+        "transaction_added":
+            MessageLookupByLibrary.simpleMessage("Транзакция добавлена"),
         "transactions": MessageLookupByLibrary.simpleMessage("Транзакции"),
         "transport": MessageLookupByLibrary.simpleMessage("Транспорт"),
         "travel": MessageLookupByLibrary.simpleMessage("Путешествия"),

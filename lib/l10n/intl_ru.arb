@@ -1,6 +1,6 @@
 {
   "newTransaction": "Создать новую транзакцию",
-  "save": "Сохранить изменения",
+  "save": "Сохранить",
   "addNewRow": "Добавить новую строку",
   "addNewTransactionsToGoals": "Добавить новые транзакции к целям",
   "salary": "Зарплата",
@@ -90,5 +90,9 @@
   "invalidAmountPleaseEnterAValidNumber": "Неверная сумма. Пожалуйста, введите корректную сумму.",
   "addCategory": "Добавить категорию",
   "selectCategory": "Выберите категорию",
-  "addTransactionCategory": "Добавить категорию транзакции"
+  "addTransactionCategory": "Добавить категорию транзакции",
+  "transaction_added": "Транзакция добавлена",
+  "analytics": "Аналитика",
+  "noGoalsAvailable": "Нет подходящих целей",
+  "AddGoals": "Добавить цель"
 }

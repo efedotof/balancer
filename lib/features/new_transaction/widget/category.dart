@@ -26,6 +26,21 @@ enum TransactionCategoryTitle {
   otherExpense, // Прочие расходы
 }
 
+extension TransactionCategoryTitleIncomeOrExpenses on TransactionCategory {
+  String name(BuildContext context) {
+    switch (this) {
+      case TransactionCategory.expenses:
+        return S.of(context).expenses;
+      case TransactionCategory.income:
+        return S.of(context).income;
+    }
+  }
+}
+
+
+
+
+
 extension TransactionCategoryTitleExtension on TransactionCategoryTitle {
   String name(BuildContext context) {
     switch (this) {

@@ -1,6 +1,6 @@
 import 'package:balancer/box/incomeAndExpense/repository/income_and_expense_interface.dart';
-import 'package:balancer/features/new_transaction/widget/category.dart';
 import 'package:bloc/bloc.dart';
+import 'package:easy_pie_chart/easy_pie_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -14,15 +14,15 @@ class ChartCubit extends Cubit<ChartState> {
 
   final IncomeAndExpenseInterface _interface;
 
+
   void getStatisticsToPie() async {
     try {
       final incomeStats = await _interface.getIncomeStats();
       final expenseStats = await _interface.getExpenseStats();
+
+     
       final adjustedIncomeStats = _adjustCategoryStats(incomeStats, 'income');
       final adjustedExpenseStats = _adjustCategoryStats(expenseStats, 'expenses');
-
-      debugPrint('incomeStats : $expenseStats');
-
 
 
       emit(ChartState.loaded(
@@ -34,20 +34,62 @@ class ChartCubit extends Cubit<ChartState> {
     }
   }
 
-  Map<TransactionCategoryTitle, int> _adjustCategoryStats(
-      Map<TransactionCategoryTitle, int> stats, String category) {
-    Map<TransactionCategoryTitle, int> adjustedStats = {};
 
-    stats.forEach((categoryTitle, amount) {
-      if (category == 'income') {
+  Map<String, int> _adjustCategoryStats(Map<String, int> stats, String category) {
+    Map<String, int> adjustedStats = {};
 
-        adjustedStats[categoryTitle] = amount; 
-      } else if (category == 'expenses') {
-
-        adjustedStats[categoryTitle] = amount; 
-      }
+    stats.forEach((name, amount) {
+      adjustedStats[name] = amount; 
     });
 
     return adjustedStats;
+  }
+
+
+  String getCenterText(Map<String, int> stats, String category) {
+    bool allZero = stats.values.every((value) => value == 0);
+    int total = stats.values.reduce((a, b) => a + b);
+
+    if (allZero) {
+      return 'No data'; 
+    }
+
+    return total.toStringAsFixed(2); 
+  }
+
+
+  List<PieData> generatePieData(Map<String, int> stats, List<Color> sectionColors) {
+    int colorIndex = 0;
+    return stats.entries.map((entry) {
+      final color = sectionColors[colorIndex % sectionColors.length];
+      colorIndex++;
+      return PieData(
+        value: entry.value.toDouble(),
+        color: color,
+      );
+    }).toList();
+  }
+
+
+  List<Widget> colorCategoryWidgets(Map<String, int> stats, int total, List<Color> sectionColors) {
+    int colorIndex = 0;
+    return stats.entries.map((entry) {
+      final color = sectionColors[colorIndex % sectionColors.length];
+      colorIndex++;
+      double percentage = (entry.value / total) * 100;
+      return Row(
+        children: [
+          Container(
+            width: 20,
+            height: 20,
+            color: color,
+          ),
+          const SizedBox(width: 8),
+          Text(entry.key), 
+          const SizedBox(width: 8),
+          Text('${percentage.toStringAsFixed(1)}%'), 
+        ],
+      );
+    }).toList();
   }
 }

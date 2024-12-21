@@ -2,6 +2,7 @@ import 'package:balancer/box/incomeAndExpense/expense/expense_model.dart';
 import 'package:balancer/box/incomeAndExpense/income/income_model.dart';
 import 'package:balancer/features/new_transaction/widget/category.dart';
 import 'package:balancer/features/report/cubit/report_cubit.dart';
+import 'package:balancer/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -21,7 +22,7 @@ class TransactionsList extends StatelessWidget {
             return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               const Text('Transactions', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                Text(S.of(context).transactions, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
                 Column(
                   children: List.generate(
                     box.values.toList().reversed.toList().length,

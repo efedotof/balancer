@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:balancer/box/goals/goals.dart';
+import 'package:balancer/generated/l10n.dart';
 import 'package:balancer/router/router.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -34,18 +35,18 @@ class AddNewTransactionsToGoalCubit
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(16.0),
+                   Padding(
+                    padding: const EdgeInsets.all(16.0),
                     child: Center(
                       child:
-                          Text('No goals available.', style: TextStyle(fontSize: 16)),
+                          Text(S.of(context).noGoalsAvailable, style: const TextStyle(fontSize: 16)),
                     ),
                   ),
                   TextButton.icon(onPressed: (){
                     context.pushRoute(const GoalSettingsRoute());
                     context.maybePop();
 
-                  }, label: const Text('Добавить цель'), icon: const Icon(Icons.add),)
+                  }, label:  Text(S.of(context).AddGoals), icon: const Icon(Icons.add),)
                 ],
               ),
             );

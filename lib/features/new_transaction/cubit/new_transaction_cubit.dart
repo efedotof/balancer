@@ -20,46 +20,48 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
     emit(state.copyWith(selectedDate: dateTime));
   }
 
-  void addCategory({required BuildContext context}) async {
-    TransactionCategoryTitle selectedCategoryTitle =
-        TransactionCategoryTitle.salary;
-    TextEditingController amountController = TextEditingController();
+ void addCategory({required BuildContext context}) async {
+  TransactionCategoryTitle selectedCategoryTitle =
+      TransactionCategoryTitle.salary;
+  TextEditingController amountController = TextEditingController();
 
-    await showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) {
-        return SingleChildScrollView(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                 Text(
-                  S.of(context).addTransactionCategory,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+  await showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    builder: (context) {
+      return SingleChildScrollView(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                S.of(context).addTransactionCategory,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                     Text(
-                      S.of(context).selectCategory,
-                      style: const TextStyle(fontSize: 20),
-                    ),
-                    StatefulBuilder(
+              ),
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    S.of(context).selectCategory,
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                  SizedBox(
+                    width: 110,
+                    child: StatefulBuilder(
                       builder: (context, setState) {
                         return DropdownButton<TransactionCategoryTitle>(
                           value: selectedCategoryTitle,
+                          isExpanded: true, // Это гарантирует, что значение будет видно
                           items: [
-                            // Заголовок "Траты" с отступами сверху и снизу
-                             DropdownMenuItem<TransactionCategoryTitle>(
+                            DropdownMenuItem<TransactionCategoryTitle>(
                               enabled: false,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -71,8 +73,6 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
                                 ),
                               ),
                             ),
-
-                            // Категории расходов
                             ...TransactionCategoryTitle.values
                                 .where((category) => !_isIncome(category))
                                 .map(
@@ -82,9 +82,7 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
                                     child: Text(category.name(context)),
                                   ),
                                 ),
-
-                            // Заголовок "Доходы" с отступами сверху и снизу
-                             DropdownMenuItem<TransactionCategoryTitle>(
+                            DropdownMenuItem<TransactionCategoryTitle>(
                               enabled: false,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -96,8 +94,6 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
                                 ),
                               ),
                             ),
-
-                            // Категории доходов
                             ...TransactionCategoryTitle.values
                                 .where((category) => _isIncome(category))
                                 .map(
@@ -118,59 +114,61 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
                         );
                       },
                     ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: amountController,
-                  decoration:  InputDecoration(
-                    labelText: S.of(context).amount,
-                    border: const OutlineInputBorder(),
                   ),
-                  keyboardType: TextInputType.number,
+                ],
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: amountController,
+                decoration: InputDecoration(
+                  labelText: S.of(context).amount,
+                  border: const OutlineInputBorder(),
                 ),
-                const SizedBox(height: 16),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    child: OutlinedButton(
-                      onPressed: () {
-                        final amount = double.tryParse(amountController.text);
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 16),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      final amount = double.tryParse(amountController.text);
 
-                        if (amount != null) {
-                          context.read<AddRowCubit>().addRow(
-                                context,
-                                transactions: TransactionItem(
-                                  category: state.selectedCategory,
-                                  amount: amount,
-                                  categoryTitle:
-                                      selectedCategoryTitle.name(context),
-                                ),
-                              );
-                          Navigator.pop(context);
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                             SnackBar(
-                              content: Text(
-                                S.of(context).invalidAmountPleaseEnterAValidNumber,
+                      if (amount != null) {
+                        context.read<AddRowCubit>().addRow(
+                              context,
+                              transactions: TransactionItem(
+                                category: state.selectedCategory,
+                                amount: amount,
+                                categoryTitle:
+                                    selectedCategoryTitle.name(context),
                               ),
+                            );
+                        Navigator.pop(context);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                           SnackBar(
+                            content: Text(
+                              S.of(context).invalidAmountPleaseEnterAValidNumber,
                             ),
-                          );
-                        }
-                      },
-                      child:  Text(S.of(context).addCategory),
-                    ),
+                          ),
+                        );
+                      }
+                    },
+                    child: Text(S.of(context).addCategory),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        );
-      },
-    );
-  }
+        ),
+      );
+    },
+  );
+}
+
 
   // Helper function to determine if the category is an income
   bool _isIncome(TransactionCategoryTitle category) {

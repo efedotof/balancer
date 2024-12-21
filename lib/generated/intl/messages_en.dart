@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "AddGoals": MessageLookupByLibrary.simpleMessage("Добавить цель"),
         "aboutTheApp": MessageLookupByLibrary.simpleMessage("About the App"),
         "addCategory": MessageLookupByLibrary.simpleMessage("Add Category"),
         "addNewGoals": MessageLookupByLibrary.simpleMessage("Add New Goals"),
@@ -38,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "allDataHasBeenDeleted": MessageLookupByLibrary.simpleMessage(
             "All data has been deleted successfully."),
         "amount": MessageLookupByLibrary.simpleMessage("Amount"),
+        "analytics": MessageLookupByLibrary.simpleMessage("Analytics"),
         "application": MessageLookupByLibrary.simpleMessage("Application"),
         "balancer": MessageLookupByLibrary.simpleMessage("Balancer"),
         "balancerIsASimpleAndConvenientApplicationForTrackingYour":
@@ -87,6 +89,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "newTransaction":
             MessageLookupByLibrary.simpleMessage("Create a New Transaction"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "noGoalsAvailable":
+            MessageLookupByLibrary.simpleMessage("No goals available."),
         "none": MessageLookupByLibrary.simpleMessage("None"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "otherExpense": MessageLookupByLibrary.simpleMessage("Other Expenses"),
@@ -100,7 +104,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "rent": MessageLookupByLibrary.simpleMessage("Rent"),
         "reply": MessageLookupByLibrary.simpleMessage("Report"),
         "salary": MessageLookupByLibrary.simpleMessage("Salary"),
-        "save": MessageLookupByLibrary.simpleMessage("Save Changes"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
         "savings": MessageLookupByLibrary.simpleMessage("Savings"),
         "secondaryCategory":
             MessageLookupByLibrary.simpleMessage("Secondary Category:"),
@@ -131,6 +135,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No income recorded"),
         "title": MessageLookupByLibrary.simpleMessage("Title"),
         "to_create": MessageLookupByLibrary.simpleMessage("Create"),
+        "transaction_added":
+            MessageLookupByLibrary.simpleMessage("Transaction added"),
         "transactions": MessageLookupByLibrary.simpleMessage("Transactions"),
         "transport": MessageLookupByLibrary.simpleMessage("Transportation"),
         "travel": MessageLookupByLibrary.simpleMessage("Travel"),

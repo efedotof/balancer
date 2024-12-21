@@ -1,6 +1,6 @@
 {
   "newTransaction": "Create a New Transaction",
-  "save": "Save Changes",
+  "save": "Save",
   "addNewRow": "Add a New Row",
   "addNewTransactionsToGoals": "Add New Transactions to Your Goals",
   "salary": "Salary",
@@ -90,5 +90,9 @@
   "invalidAmountPleaseEnterAValidNumber": "Invalid amount. Please enter a valid number.",
   "addCategory": "Add Category",
   "selectCategory": "Select category",
-  "addTransactionCategory": "Add Transaction Category"
+  "addTransactionCategory": "Add Transaction Category",
+  "transaction_added": "Transaction added",
+  "analytics": "Analytics",
+  "noGoalsAvailable": "No goals available.",
+  "AddGoals": "Добавить цель"
 }

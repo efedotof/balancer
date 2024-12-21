@@ -1,5 +1,4 @@
 import 'package:balancer/box/models/transactions.dart';
-import 'package:balancer/features/new_transaction/widget/category.dart';
 
 abstract interface class IncomeAndExpenseInterface {
   Future initBox() async {}
@@ -10,6 +9,6 @@ abstract interface class IncomeAndExpenseInterface {
   Future removeBox(int index) async {}
 
   Future removeAllBox() async {}
-  Future<Map<TransactionCategoryTitle, int>> getExpenseStats();
-  Future<Map<TransactionCategoryTitle, int>> getIncomeStats();
+  Future<Map<String, int>> getExpenseStats();
+  Future<Map<String, int>> getIncomeStats();
 }

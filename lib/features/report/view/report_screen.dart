@@ -17,13 +17,13 @@ class ReportScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF1F1F1F),
         elevation: 0,
-        title:  Text(S.of(context).reply, style: const TextStyle(color: Colors.white)),
+        title: Text(S.of(context).reply, style: const TextStyle(color: Colors.white)),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.05),
+          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.05),
           child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BlocBuilder<ReportCubit, ReportState>(
                 builder: (context, state) {
@@ -55,48 +55,32 @@ class ReportScreen extends StatelessWidget {
                           return Center(child: Text('Error: $message'));
                         },
                         loaded: (incomeStats, expenseStats) {
-                          final hasNoData = selectedCategory ==
-                                  TransactionCategory.income
-                              ? incomeStats.values.every((value) => value == 0.0)
-                              : expenseStats.values
-                                  .every((value) => value == 0.0);
-          
+                          final hasNoData = selectedCategory == TransactionCategory.income
+                              ? incomeStats.values.every((value) => value == 0)
+                              : expenseStats.values.every((value) => value == 0);
+
                           if (hasNoData) {
                             return Center(
                               child: Text(
                                 selectedCategory == TransactionCategory.income
                                     ? S.of(context).there_is_no_income
                                     : S.of(context).t_no,
-                                style: const TextStyle(
-                                    fontSize: 18, color: Colors.grey),
+                                style: const TextStyle(fontSize: 18, color: Colors.grey),
                               ),
                             );
                           }
-          
+
                           return PieChartDisplay(
                             selectedCategory: selectedCategory,
-                            incomeStats:
-                                selectedCategory == TransactionCategory.income
-                                    ? context
-                                        .read<ReportCubit>()
-                                        .adjustStatsToPieData(incomeStats)
-                                    : {},
-                            expenseStats:
-                                selectedCategory == TransactionCategory.expenses
-                                    ? context
-                                        .read<ReportCubit>()
-                                        .adjustStatsToPieData(expenseStats)
-                                    : {},
                           );
                         },
-                        empty: () =>  Center(child: Text(S.of(context).t_no)),
+                        empty: () => Center(child: Text(S.of(context).t_no)),
                       );
                     },
                   );
                 },
               ),
               const SizedBox(height: 30),
-            
               BlocBuilder<ReportCubit, ReportState>(
                 builder: (context, state) {
                   final category = state.maybeWhen(

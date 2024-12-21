@@ -45,13 +45,13 @@ class NewTransactionScreen extends StatelessWidget {
                         if (category == TransactionCategory.income) {
                           context
                               .read<TotalCubit>()
-                              .updateLeftAndSpent(100); // Пример значения
+                              .updateLeftAndSpent(100); 
                         }
                       },
                       child: Column(
                         children: [
                           Text(
-                            category.name,
+                             category.name(context),
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -71,14 +71,14 @@ class NewTransactionScreen extends StatelessWidget {
                   }).toList(),
                 ),
                 const SizedBox(height: 16),
-                // Amount display with TextField for input
+       
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    const Text(
-                      'Amount',
-                      style: TextStyle(
+                     Text(
+                      S.of(context).amount,
+                      style: const TextStyle(
                         fontSize: 20,
                       ),
                     ),
@@ -103,7 +103,7 @@ class NewTransactionScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 16),
-                // Date and account
+               
                 ListTile(
                   leading: const Icon(Icons.calendar_today),
                   title: Text(state.selectedDate == null
@@ -118,10 +118,10 @@ class NewTransactionScreen extends StatelessWidget {
                       lastDate: DateTime(2101),
                     );
 
-                    if (selectedDate != null) {
-                      // Show time picker
+                    if (selectedDate != null && context.mounted) {
+
                       final selectedTime = await showTimePicker(
-                        // ignore: use_build_context_synchronously
+
                         context: context,
                         initialTime: TimeOfDay.now(),
                       );

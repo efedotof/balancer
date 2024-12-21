@@ -30,9 +30,9 @@ class HomeScreen extends StatelessWidget {
               title: Padding(
                 padding: EdgeInsets.only(
                     left: MediaQuery.of(context).size.width * 0.05),
-                child: const Text(
-                  'Analytics',
-                  style: TextStyle(fontSize: 22),
+                child:  Text(
+                  S.of(context).analytics,
+                  style:const TextStyle(fontSize: 22),
                 ),
               )
               // leading: IconButton(

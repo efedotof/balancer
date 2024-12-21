@@ -60,10 +60,10 @@ class S {
     );
   }
 
-  /// `Save Changes`
+  /// `Save`
   String get save {
     return Intl.message(
-      'Save Changes',
+      'Save',
       name: 'save',
       desc: '',
       args: [],
@@ -965,6 +965,46 @@ class S {
     return Intl.message(
       'Add Transaction Category',
       name: 'addTransactionCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Transaction added`
+  String get transaction_added {
+    return Intl.message(
+      'Transaction added',
+      name: 'transaction_added',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Analytics`
+  String get analytics {
+    return Intl.message(
+      'Analytics',
+      name: 'analytics',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No goals available.`
+  String get noGoalsAvailable {
+    return Intl.message(
+      'No goals available.',
+      name: 'noGoalsAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Добавить цель`
+  String get AddGoals {
+    return Intl.message(
+      'Добавить цель',
+      name: 'AddGoals',
       desc: '',
       args: [],
     );
