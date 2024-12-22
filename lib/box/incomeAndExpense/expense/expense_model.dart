@@ -19,11 +19,20 @@ class Expense extends HiveObject {
   @HiveField(4)
   List<DateTime> dates; 
 
+  @HiveField(5)
+  String? subtitle;
+
+  @HiveField(6)
+  List<int>? iconD;
+
+
   Expense({
+    this.subtitle,
     required this.time,
     required this.amountExpense,
     required this.amounts,
     required this.names,
     required this.dates,
+    this.iconD
   });
 }

@@ -66,60 +66,69 @@ class GoalsRepository implements GoalsInterface {
   }
 
   @override
-  Future<void> removeBox(int index) async {
+  Future<void> removeBox(Goals goal) async {
     var box = Hive.box<Goals>(boxInitName);
-    box.deleteAt(index);
+    // Поиск индекса модели Goals в боксе
+    int? index = box.values.toList().indexOf(goal);
+
+    if (index != -1) {
+      await box.deleteAt(index);
+    }
   }
 
   @override
-  Future<void> addTransactionToGoal(
-    Goals goal,
-    List<int> amounts,
-    List<String> namesTrans,
-    List<DateTime> dates,
-    TransactionCategory category,
-  ) async {
-    var box = Hive.box<Goals>(boxInitName);
+Future<void> addTransactionToGoal(
+  Goals goal,
+  List<int> amounts,
+  List<String> namesTrans,
+  List<DateTime> dates,
+  TransactionCategory category,
+) async {
+  var box = Hive.box<Goals>(boxInitName);
 
-    var goalKey = box.keys.firstWhere(
-      (key) => box.get(key) == goal,
-      orElse: () => null,
+  var goalKey = box.keys.firstWhere(
+    (key) => box.get(key) == goal,
+    orElse: () => null,
+  );
+
+  if (goalKey != null) {
+    final updatedAmounts = List<int>.from(goal.amounts)..addAll(amounts);
+    final updatedNamesTrans = List<String>.from(goal.namesTrans)
+      ..addAll(namesTrans);
+    final updatedDates = List<DateTime>.from(goal.dates)..addAll(dates);
+
+    debugPrint(category.toString());
+
+    final int totalAmount = amounts.fold(0, (sum, amount) => sum + amount);
+
+    final updatedGoalsFilled = category == TransactionCategory.income
+        ? goal.goalsFilled + totalAmount
+        : category == TransactionCategory.expenses
+            ? goal.goalsFilled - totalAmount
+            : goal.goalsFilled;
+
+    final updatedSpentAmount = category == TransactionCategory.income
+        ? goal.spentAmount - totalAmount
+        : category == TransactionCategory.expenses
+            ? goal.spentAmount + totalAmount
+            : goal.spentAmount;
+
+    final updatedGoal = Goals(
+      nameGoals: goal.nameGoals,
+      goalsAmount: goal.goalsAmount,
+      spentAmount: updatedSpentAmount.toInt(),
+      goalsFilled: updatedGoalsFilled.toInt(),
+      percentageOfTheBudget: goal.percentageOfTheBudget,
+      amounts: updatedAmounts,
+      namesTrans: updatedNamesTrans,
+      dates: updatedDates,
+      iconCode: goal.iconCode,
     );
 
-    if (goalKey != null) {
-      final updatedAmounts = List<int>.from(goal.amounts)..addAll(amounts);
-      final updatedNamesTrans = List<String>.from(goal.namesTrans)
-        ..addAll(namesTrans);
-      final updatedDates = List<DateTime>.from(goal.dates)..addAll(dates);
-
-      debugPrint(category.toString());
-
-      final updatedGoalsFilled = category == TransactionCategory.income
-          ? goal.goalsFilled + amounts.fold(0, (sum, amount) => sum + amount)
-          : category == TransactionCategory.expenses
-              ? goal.goalsFilled -
-                  amounts.fold(0, (sum, amount) => sum + amount)
-              : goal.goalsFilled;
-
-      final updatedSpentAmount = category == TransactionCategory.expenses
-          ? goal.spentAmount + amounts.fold(0, (sum, amount) => sum + amount)
-          : goal.spentAmount;
-
-      final updatedGoal = Goals(
-        nameGoals: goal.nameGoals,
-        goalsAmount: goal.goalsAmount,
-        spentAmount: updatedSpentAmount.toInt(),
-        goalsFilled: updatedGoalsFilled.toInt(),
-        percentageOfTheBudget: goal.percentageOfTheBudget,
-        amounts: updatedAmounts,
-        namesTrans: updatedNamesTrans,
-        dates: updatedDates,
-        iconCode: goal.iconCode,
-      );
-
-      await box.put(goalKey, updatedGoal);
-    }
+    await box.put(goalKey, updatedGoal);
   }
+}
+
 
   @override
   Future<void> updateGoalName(Goals goal, String newName) async {
@@ -209,4 +218,45 @@ class GoalsRepository implements GoalsInterface {
       throw Exception('Goal not found in Hive box');
     }
   }
+
+  @override
+  Future<void> updatePercentageOfTheBudget(
+      Goals goal, int newPercentage) async {
+    var box = Hive.box<Goals>(boxInitName);
+
+    final goalKey = box.keys.firstWhere(
+      (key) {
+        final storedGoal = box.get(key);
+        return storedGoal != null && storedGoal.nameGoals == goal.nameGoals;
+      },
+      orElse: () => null,
+    );
+
+    if (goalKey != null) {
+      final updatedGoal = Goals(
+        nameGoals: goal.nameGoals,
+        goalsAmount: goal.goalsAmount,
+        spentAmount: goal.spentAmount,
+        goalsFilled: goal.goalsFilled,
+        percentageOfTheBudget: newPercentage,
+        amounts: goal.amounts,
+        namesTrans: goal.namesTrans,
+        dates: goal.dates,
+        iconCode: goal.iconCode,
+      );
+
+      await box.put(goalKey, updatedGoal);
+    } else {
+      throw Exception('Goal not found in Hive box');
+    }
+  }
+  @override
+  Future<List<Goals>> getGoalsWithPercentageOfTheBudget() async {
+  var box = Hive.box<Goals>('goals_box');
+  
+  return box.values
+      .where((goal) => goal.percentageOfTheBudget != null)
+      .toList();
+}
+
 }

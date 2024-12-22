@@ -1,5 +1,3 @@
-
-
 import 'package:auto_route/auto_route.dart';
 import 'package:balancer/features/home/view/goal_setting/cubit/goals_cubit.dart';
 import 'package:balancer/features/home/view/goal_setting/providers/goals_provider.dart';
@@ -15,7 +13,6 @@ part 'goal_settings_cubit.freezed.dart';
 class GoalSettingsCubit extends Cubit<GoalSettingsState> {
   GoalSettingsCubit() : super(GoalSettingsState.initial());
 
-  // Поля для отслеживания значений
   String title = '';
   double amount = 0.0;
   IconData icon = Icons.abc;
@@ -25,15 +22,13 @@ class GoalSettingsCubit extends Cubit<GoalSettingsState> {
 
   void updateTitle(String newTitle) {
     title = newTitle;
-    _validateForm(); 
+    _validateForm();
   }
-
 
   void updateAmount(double newAmount) {
     amount = newAmount;
     _validateForm();
   }
-
 
   void updateIcon(IconData newIcon) {
     icon = newIcon;
@@ -48,12 +43,15 @@ class GoalSettingsCubit extends Cubit<GoalSettingsState> {
       percentage = null;
     }
     _validateForm();
+    emit(state.copyWith(mode: mode, percentage: percentage));
   }
 
-  void updatePercentage(double newPercentage) {
-    percentage = newPercentage;
-    _validateForm();
-  }
+ void updatePercentage(double newPercentage) {
+  percentage = newPercentage;
+  _validateForm();
+  emit(state.copyWith(percentage: percentage));
+}
+
 
   void _validateForm() {
     final isValid = title.isNotEmpty &&
@@ -64,24 +62,25 @@ class GoalSettingsCubit extends Cubit<GoalSettingsState> {
     debugPrint('isValid: $isValid');
   }
 
-
   void createTheBox(BuildContext context) {
-  debugPrint('isValid: ${state.isValid}');
-  final codes = context.read<GoalsProvider>().codes; 
-  if (state.isValid) {
-    if (codes == 0) {
-      context.read<GoalsProvider>().changeCodes(newCodes: icon.codePoint); 
+    debugPrint('isValid: ${state.isValid}');
+    final codes = context.read<GoalsProvider>().codes;
+    if (state.isValid) {
+      if (codes == 0) {
+        context.read<GoalsProvider>().changeCodes(newCodes: icon.codePoint);
+      }
+      debugPrint('codes: ${context.read<GoalsProvider>().codes}');
+      context.read<GoalsCubit>().addBox(
+            title: title,
+            goalsAmount: amount.toInt(),
+            inCode: codes,
+            percentageOfBudget: context.read<GoalsProvider>().percentage != null ? (context.read<GoalsProvider>().percentage!).toInt() :null,
+            spentAmount: amount.toInt(),
+          );
+      context.read<GoalsProvider>().clear();
+      context.maybePop();
+      context.pushRoute(
+          SuccessfullyRoute(subtitle: S.of(context).the_goal_has_been_created));
     }
-    debugPrint('codes: ${context.read<GoalsProvider>().codes}');
-    context.read<GoalsCubit>().addBox(
-      title: title,
-      goalsAmount: amount.toInt(),
-      inCode: codes,
-    );
-    context.maybePop();
-    context.pushRoute( SuccessfullyRoute(subtitle: S.of(context).the_goal_has_been_created));
   }
-}
-
-
 }

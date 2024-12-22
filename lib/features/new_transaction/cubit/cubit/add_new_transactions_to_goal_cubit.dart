@@ -18,78 +18,110 @@ class AddNewTransactionsToGoalCubit
   AddNewTransactionsToGoalCubit()
       : super(const AddNewTransactionsToGoalState.initial());
 
-  Future<void> addTransactions(BuildContext context) async {
-    try {
-      final box = Hive.box<Goals>('goals_box');
-      final goals = box.values.toList();
+Future<void> addTransactions(BuildContext context) async {
+  try {
+    final box = Hive.box<Goals>('goals_box');
+    final goals = box.values.toList();
 
-      showModalBottomSheet(
-        context: context,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-        ),
-        builder: (BuildContext context) {
-          if (goals.isEmpty) {
-            return Center(
-              child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                   Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Center(
-                      child:
-                          Text(S.of(context).noGoalsAvailable, style: const TextStyle(fontSize: 16)),
-                    ),
-                  ),
-                  TextButton.icon(onPressed: (){
-                    context.pushRoute(const GoalSettingsRoute());
-                    context.maybePop();
-
-                  }, label:  Text(S.of(context).AddGoals), icon: const Icon(Icons.add),)
-                ],
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (BuildContext context) {
+        return Column(
+          children: [
+            const SizedBox(height: 16),
+            Text(
+              S.of(context).myGoals,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
-            );
-          }
-          return ListView.builder(
-            itemCount: goals.length,
-            itemBuilder: (BuildContext context, int index) {
-              final goal = goals[index];
-              return ListTile(
-                title: Text(goal.nameGoals),
-                trailing:
-                    Icon(IconData(goal.iconCode, fontFamily: 'MaterialIcons')),
-                subtitle: Text('Target: \$${goal.goalsAmount}'),
-                onTap: () {
-                  Navigator.pop(context, goal);
-                },
-              );
-            },
-          );
-        },
-      ).then((selectedGoal) {
-        if (selectedGoal != null) {
-          debugPrint('Selected Goal: ${selectedGoal.nameGoals}');
-          if (context.mounted) {
-            context
-                .read<AddNewGoalsProvider>()
-                .goalsToSelecte(select: selectedGoal);
-          }
-
-          emit(AddNewTransactionsToGoalState.addNewTransactions(
-            iconD: selectedGoal.iconCode,
-            name: selectedGoal.nameGoals,
-          ));
-        }
-      });
-    } catch (e) {
-      debugPrint('Error: $e');
-    }
+            ),
+            const SizedBox(height: 16),
+            Expanded(
+              child: goals.isEmpty
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              S.of(context).noGoalsAvailable,
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                          ),
+                          TextButton.icon(
+                            onPressed: () {
+                              context.pushRoute(const GoalSettingsRoute());
+                              context.maybePop();
+                            },
+                            label: Text(S.of(context).AddGoals),
+                            icon: const Icon(Icons.add),
+                          ),
+                        ],
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: goals.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final goal = goals[index];
+                        return ListTile(
+                          title: Text(goal.nameGoals),
+                          trailing: Icon(
+                            IconData(goal.iconCode, fontFamily: 'MaterialIcons'),
+                          ),
+                          subtitle: Text('${S.of(context).target}: ${goal.goalsAmount}₽'),
+                          onTap: () {
+                            Navigator.pop(context, goal);
+                          },
+                        );
+                      },
+                    ),
+            ),
+            if (goals.isNotEmpty) 
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextButton.icon(
+                  onPressed: () {
+                    context.pushRoute(const GoalSettingsRoute());
+                  },
+                  label: Text(S.of(context).AddGoals),
+                  icon: const Icon(Icons.add),
+                ),
+              ),
+          ],
+        );
+      },
+    ).then((selectedGoal) {
+      if (selectedGoal != null && context.mounted) {
+        debugPrint('Selected Goal: ${selectedGoal.nameGoals}');
+          context
+              .read<AddNewGoalsProvider>()
+              .goalsToSelecte(select: selectedGoal);
+        emit(AddNewTransactionsToGoalState.addNewTransactions(
+          iconD: selectedGoal.iconCode,
+          name: selectedGoal.nameGoals,
+          target: '${S.of(context).target}: ${selectedGoal.goalsAmount}₽'
+        ));
+      }
+    });
+  } catch (e) {
+    debugPrint('Error: $e');
   }
+}
 
-  void cleanToGoals(){
-  emit( const AddNewTransactionsToGoalState.initial());
-  
+
+
+  void cleanToGoals(BuildContext context){
+    if(context.mounted){
+      context.read<AddNewGoalsProvider>().goalsSelectToClean();
+    }
+
+    emit( const AddNewTransactionsToGoalState.initial());
   }
 
 

@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
                     left: MediaQuery.of(context).size.width * 0.05),
                 child:  Text(
                   S.of(context).analytics,
-                  style:const TextStyle(fontSize: 22),
+                 
                 ),
               )
               // leading: IconButton(
@@ -77,14 +77,14 @@ class HomeScreen extends StatelessWidget {
                         isNotEmpty: (amount, spent, left) => CardInfo(
                           nameCard: S.of(context).monthlyBudget,
                           goalAmount:
-                              "${(amount.toInt()).toString()} ₽", // округляем до 2 знаков
+                              "${(amount.toInt()).toString()} ₽", 
                           leadingWindget: const Icon(Icons.monetization_on),
                           spent:
                               '${S.of(context).spent} ${spent!.toStringAsFixed(2)} ₽/${(context.read<HomeCubit>().calculateProgress(spent.toDouble(), amount.toDouble()) * 100).toStringAsFixed(2)}%',
                           left:
                               '${S.of(context).left} ${left!.toStringAsFixed(2)} ₽/${(context.read<HomeCubit>().calculateProgress(left.toDouble(), amount.toDouble()) * 100).toStringAsFixed(2)}%',
                           progress: context.read<HomeCubit>().calculateProgress(
-                              spent.toDouble(), amount.toDouble()),
+                              spent.toDouble(), left.toDouble()),
                         ),
                         updateBudget: (amountBudget, spent, left) => CardInfo(
                           nameCard: S.of(context).monthlyBudget,
@@ -95,7 +95,7 @@ class HomeScreen extends StatelessWidget {
                           left:
                               '${S.of(context).left} ${left!.toStringAsFixed(2)} ₽/${(context.read<HomeCubit>().calculateProgress(left.toDouble(), amountBudget.toDouble()) * 100).toStringAsFixed(2)}%',
                           progress: context.read<HomeCubit>().calculateProgress(
-                              spent.toDouble(), amountBudget.toDouble()),
+                              spent.toDouble(), left.toDouble()),
                         ),
                       );
                     },
@@ -103,7 +103,6 @@ class HomeScreen extends StatelessWidget {
                   BlocBuilder<StatisticsCubit, StatisticsState>(
                     builder: (context, state) {
                       final state = context.read<StatisticsCubit>().state;
-
                       return state.when(
                         initial: () => const StatisticsW(
                           income: 0,
@@ -195,7 +194,7 @@ class HomeScreen extends StatelessWidget {
               if (Hive.box<Budget>('Budget_box').isNotEmpty) {
                 context.pushRoute(const NewTransactionRoute());
                 context.read<TotalCubit>().totalToClean();
-                context.read<AddRowCubit>().transToClean();
+                context.read<AddRowCubit>().transToClean(context);
               } else {
                 context.pushRoute(const AddBudgetRoute());
                 // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Похоже бюджет неопределён...')),);

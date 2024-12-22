@@ -42,14 +42,6 @@ Future<void> addBox({
 
   
 
-  Future<void> deleateBox({required int index}) async {
-    try {
-      _interface.removeBox(index);
-    } catch (e) {
-      debugPrint('error to delate goalsBox: $e');
-    }
-  
-  }
 
 
 

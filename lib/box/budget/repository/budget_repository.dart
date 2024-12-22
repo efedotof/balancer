@@ -64,7 +64,7 @@ class BudgetRepository implements BudgetInterface {
     var budgets = box.values.toList();
 
     if (budgets.isNotEmpty) {
-      var lastBudget = budgets.last; // получаем последний элемент
+      var lastBudget = budgets.last;
 
       var updatedSpent = (lastBudget.spent ?? 0) + newSpent;
       var updatedAmountBudget = (lastBudget.amountBudget) - newSpent;
@@ -73,11 +73,11 @@ class BudgetRepository implements BudgetInterface {
       updatedAmountBudget = updatedAmountBudget < 0 ? 0 : updatedAmountBudget;
 
       box.putAt(
-        budgets.length - 1, // обновляем последний элемент
+        budgets.length - 1,
         Budget(
           amountBudget: updatedAmountBudget,
           spent: updatedSpent,
-          left: lastBudget.left, // left остается неизменным
+          left: lastBudget.left,
           expenses: lastBudget.expenses,
         ),
       );
@@ -95,19 +95,18 @@ class BudgetRepository implements BudgetInterface {
     var budgets = box.values.toList();
 
     if (budgets.isNotEmpty) {
-      var lastBudget = budgets.last; // получаем последний элемент
+      var lastBudget = budgets.last;
 
-      newSpent = ((newSpent ?? lastBudget.spent)! < 0) ? 0 : newSpent;
-      newAmountBudget = ((newAmountBudget ?? lastBudget.amountBudget) < 0)
-          ? 0
-          : newAmountBudget;
+      newSpent ??= lastBudget.spent;
+      newAmountBudget ??= lastBudget.amountBudget;
+      newLeft ??= lastBudget.left;
 
       box.putAt(
-        budgets.length - 1, // обновляем последний элемент
+        budgets.length - 1,
         Budget(
-          amountBudget: newAmountBudget!,
+          amountBudget: newAmountBudget,
           spent: newSpent,
-          left: lastBudget.left, // left остается неизменным
+          left: newLeft,
           expenses: newExpenses ?? lastBudget.expenses,
         ),
       );
@@ -120,7 +119,7 @@ class BudgetRepository implements BudgetInterface {
     var budgets = box.values.toList();
 
     if (budgets.isNotEmpty) {
-      var lastBudget = budgets.last; // получаем последний элемент
+      var lastBudget = budgets.last;
 
       var updatedAmountBudget = (lastBudget.amountBudget) + value;
       var updatedSpent = (lastBudget.spent ?? 0) - value;
@@ -129,11 +128,11 @@ class BudgetRepository implements BudgetInterface {
       updatedSpent = updatedSpent < 0 ? 0 : updatedSpent;
 
       box.putAt(
-        budgets.length - 1, // обновляем последний элемент
+        budgets.length - 1,
         Budget(
           amountBudget: updatedAmountBudget,
           spent: updatedSpent,
-          left: lastBudget.left, // left остается неизменным
+          left: lastBudget.left,
           expenses: lastBudget.expenses,
         ),
       );

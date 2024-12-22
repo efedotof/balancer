@@ -16,7 +16,7 @@ abstract interface class GoalsInterface {
     int inCode,
   );
 
-  Future removeBox(int index) async {}
+  Future<void> removeBox(Goals goal);
 
   Future removeAllBox() async {}
   
@@ -31,4 +31,6 @@ abstract interface class GoalsInterface {
   Future<void> updateGoalName(Goals goal, String newName);
   Future<void> updateGoalAmount(Goals goal, int newAmount);
   Future<void> updateGoalAmountAndName(Goals goal, int newAmount, String name);
+  Future<void> updatePercentageOfTheBudget(Goals goal, int newPercentage);
+  Future<List<Goals>> getGoalsWithPercentageOfTheBudget();
 }

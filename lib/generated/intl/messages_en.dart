@@ -22,7 +22,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "AddGoals": MessageLookupByLibrary.simpleMessage("Добавить цель"),
+        "AddGoals": MessageLookupByLibrary.simpleMessage("Add a goal"),
+        "Add_a_category":
+            MessageLookupByLibrary.simpleMessage("Add a category"),
         "aboutTheApp": MessageLookupByLibrary.simpleMessage("About the App"),
         "addCategory": MessageLookupByLibrary.simpleMessage("Add Category"),
         "addNewGoals": MessageLookupByLibrary.simpleMessage("Add New Goals"),
@@ -45,6 +47,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "balancerIsASimpleAndConvenientApplicationForTrackingYour":
             MessageLookupByLibrary.simpleMessage(
                 "Balancer is a simple and convenient app for tracking your finances. In today’s fast-paced world, managing money can be challenging, but Balancer is here to help. \\n\\nWith Balancer, you can easily record expenses, categorize them, and stay on top of your spending. Whether it’s daily purchases, major expenses, or recurring payments, Balancer keeps everything organized. \\n\\nPerfect for those who want to manage day-to-day expenses or analyze financial habits deeply, Balancer is your first step toward financial independence. With an intuitive interface, you’ll find it easy to track your money and control unnecessary spending. \\n\\nIf you’re ready to take charge of your finances, Balancer is your best ally. Start managing your budget and saving more with Balancer today!"),
+        "budgetAllocation":
+            MessageLookupByLibrary.simpleMessage("Budget Allocation"),
         "budget_added": MessageLookupByLibrary.simpleMessage("Budget Added"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "clear_everything":
@@ -60,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Set Your Monthly Budget"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "education": MessageLookupByLibrary.simpleMessage("Education"),
+        "english": MessageLookupByLibrary.simpleMessage("English"),
         "entertainment": MessageLookupByLibrary.simpleMessage("Entertainment"),
         "expense": MessageLookupByLibrary.simpleMessage("Expenses"),
         "expenses": MessageLookupByLibrary.simpleMessage("Expenses"),
@@ -69,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "from": MessageLookupByLibrary.simpleMessage("of"),
         "gift": MessageLookupByLibrary.simpleMessage("Gift"),
         "goalAmount": MessageLookupByLibrary.simpleMessage("Goal Amount (₽)"),
+        "goalDeleted": MessageLookupByLibrary.simpleMessage("Goal deleted"),
         "goalName": MessageLookupByLibrary.simpleMessage("Goal Name"),
         "goalSettings": MessageLookupByLibrary.simpleMessage("Goal Settings"),
         "groceries": MessageLookupByLibrary.simpleMessage("Groceries"),
@@ -76,15 +82,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "howMuchDoYouWantToSpendMonthly": MessageLookupByLibrary.simpleMessage(
             "How Much Would You Like to Spend Each Month?"),
         "income": MessageLookupByLibrary.simpleMessage("Income"),
+        "invalidAmountMustBeGreaterThanZero":
+            MessageLookupByLibrary.simpleMessage(
+                "Invalid amount must be greater than Zero"),
         "invalidAmountPleaseEnterAValidNumber":
             MessageLookupByLibrary.simpleMessage(
                 "Invalid amount. Please enter a valid number."),
         "investmentIncome":
             MessageLookupByLibrary.simpleMessage("Investment Income"),
+        "language": MessageLookupByLibrary.simpleMessage("Language"),
         "left": MessageLookupByLibrary.simpleMessage("Remaining"),
         "mainCategory": MessageLookupByLibrary.simpleMessage("Main Category:"),
         "manual": MessageLookupByLibrary.simpleMessage("Manual"),
         "monthlyBudget": MessageLookupByLibrary.simpleMessage("Monthly Budget"),
+        "myGoals": MessageLookupByLibrary.simpleMessage("My goals"),
         "name": MessageLookupByLibrary.simpleMessage("Name:"),
         "newTransaction":
             MessageLookupByLibrary.simpleMessage("Create a New Transaction"),
@@ -97,12 +108,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "otherIncome":
             MessageLookupByLibrary.simpleMessage("Other Sources of Income"),
         "percentage": MessageLookupByLibrary.simpleMessage("Percentage"),
+        "periodicRate": MessageLookupByLibrary.simpleMessage("Periodic rate"),
         "pleaseEnterAValidAmount": MessageLookupByLibrary.simpleMessage(
             "Please enter a valid amount."),
         "plus_or_minus_amount":
             MessageLookupByLibrary.simpleMessage("+/- Amount*"),
         "rent": MessageLookupByLibrary.simpleMessage("Rent"),
         "reply": MessageLookupByLibrary.simpleMessage("Report"),
+        "russian": MessageLookupByLibrary.simpleMessage("Russian"),
         "salary": MessageLookupByLibrary.simpleMessage("Salary"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "savings": MessageLookupByLibrary.simpleMessage("Savings"),
@@ -122,6 +135,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistics": MessageLookupByLibrary.simpleMessage("Statistics"),
         "successfully": MessageLookupByLibrary.simpleMessage("Successfully"),
         "t_no": MessageLookupByLibrary.simpleMessage("No expenses recorded"),
+        "target": MessageLookupByLibrary.simpleMessage("Target"),
         "the_goal_has_been_created":
             MessageLookupByLibrary.simpleMessage("Goal Created"),
         "the_goal_has_been_updated":
@@ -129,6 +143,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "the_value_must_be_greater_than_zero":
             MessageLookupByLibrary.simpleMessage(
                 "The value must be greater than zero!"),
+        "theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "thereHaveBeenNoOperationsYet": MessageLookupByLibrary.simpleMessage(
             "No transactions recorded yet"),
         "there_is_no_income":

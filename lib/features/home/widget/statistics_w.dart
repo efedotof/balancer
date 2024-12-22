@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:balancer/features/home/widget/statistics_card.dart';
+import 'package:balancer/features/new_transaction/widget/category.dart';
+import 'package:balancer/features/report/cubit/report_cubit.dart';
 import 'package:balancer/generated/l10n.dart';
 import 'package:balancer/router/router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class StatisticsW extends StatelessWidget {
   const StatisticsW({super.key, required this.income, required this.expense});
@@ -46,7 +49,9 @@ class StatisticsW extends StatelessWidget {
                     textCard: S.of(context).expense,
                     balanceCard: '- $expense ₽',
                     buttomColor: const Color(0xFFFFC4DB),
-                    less: less(income, expense), onTaps: () {context.pushRoute(const ReportRoute());},
+                    less: less(income, expense), onTaps: () {
+                    context.read<ReportCubit>().selectCategory(TransactionCategory.expenses);
+                    context.pushRoute(const ReportRoute());},
                   ),
                 ),
                 Flexible(
@@ -55,7 +60,9 @@ class StatisticsW extends StatelessWidget {
                     textCard: S.of(context).income,
                     balanceCard: '$income ₽',
                     buttomColor: const Color(0xFFC4D0FF),
-                    less: less(expense, income), onTaps: () {context.pushRoute(const ReportRoute());},
+                    less: less(expense, income), onTaps: () {
+                    context.read<ReportCubit>().selectCategory(TransactionCategory.income);
+                    context.pushRoute(const ReportRoute());},
                   ),
                 ),
               ],

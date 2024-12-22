@@ -19,22 +19,34 @@ mixin _$AddRowState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<TransactionItem> transaction) addrow,
-    required TResult Function(List<TransactionItem> transaction) updateRow,
+    required TResult Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)
+        addrow,
+    required TResult Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)
+        updateRow,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<TransactionItem> transaction)? addrow,
-    TResult? Function(List<TransactionItem> transaction)? updateRow,
+    TResult? Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)?
+        addrow,
+    TResult? Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)?
+        updateRow,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<TransactionItem> transaction)? addrow,
-    TResult Function(List<TransactionItem> transaction)? updateRow,
+    TResult Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)?
+        addrow,
+    TResult Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)?
+        updateRow,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -125,8 +137,12 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<TransactionItem> transaction) addrow,
-    required TResult Function(List<TransactionItem> transaction) updateRow,
+    required TResult Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)
+        addrow,
+    required TResult Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)
+        updateRow,
   }) {
     return initial();
   }
@@ -135,8 +151,12 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<TransactionItem> transaction)? addrow,
-    TResult? Function(List<TransactionItem> transaction)? updateRow,
+    TResult? Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)?
+        addrow,
+    TResult? Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)?
+        updateRow,
   }) {
     return initial?.call();
   }
@@ -145,8 +165,12 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<TransactionItem> transaction)? addrow,
-    TResult Function(List<TransactionItem> transaction)? updateRow,
+    TResult Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)?
+        addrow,
+    TResult Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)?
+        updateRow,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -200,7 +224,9 @@ abstract class _$$AddRowImplCopyWith<$Res> {
           _$AddRowImpl value, $Res Function(_$AddRowImpl) then) =
       __$$AddRowImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<TransactionItem> transaction});
+  $Res call(
+      {List<TransactionCategoryTitle> category,
+      List<TransactionItem> transaction});
 }
 
 /// @nodoc
@@ -216,9 +242,14 @@ class __$$AddRowImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? category = null,
     Object? transaction = null,
   }) {
     return _then(_$AddRowImpl(
+      category: null == category
+          ? _value._category
+          : category // ignore: cast_nullable_to_non_nullable
+              as List<TransactionCategoryTitle>,
       transaction: null == transaction
           ? _value._transaction
           : transaction // ignore: cast_nullable_to_non_nullable
@@ -230,8 +261,19 @@ class __$$AddRowImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddRowImpl implements _AddRow {
-  const _$AddRowImpl({required final List<TransactionItem> transaction})
-      : _transaction = transaction;
+  const _$AddRowImpl(
+      {required final List<TransactionCategoryTitle> category,
+      required final List<TransactionItem> transaction})
+      : _category = category,
+        _transaction = transaction;
+
+  final List<TransactionCategoryTitle> _category;
+  @override
+  List<TransactionCategoryTitle> get category {
+    if (_category is EqualUnmodifiableListView) return _category;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_category);
+  }
 
   final List<TransactionItem> _transaction;
   @override
@@ -243,7 +285,7 @@ class _$AddRowImpl implements _AddRow {
 
   @override
   String toString() {
-    return 'AddRowState.addrow(transaction: $transaction)';
+    return 'AddRowState.addrow(category: $category, transaction: $transaction)';
   }
 
   @override
@@ -251,13 +293,16 @@ class _$AddRowImpl implements _AddRow {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddRowImpl &&
+            const DeepCollectionEquality().equals(other._category, _category) &&
             const DeepCollectionEquality()
                 .equals(other._transaction, _transaction));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_transaction));
+      runtimeType,
+      const DeepCollectionEquality().hash(_category),
+      const DeepCollectionEquality().hash(_transaction));
 
   /// Create a copy of AddRowState
   /// with the given fields replaced by the non-null parameter values.
@@ -271,32 +316,44 @@ class _$AddRowImpl implements _AddRow {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<TransactionItem> transaction) addrow,
-    required TResult Function(List<TransactionItem> transaction) updateRow,
+    required TResult Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)
+        addrow,
+    required TResult Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)
+        updateRow,
   }) {
-    return addrow(transaction);
+    return addrow(category, transaction);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<TransactionItem> transaction)? addrow,
-    TResult? Function(List<TransactionItem> transaction)? updateRow,
+    TResult? Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)?
+        addrow,
+    TResult? Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)?
+        updateRow,
   }) {
-    return addrow?.call(transaction);
+    return addrow?.call(category, transaction);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<TransactionItem> transaction)? addrow,
-    TResult Function(List<TransactionItem> transaction)? updateRow,
+    TResult Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)?
+        addrow,
+    TResult Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)?
+        updateRow,
     required TResult orElse(),
   }) {
     if (addrow != null) {
-      return addrow(transaction);
+      return addrow(category, transaction);
     }
     return orElse();
   }
@@ -337,9 +394,11 @@ class _$AddRowImpl implements _AddRow {
 }
 
 abstract class _AddRow implements AddRowState {
-  const factory _AddRow({required final List<TransactionItem> transaction}) =
-      _$AddRowImpl;
+  const factory _AddRow(
+      {required final List<TransactionCategoryTitle> category,
+      required final List<TransactionItem> transaction}) = _$AddRowImpl;
 
+  List<TransactionCategoryTitle> get category;
   List<TransactionItem> get transaction;
 
   /// Create a copy of AddRowState
@@ -355,7 +414,9 @@ abstract class _$$UpdateRowImplCopyWith<$Res> {
           _$UpdateRowImpl value, $Res Function(_$UpdateRowImpl) then) =
       __$$UpdateRowImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<TransactionItem> transaction});
+  $Res call(
+      {List<TransactionCategoryTitle> category,
+      List<TransactionItem> transaction});
 }
 
 /// @nodoc
@@ -371,9 +432,14 @@ class __$$UpdateRowImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? category = null,
     Object? transaction = null,
   }) {
     return _then(_$UpdateRowImpl(
+      category: null == category
+          ? _value._category
+          : category // ignore: cast_nullable_to_non_nullable
+              as List<TransactionCategoryTitle>,
       transaction: null == transaction
           ? _value._transaction
           : transaction // ignore: cast_nullable_to_non_nullable
@@ -385,8 +451,19 @@ class __$$UpdateRowImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$UpdateRowImpl implements _UpdateRow {
-  const _$UpdateRowImpl({required final List<TransactionItem> transaction})
-      : _transaction = transaction;
+  const _$UpdateRowImpl(
+      {required final List<TransactionCategoryTitle> category,
+      required final List<TransactionItem> transaction})
+      : _category = category,
+        _transaction = transaction;
+
+  final List<TransactionCategoryTitle> _category;
+  @override
+  List<TransactionCategoryTitle> get category {
+    if (_category is EqualUnmodifiableListView) return _category;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_category);
+  }
 
   final List<TransactionItem> _transaction;
   @override
@@ -398,7 +475,7 @@ class _$UpdateRowImpl implements _UpdateRow {
 
   @override
   String toString() {
-    return 'AddRowState.updateRow(transaction: $transaction)';
+    return 'AddRowState.updateRow(category: $category, transaction: $transaction)';
   }
 
   @override
@@ -406,13 +483,16 @@ class _$UpdateRowImpl implements _UpdateRow {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UpdateRowImpl &&
+            const DeepCollectionEquality().equals(other._category, _category) &&
             const DeepCollectionEquality()
                 .equals(other._transaction, _transaction));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_transaction));
+      runtimeType,
+      const DeepCollectionEquality().hash(_category),
+      const DeepCollectionEquality().hash(_transaction));
 
   /// Create a copy of AddRowState
   /// with the given fields replaced by the non-null parameter values.
@@ -426,32 +506,44 @@ class _$UpdateRowImpl implements _UpdateRow {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<TransactionItem> transaction) addrow,
-    required TResult Function(List<TransactionItem> transaction) updateRow,
+    required TResult Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)
+        addrow,
+    required TResult Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)
+        updateRow,
   }) {
-    return updateRow(transaction);
+    return updateRow(category, transaction);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<TransactionItem> transaction)? addrow,
-    TResult? Function(List<TransactionItem> transaction)? updateRow,
+    TResult? Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)?
+        addrow,
+    TResult? Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)?
+        updateRow,
   }) {
-    return updateRow?.call(transaction);
+    return updateRow?.call(category, transaction);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<TransactionItem> transaction)? addrow,
-    TResult Function(List<TransactionItem> transaction)? updateRow,
+    TResult Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)?
+        addrow,
+    TResult Function(List<TransactionCategoryTitle> category,
+            List<TransactionItem> transaction)?
+        updateRow,
     required TResult orElse(),
   }) {
     if (updateRow != null) {
-      return updateRow(transaction);
+      return updateRow(category, transaction);
     }
     return orElse();
   }
@@ -492,9 +584,11 @@ class _$UpdateRowImpl implements _UpdateRow {
 }
 
 abstract class _UpdateRow implements AddRowState {
-  const factory _UpdateRow({required final List<TransactionItem> transaction}) =
-      _$UpdateRowImpl;
+  const factory _UpdateRow(
+      {required final List<TransactionCategoryTitle> category,
+      required final List<TransactionItem> transaction}) = _$UpdateRowImpl;
 
+  List<TransactionCategoryTitle> get category;
   List<TransactionItem> get transaction;
 
   /// Create a copy of AddRowState

@@ -41,49 +41,58 @@ class TotalCubit extends Cubit<TotalState> {
     emit(TotalState.changeTotal(total: total));
   }
 
-  void addBox({required BuildContext context, required TransactionCategory category}) async {
-  final totals = total;
+  void addBox(
+      {required BuildContext context,
+      required TransactionCategory category}) async {
+    final totals = total;
 
-  if (context.mounted) {
-    final states = context.read<NewTransactionCubit>().state;
-    final isSelected = states.selectedCategory == category;
-    if (isSelected) {
-      debugPrint('category to addBox true: $category');
-      await _addIncome(context, totals, isSelected);
-    } else {
-      debugPrint('category to addBox false: $category');
-      await _addExpenses(context, totals, isSelected);
+    if (context.mounted && totals > 0) {
+      final states = context.read<NewTransactionCubit>().state;
+      final isSelected = states.selectedCategory == category;
+      if (isSelected) {
+        debugPrint('category to addBox true: $category');
+        await _addIncome(context, totals, isSelected);
+      } else {
+        debugPrint('category to addBox false: $category');
+        await _addExpenses(context, totals, isSelected);
+      }
     }
   }
-}
 
-Future<void> _addIncome(BuildContext context, int totals, bool selected) async {
-  await _updateBudgetAndStatistics(context, totals, selected, true);
-  await _addTransactionToGoal(context, selected, totals, true);
-  if (context.mounted) {
-    context.read<StatisticsCubit>().getStatistics();
-    context.read<ChartCubit>().getStatisticsToPie();
-    context.read<AddRowCubit>().transToClean();
+  Future<void> _addIncome(
+      BuildContext context, int totals, bool selected) async {
+    await _updateBudgetAndStatistics(context, totals, selected, true);
+    if (context.mounted) {
+      await _addTransactionToGoal(context, selected, totals, true);
+    }
+
+    if (context.mounted) {
+      context.read<StatisticsCubit>().getStatistics();
+      context.read<ChartCubit>().getStatisticsToPie();
+      context.read<AddRowCubit>().transToClean(context);
+    }
   }
-}
 
-Future<void> _addExpenses(BuildContext context, int totals, bool selected) async {
-  await _updateBudgetAndStatistics(context, totals, selected, false);
-  await _addTransactionToGoal(context, selected, totals, false);
-  if (context.mounted) {
-    context.read<StatisticsCubit>().getStatistics();
-    context.read<ChartCubit>().getStatisticsToPie();
-    context.read<AddRowCubit>().transToClean();
+  Future<void> _addExpenses(
+      BuildContext context, int totals, bool selected) async {
+    await _updateBudgetAndStatistics(context, totals, selected, false);
+    if (context.mounted) {
+      await _addTransactionToGoal(context, selected, totals, false);
+    }
+    if (context.mounted) {
+      context.read<StatisticsCubit>().getStatistics();
+      context.read<ChartCubit>().getStatisticsToPie();
+      context.read<AddRowCubit>().transToClean(context);
+    }
   }
-}
-
 
   Future<void> _updateBudgetAndStatistics(
       BuildContext context, int totals, bool selected, bool isIncome) async {
-    if (!context.mounted) return; 
+    if (!context.mounted) return;
 
     final box = await _interface.getAllBudgets();
     debugPrint('totals^ $totals');
+
     if (context.mounted) {
       context.read<StatisticsCubit>().uploadStatistics(
             amountExpenses: isIncome ? 0 : totals,
@@ -96,14 +105,25 @@ Future<void> _addExpenses(BuildContext context, int totals, bool selected) async
       context.read<ChartCubit>().getStatisticsToPie();
     }
 
-    final budget = box.isNotEmpty ? box[0] : null;
+    final budget = box.isNotEmpty ? box[box.length - 1] : null;
     if (budget != null && context.mounted) {
-      context.read<BudgetCubit>().updateBudget(
-            amountBudget: budget.amountBudget,
-            spent: budget.spent,
-            left: budget.left,
-            expenses: budget.expenses,
-          );
+      final updatedBudget = isIncome
+          ? budget.amountBudget + totals
+          : budget.amountBudget - totals;
+
+      final updatedSpent =
+          isIncome ? budget.spent! - totals : budget.spent! + totals;
+
+      final updateLeft =
+          isIncome ? budget.left! - totals : budget.left! + totals;
+
+      _interface.replaceBudgetValues(
+          newAmountBudget: updatedBudget,
+          newSpent: updatedSpent,
+          newLeft: updateLeft);
+
+      context.read<BudgetCubit>().updateBudget();
+
       context.maybePop();
       context.pushRoute(
           SuccessfullyRoute(subtitle: S.of(context).transaction_added));
@@ -114,6 +134,10 @@ Future<void> _addExpenses(BuildContext context, int totals, bool selected) async
       BuildContext context, bool selected, int totals, bool isIncome) async {
     if (context.mounted) {
       final tranceList = context.read<AddRowCubit>().transactionsList;
+      final categorysList = context.read<AddRowCubit>().categorys;
+
+      final iconD = categorysList.map((icon) => getIcon(icon).codePoint).toList();
+
       final amounts =
           tranceList.map((transaction) => transaction.amount).toList();
       final names =
@@ -131,25 +155,29 @@ Future<void> _addExpenses(BuildContext context, int totals, bool selected) async
           dates,
           category,
         );
-  }
-        if (isIncome) {
-          _incomeAndExpenseInterface.boxAddIncome(
-            time: DateTime.now(),
-            amountIncome: totals,
-            transIncome: tranceList,
-          );
-        } else {
-          _incomeAndExpenseInterface.boxAddExpense(
-            time: DateTime.now(),
-            amountExpense: totals,
-            transExpense: tranceList,
-          );
-        }
+      }
+      if (isIncome) {
+        _incomeAndExpenseInterface.boxAddIncome(
+          subtitle:context.read<AddNewGoalsProvider>().goalsToSelected != null? 'В цель': null,
+          time: DateTime.now(),
+          amountIncome: totals,
+          transIncome: tranceList,
+          iconD: iconD,
+        );
+      } else {
+        _incomeAndExpenseInterface.boxAddExpense(
+          subtitle:context.read<AddNewGoalsProvider>().goalsToSelected != null? 'В цель': null,
+          time: DateTime.now(),
+          amountExpense: totals,
+          transExpense: tranceList,
+          iconD: iconD
+        );
+      }
 
-        if (context.mounted) {
-          context.read<AddNewTransactionsToGoalCubit>().cleanToGoals();
-          totalToClean();
-        }
+      if (context.mounted) {
+        context.read<AddNewTransactionsToGoalCubit>().cleanToGoals(context);
+        totalToClean();
+      }
     }
   }
 

@@ -59,12 +59,13 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
                       builder: (context, setState) {
                         return DropdownButton<TransactionCategoryTitle>(
                           value: selectedCategoryTitle,
-                          isExpanded: true, // Это гарантирует, что значение будет видно
+                          isExpanded: true,
                           items: [
                             DropdownMenuItem<TransactionCategoryTitle>(
                               enabled: false,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
                                 child: Text(
                                   '${S.of(context).expenses}:',
                                   style: const TextStyle(
@@ -85,7 +86,8 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
                             DropdownMenuItem<TransactionCategoryTitle>(
                               enabled: false,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
                                 child: Text(
                                   "${S.of(context).income}:",
                                   style: const TextStyle(
@@ -136,26 +138,27 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
                     onPressed: () {
                       final amount = double.tryParse(amountController.text);
 
-                      if (amount != null) {
-                        context.read<AddRowCubit>().addRow(
-                              context,
-                              transactions: TransactionItem(
-                                category: state.selectedCategory,
-                                amount: amount,
-                                categoryTitle:
-                                    selectedCategoryTitle.name(context),
-                              ),
-                            );
-                        Navigator.pop(context);
-                      } else {
+                      if (amount == null || amount <= 0) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                           SnackBar(
+                          SnackBar(
                             content: Text(
-                              S.of(context).invalidAmountPleaseEnterAValidNumber,
+                              S.of(context).invalidAmountMustBeGreaterThanZero
                             ),
                           ),
                         );
+                        return;
                       }
+                      context.read<AddRowCubit>().addRow(
+                            category: selectedCategoryTitle,
+                            context,
+                            transactions: TransactionItem(
+                              category: state.selectedCategory,
+                              amount: amount,
+                              categoryTitle:
+                                  selectedCategoryTitle.name(context),
+                            ),
+                          );
+                      Navigator.pop(context);
                     },
                     child: Text(S.of(context).addCategory),
                   ),
@@ -170,7 +173,7 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
 }
 
 
-  // Helper function to determine if the category is an income
+
   bool _isIncome(TransactionCategoryTitle category) {
     return [
       TransactionCategoryTitle.salary,

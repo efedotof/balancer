@@ -47,7 +47,7 @@ class AppProviders {
           ),
         ),
         BlocProvider(
-          create: (context) => BudgetCubit(interface: budgetRepository),
+          create: (context) => BudgetCubit(interface: budgetRepository, goalsInterface: goalsRepository),
         ),
         BlocProvider(
           create: (context) => GoalsCubit(interface: goalsRepository),
@@ -57,9 +57,6 @@ class AppProviders {
         ),
         BlocProvider(
           create: (context) => NewTransactionCubit(),
-        ),
-        BlocProvider(
-          create: (context) => CreateTheGoalsCubit(),
         ),
         BlocProvider(
           create: (context) => TotalCubit(

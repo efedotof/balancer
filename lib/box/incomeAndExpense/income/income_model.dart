@@ -19,11 +19,20 @@ class Income extends HiveObject {
   @HiveField(4)
   List<DateTime> dates;
 
-  Income({
+  @HiveField(5)
+  String? subtitle;
+
+  @HiveField(6)
+  List<int>? iconD;
+
+  Income(
+  {
+    this.subtitle,
     required this.time,
     required this.amountIncome,
     required this.amounts,
     required this.names,
     required this.dates,
+    this.iconD
   });
 }

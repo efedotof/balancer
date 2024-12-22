@@ -58,8 +58,7 @@ class AddBudgetScreen extends StatelessWidget {
              onPressed: () {
                    if(context.read<BudgetProvider>().isPercentageSelected){
                     if(model.amountBudget > 0){
-                
-                      context.read<BudgetCubit>().addBudget(
+                      context.read<BudgetCubit>().addBudget( context,
                         amountBudget: model.amountBudget,
                         spent: model.spent,
                         left: model.expenses,

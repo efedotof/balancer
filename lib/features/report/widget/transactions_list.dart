@@ -20,20 +20,28 @@ class TransactionsList extends StatelessWidget {
         builder: (context, Box<Expense> box, _) {
           if (box.values.isNotEmpty) {
             return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(S.of(context).transactions, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                Text(
+                  S.of(context).transactions,
+                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
                 Column(
                   children: List.generate(
-                    box.values.toList().reversed.toList().length,
+                    box.values.length,
                     (index) {
-                      final Expense res = box.getAt(index)!;
+                      final Expense res = box.getAt(box.values.length - 1 - index)!;
                       return ExpansionTile(
                         title: Text(context.read<ReportCubit>().formatDate(res.time)),
                         children: List.generate(
                           res.names.length,
                           (index) => ListTile(
-                            title: Text(res.names[index]),
+                           leading:  res.iconD != null? Icon(IconData(res.iconD![index],  fontFamily: 'MaterialIcons')): null,
+                            // leading: Icon(IconData(
+                            //                     res.iconD != null? res.iconD![index]:  0,
+                            //                     fontFamily: 'MaterialIcons')),
+                            title: Text("${res.names[index]} "),
+                            subtitle:res.subtitle != null? Text(res.subtitle!): null,
                             trailing: Text(
                               '${res.amounts[index]} ₽',
                               style: const TextStyle(fontSize: 18),
@@ -59,18 +67,23 @@ class TransactionsList extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               const Text('Transactions', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                 Text(
+                  S.of(context).transactions,
+                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
                 Column(
                   children: List.generate(
-                    box.values.toList().reversed.toList().length,
+                    box.values.length,
                     (index) {
-                      final Income res = box.getAt(index)!;
+                      final Income res = box.getAt(box.values.length - 1 - index)!;
                       return ExpansionTile(
                         title: Text(context.read<ReportCubit>().formatDate(res.time)),
                         children: List.generate(
                           res.names.length,
                           (index) => ListTile(
-                            title: Text(res.names[index]),
+                           leading:  res.iconD != null? Icon(IconData(res.iconD![index],  fontFamily: 'MaterialIcons')): null,
+                            title: Text("${res.names[index]} "),
+                           subtitle:res.subtitle != null? Text(res.subtitle!): null,
                             trailing: Text(
                               ' ${res.amounts[index]} ₽',
                               style: const TextStyle(fontSize: 18),

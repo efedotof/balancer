@@ -18,7 +18,7 @@ class Goals extends HiveObject {
   final int goalsFilled;
 
   @HiveField(4)
-  final int percentageOfTheBudget;
+  final int? percentageOfTheBudget;
 
 
   @HiveField(5)

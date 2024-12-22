@@ -35,8 +35,9 @@ Future<void> saveGoalChanges(BuildContext context, {
   required Goals goal,
   required String newName,
   required int newAmount,
+  required int newPercentage, 
 }) async {
-  bool isUpdated = false;  
+  bool isUpdated = false;
 
   try {
     if (newName.isNotEmpty && newName != goal.nameGoals && newAmount > 0 && newAmount != goal.goalsAmount) {
@@ -54,6 +55,11 @@ Future<void> saveGoalChanges(BuildContext context, {
       }
     }
 
+    if (newPercentage != goal.percentageOfTheBudget) {
+      await _interface.updatePercentageOfTheBudget(goal, newPercentage);
+      isUpdated = true;
+    }
+
     toggleEditMode(isEditing: false);
 
     if (isUpdated && context.mounted) {
@@ -64,5 +70,12 @@ Future<void> saveGoalChanges(BuildContext context, {
     debugPrint('Error saving goal changes: $error');
   }
 }
+
+  Future<void> deleateToGoals(BuildContext context, {required Goals goals}) async {
+    _interface.removeBox(goals);
+    context.maybePop();
+    context.pushRoute(SuccessfullyRoute(subtitle: S.of(context).goalDeleted));
+  }
+
 
 }

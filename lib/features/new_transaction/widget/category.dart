@@ -37,10 +37,6 @@ extension TransactionCategoryTitleIncomeOrExpenses on TransactionCategory {
   }
 }
 
-
-
-
-
 extension TransactionCategoryTitleExtension on TransactionCategoryTitle {
   String name(BuildContext context) {
     switch (this) {
@@ -79,3 +75,42 @@ extension TransactionCategoryTitleExtension on TransactionCategoryTitle {
     }
   }
 }
+
+
+IconData getIcon(TransactionCategoryTitle category) {
+  switch (category) {
+    case TransactionCategoryTitle.salary:
+      return Icons.account_balance_wallet;
+    case TransactionCategoryTitle.gift:
+      return Icons.card_giftcard;
+    case TransactionCategoryTitle.investmentIncome:
+      return Icons.show_chart;
+    case TransactionCategoryTitle.freelance:
+      return Icons.laptop;
+    case TransactionCategoryTitle.otherIncome:
+      return Icons.attach_money;
+    case TransactionCategoryTitle.groceries:
+      return Icons.shopping_cart;
+    case TransactionCategoryTitle.transport:
+      return Icons.directions_car;
+    case TransactionCategoryTitle.entertainment:
+      return Icons.movie;
+    case TransactionCategoryTitle.health:
+      return Icons.local_hospital;
+    case TransactionCategoryTitle.utilities:
+      return Icons.lightbulb;
+    case TransactionCategoryTitle.rent:
+      return Icons.home;
+    case TransactionCategoryTitle.shopping:
+      return Icons.shopping_bag;
+    case TransactionCategoryTitle.education:
+      return Icons.school;
+    case TransactionCategoryTitle.travel:
+      return Icons.flight;
+    case TransactionCategoryTitle.savings:
+      return Icons.savings;
+    case TransactionCategoryTitle.otherExpense:
+      return Icons.receipt;
+  }
+}
+

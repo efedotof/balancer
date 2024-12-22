@@ -26,7 +26,7 @@ class GoalModeSelector extends StatelessWidget {
                       : Colors.grey[200],
                   child:  Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Center(child: Text(S.of(context).manual)),
+                    child: Center(child: Text(S.of(context).manual, style: TextStyle(color: mode == GoalMode.manual? Colors.white: Colors.black ),)),
                   ),
                 ),
               ),
@@ -44,7 +44,7 @@ class GoalModeSelector extends StatelessWidget {
                       : Colors.grey[200],
                   child:  Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Center(child: Text(S.of(context).percentage)),
+                    child: Center(child: Text(S.of(context).percentage, style: TextStyle(color: mode == GoalMode.percentage? Colors.white: Colors.black),)),
                   ),
                 ),
               ),

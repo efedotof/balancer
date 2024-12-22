@@ -21,7 +21,7 @@ class GoalsAdapter extends TypeAdapter<Goals> {
       goalsAmount: fields[1] as int,
       spentAmount: fields[2] as int,
       goalsFilled: fields[3] as int,
-      percentageOfTheBudget: fields[4] as int,
+      percentageOfTheBudget: fields[4] as int?,
       amounts: (fields[5] as List).cast<int>(),
       namesTrans: (fields[6] as List).cast<String>(),
       dates: (fields[7] as List).cast<DateTime>(),

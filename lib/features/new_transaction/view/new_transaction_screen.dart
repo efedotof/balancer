@@ -12,7 +12,11 @@ class NewTransactionScreen extends StatelessWidget {
     TransactionCategory categorys = TransactionCategory.values.first;
     return Scaffold(
       appBar: AppBar(
-        title:  Text(S.of(context).newTransaction),
+        title: Text(S.of(context).newTransaction),
+        leading: IconButton(onPressed: (){
+          context.maybePop();
+          context.read<AddRowCubit>().transToClean(context);
+        }, icon: const Icon(Icons.arrow_back_ios)),
         actions: [
           TextButton(
             onPressed: () {
@@ -20,7 +24,8 @@ class NewTransactionScreen extends StatelessWidget {
                   .read<TotalCubit>()
                   .addBox(context: context, category: categorys);
             },
-            child:  Text(S.of(context).save, style: const TextStyle(color: Colors.blue)),
+            child: Text(S.of(context).save,
+                style: const TextStyle(color: Colors.blue)),
           ),
         ],
       ),
@@ -43,15 +48,13 @@ class NewTransactionScreen extends StatelessWidget {
                             .selectCategory(category);
 
                         if (category == TransactionCategory.income) {
-                          context
-                              .read<TotalCubit>()
-                              .updateLeftAndSpent(100); 
+                          context.read<TotalCubit>().updateLeftAndSpent(100);
                         }
                       },
                       child: Column(
                         children: [
                           Text(
-                             category.name(context),
+                            category.name(context),
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -71,12 +74,12 @@ class NewTransactionScreen extends StatelessWidget {
                   }).toList(),
                 ),
                 const SizedBox(height: 16),
-       
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                     Text(
+                    Text(
                       S.of(context).amount,
                       style: const TextStyle(
                         fontSize: 20,
@@ -103,14 +106,14 @@ class NewTransactionScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 16),
-               
+
                 ListTile(
                   leading: const Icon(Icons.calendar_today),
                   title: Text(state.selectedDate == null
                       ? 'Today, ${TimeOfDay.now().format(context)}'
                       : '${state.selectedDate!.toLocal()}'),
                   onTap: () async {
-                    // Show date picker
+        
                     final selectedDate = await showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
@@ -119,9 +122,7 @@ class NewTransactionScreen extends StatelessWidget {
                     );
 
                     if (selectedDate != null && context.mounted) {
-
                       final selectedTime = await showTimePicker(
-
                         context: context,
                         initialTime: TimeOfDay.now(),
                       );
@@ -146,18 +147,17 @@ class NewTransactionScreen extends StatelessWidget {
                 const SizedBox(height: 16),
                 BlocBuilder<AddRowCubit, AddRowState>(
                   builder: (context, state) {
-                    final state = context.read<AddRowCubit>().state;
                     return state.when(
-                      initial: () => const Center(
-                        child: Text('Добавьте категорию'),
+                      initial: () => Center(
+                        child: Text(S.of(context).Add_a_category),
                       ),
-                      addrow: (category) => Wrap(
-                        children: List.generate(category.length, (index) {
+                      addrow: (category, transaction) => Wrap(
+                        children: List.generate(transaction.length, (index) {
                           return ListTile(
-                            leading: const Icon(Icons.fastfood),
-                            title: Text(category[index].categoryTitle),
+                            leading: Icon(getIcon(category[index])),
+                            title: Text(transaction[index].categoryTitle),
                             trailing: Text(
-                              "${category[index].amount.toInt()} ₽",
+                              "${transaction[index].amount.toInt()} ₽",
                               style: const TextStyle(
                                 fontSize: 20,
                               ),
@@ -166,13 +166,13 @@ class NewTransactionScreen extends StatelessWidget {
                           );
                         }),
                       ),
-                      updateRow: (category) => Wrap(
-                        children: List.generate(category.length, (index) {
+                      updateRow: (category, transaction) => Wrap(
+                        children: List.generate(transaction.length, (index) {
                           return ListTile(
-                            leading: const Icon(Icons.fastfood),
-                            title: Text(category[index].categoryTitle),
+                            leading: Icon(getIcon(category[index])),
+                            title: Text(transaction[index].categoryTitle),
                             trailing: Text(
-                              "${category[index].amount.toInt()} ₽",
+                              "${transaction[index].amount.toInt()} ₽",
                               style: const TextStyle(
                                 fontSize: 20,
                               ),
@@ -190,7 +190,7 @@ class NewTransactionScreen extends StatelessWidget {
                       .read<NewTransactionCubit>()
                       .addCategory(context: context),
                   icon: const Icon(Icons.add),
-                  label:  Text(S.of(context).addNewRow),
+                  label: Text(S.of(context).addNewRow),
                 ),
                 const SizedBox(height: 16),
                 BlocBuilder<AddNewTransactionsToGoalCubit,
@@ -201,13 +201,15 @@ class NewTransactionScreen extends StatelessWidget {
                     return state.when(
                       initial: () => const SizedBox.shrink(),
                       newTransactionsToEmpty: () => const SizedBox.shrink(),
-                      addNewTransactions: (icond, name) => ListTile(
+                      addNewTransactions: (icond, name, target) => ListTile(
                         title: Text(name),
+                        subtitle: Text(target),
                         trailing:
                             Icon(IconData(icond, fontFamily: 'MaterialIcons')),
                       ),
-                      updateNewTransactions: (icond, name) => ListTile(
+                      updateNewTransactions: (icond, name, target) => ListTile(
                           title: Text(name),
+                          subtitle: Text(target),
                           trailing: Icon(
                               IconData(icond, fontFamily: 'MaterialIcons'))),
                     );
@@ -215,12 +217,13 @@ class NewTransactionScreen extends StatelessWidget {
                 ),
                 TextButton.icon(
                   onPressed: () {
-                    context.read<AddNewTransactionsToGoalCubit>().addTransactions(context);
+                    context
+                        .read<AddNewTransactionsToGoalCubit>()
+                        .addTransactions(context);
                   },
                   icon: const Icon(Icons.add),
-                  label:  Text(S.of(context).addNewTransactionsToGoals),
+                  label: Text(S.of(context).addNewTransactionsToGoals),
                 ),
-
                 const SizedBox(height: 16),
                 // Recurring
               ],

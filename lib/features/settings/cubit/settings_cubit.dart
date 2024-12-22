@@ -90,4 +90,51 @@ class SettingsCubit extends Cubit<SettingsState> {
   void pushAbout(BuildContext context) {
     context.pushRoute(const AboutRoute());
   }
+
+ void selectLanguage(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+    ),
+    builder: (BuildContext context) {
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+             Text(
+              S.of(context).language,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16),
+            ListTile(
+              leading: const Icon(Icons.language),
+              title:  Text(S.of(context).russian),
+              onTap: () {
+                context.read<LanguageCubit>().setLocale('ru');
+
+                context.maybePop();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.language),
+              title:  Text(S.of(context).english),
+              onTap: () {
+                context.read<LanguageCubit>().setLocale('en');
+                context.maybePop();
+              },
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+
 }

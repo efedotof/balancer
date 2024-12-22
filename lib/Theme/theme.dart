@@ -30,6 +30,7 @@ final dartTheme = ThemeData(
     displayMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
     labelLarge: TextStyle(
         fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+         labelSmall: TextStyle(color: Colors.black, fontSize: 25)
   ),
   cardTheme: const CardTheme(
     color: Color(0xFF333333),
@@ -58,25 +59,31 @@ final lightTheme = ThemeData(
       )),
   primaryColor: Colors.white,
   hintColor: Colors.blueGrey,
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: const Color(0xFFF5F8FF),
   fontFamily: 'Roboto',
   textTheme: const TextTheme(
     displayLarge: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
     displayMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
     labelLarge: TextStyle(
         fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+        labelSmall: TextStyle(color: Colors.black, fontSize: 25)
   ),
   cardTheme: const CardTheme(
-    color: Colors.white,
+    color: Color(0xFFFFFFFF),
   ),
   appBarTheme: const AppBarTheme(
     color: Colors.white,
     elevation: 0,
     iconTheme: IconThemeData(color: Colors.black),
+    titleTextStyle: TextStyle(color: Colors.black, fontSize: 22)
   ),
   buttonTheme: ButtonThemeData(
     buttonColor: Colors.blue,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
   ),
+
+  
+
+
 );

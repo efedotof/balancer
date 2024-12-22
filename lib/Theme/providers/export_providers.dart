@@ -27,6 +27,5 @@ export 'package:balancer/features/new_transaction/cubit/cubit/add_new_transactio
 export 'package:balancer/features/new_transaction/cubit/cubit/providers/add_new_goals_provider.dart';
 export 'package:balancer/features/home/view/goals_add_budget/cubit/goals_add_edit_cubit.dart';
 export 'package:flutter/services.dart';
-export 'package:balancer/features/home/view/goal_setting/cubit/create_the_goals_cubit.dart';
 export 'package:balancer/Theme/language/cubit/language_cubit.dart';
 export 'package:balancer/Theme/language/repository/language_repository.dart';

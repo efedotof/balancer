@@ -21,9 +21,6 @@ class GoalSettingsState with _$GoalSettingsState {
         isValid: false,
         codes: 984246,
       );
-
-
-      
 }
 
 enum GoalMode { manual, percentage }

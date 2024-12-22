@@ -60,6 +60,8 @@ class IncomeAndExpenseRepository implements IncomeAndExpenseInterface {
     required DateTime time,
     required int amountExpense,
     required List<Transactions> transExpense,
+    required String? subtitle,
+    required List<int>? iconD
   }) async {
     var box = Hive.box<Expense>(boxInitNameExpense);
     debugPrint('transExpense ^ $transExpense');
@@ -75,11 +77,13 @@ class IncomeAndExpenseRepository implements IncomeAndExpenseInterface {
     }
 
     box.add(Expense(
+      subtitle: subtitle,
       time: time,
       amountExpense: amountExpense,
       amounts: amounts,
       names: names,
       dates: dates,
+      iconD: iconD,
     ));
   }
 
@@ -88,6 +92,8 @@ class IncomeAndExpenseRepository implements IncomeAndExpenseInterface {
     required DateTime time,
     required int amountIncome,
     required List<Transactions> transIncome,
+    required String? subtitle,
+    required List<int>? iconD
   }) async {
     var box = Hive.box<Income>(boxInitName);
     debugPrint('transIncome ^ $transIncome');
@@ -103,11 +109,13 @@ class IncomeAndExpenseRepository implements IncomeAndExpenseInterface {
     }
 
     box.add(Income(
+      subtitle: subtitle,
       time: time,
       amountIncome: amountIncome,
       amounts: amounts,
       names: names,
       dates: dates,
+      iconD: iconD,
     ));
   }
 

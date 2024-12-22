@@ -94,5 +94,16 @@
   "transaction_added": "Транзакция добавлена",
   "analytics": "Аналитика",
   "noGoalsAvailable": "Нет подходящих целей",
-  "AddGoals": "Добавить цель"
+  "AddGoals": "Добавить цель",
+  "Add_a_category": "Добавьте категорию",
+  "goalDeleted": "Цель удалена",
+  "periodicRate": "Периодическая ставка",
+  "budgetAllocation": "Бюджетные ассигнования",
+  "russian": "Русский",
+  "english": "Английский",
+  "language": "Язык",
+  "invalidAmountMustBeGreaterThanZero": "Недопустимая сумма должна быть больше нуля",
+  "myGoals": "Мои цели",
+  "target": "Цель",
+  "theme": "Тема"
 }

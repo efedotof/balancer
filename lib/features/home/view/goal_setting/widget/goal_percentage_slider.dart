@@ -1,3 +1,4 @@
+import 'package:balancer/Theme/providers/export_providers.dart';
 import 'package:balancer/features/home/view/goal_setting/cubit/goal_settings_cubit.dart';
 import 'package:balancer/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class GoalPercentageSlider extends StatelessWidget {
                 value: state.percentage ?? 0,
                 onChanged: (value) {
                   context.read<GoalSettingsCubit>().updatePercentage(value);
+                  context.read<GoalsProvider>().changePercentage(newPercentage: value);
                 },
                 min: 0,
                 max: 100,

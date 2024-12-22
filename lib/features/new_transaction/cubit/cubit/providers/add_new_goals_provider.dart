@@ -10,7 +10,10 @@ class AddNewGoalsProvider with ChangeNotifier {
   
   }
 
-
+  void goalsSelectToClean(){
+    goalsToSelected = null;
+    notifyListeners();
+  }
 
 
 

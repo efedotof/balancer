@@ -17,18 +17,20 @@ class IncomeAdapter extends TypeAdapter<Income> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Income(
+      subtitle: fields[5] as String?,
       time: fields[0] as DateTime,
       amountIncome: fields[1] as int,
       amounts: (fields[2] as List).cast<int>(),
       names: (fields[3] as List).cast<String>(),
       dates: (fields[4] as List).cast<DateTime>(),
+      iconD: (fields[6] as List?)?.cast<int>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Income obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.time)
       ..writeByte(1)
@@ -38,7 +40,11 @@ class IncomeAdapter extends TypeAdapter<Income> {
       ..writeByte(3)
       ..write(obj.names)
       ..writeByte(4)
-      ..write(obj.dates);
+      ..write(obj.dates)
+      ..writeByte(5)
+      ..write(obj.subtitle)
+      ..writeByte(6)
+      ..write(obj.iconD);
   }
 
   @override

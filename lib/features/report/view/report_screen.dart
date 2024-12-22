@@ -10,14 +10,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 @RoutePage()
 class ReportScreen extends StatelessWidget {
   const ReportScreen({super.key});
+  
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1F1F1F),
         elevation: 0,
-        title: Text(S.of(context).reply, style: const TextStyle(color: Colors.white)),
+        title: Padding(
+          padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.05),
+          child: Text(S.of(context).reply,),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -65,7 +71,7 @@ class ReportScreen extends StatelessWidget {
                                 selectedCategory == TransactionCategory.income
                                     ? S.of(context).there_is_no_income
                                     : S.of(context).t_no,
-                                style: const TextStyle(fontSize: 18, color: Colors.grey),
+                                style: const TextStyle(fontSize: 18, ),
                               ),
                             );
                           }

@@ -1000,11 +1000,121 @@ class S {
     );
   }
 
-  /// `Добавить цель`
+  /// `Add a goal`
   String get AddGoals {
     return Intl.message(
-      'Добавить цель',
+      'Add a goal',
       name: 'AddGoals',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add a category`
+  String get Add_a_category {
+    return Intl.message(
+      'Add a category',
+      name: 'Add_a_category',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Goal deleted`
+  String get goalDeleted {
+    return Intl.message(
+      'Goal deleted',
+      name: 'goalDeleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Periodic rate`
+  String get periodicRate {
+    return Intl.message(
+      'Periodic rate',
+      name: 'periodicRate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Budget Allocation`
+  String get budgetAllocation {
+    return Intl.message(
+      'Budget Allocation',
+      name: 'budgetAllocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Russian`
+  String get russian {
+    return Intl.message(
+      'Russian',
+      name: 'russian',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message(
+      'English',
+      name: 'english',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid amount must be greater than Zero`
+  String get invalidAmountMustBeGreaterThanZero {
+    return Intl.message(
+      'Invalid amount must be greater than Zero',
+      name: 'invalidAmountMustBeGreaterThanZero',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My goals`
+  String get myGoals {
+    return Intl.message(
+      'My goals',
+      name: 'myGoals',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Target`
+  String get target {
+    return Intl.message(
+      'Target',
+      name: 'target',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Theme`
+  String get theme {
+    return Intl.message(
+      'Theme',
+      name: 'theme',
       desc: '',
       args: [],
     );
