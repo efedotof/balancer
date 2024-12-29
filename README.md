@@ -10,9 +10,11 @@ If you want to better understand where your money is going, plan your budget, an
 
 # Images
 
-<img  width = '200' heigth = '200' src ='https://github.com/user-attachments/assets/b07e3ef7-0100-4447-b058-eef11cd79ee2' />
-<img  width = '200' heigth = '200' src ='https://github.com/user-attachments/assets/dc7d61d1-6151-4822-a27c-6e3c29de4926' />
-<img  width = '200' heigth = '200' src ='https://github.com/user-attachments/assets/b9ef6bd9-1da0-4ceb-9e9c-c4ab0a0cf73a' />
+<img  width = '100%' heigth = '300' src ='https://github.com/user-attachments/assets/90ce1354-a7e5-4943-9fd0-bf7129f05a3f' />
+<img  width = '200' heigth = '200' src ='https://github.com/user-attachments/assets/80ea7c9e-9377-4678-91b7-186388b120a8'/>
+<img  width = '200' heigth = '200' src ='https://github.com/user-attachments/assets/65e4f73f-86a1-4c81-800f-ce42edc02e19'/> 
+<img  width = '200' heigth = '200' src='https://github.com/user-attachments/assets/d8d3790b-c0de-4747-bbc5-1bbd394e95f9'/>
+
 
 # Downloads
 
