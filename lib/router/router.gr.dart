@@ -10,6 +10,109 @@
 part of 'router.dart';
 
 /// generated route for
+/// [AboutScreen]
+class AboutRoute extends PageRouteInfo<void> {
+  const AboutRoute({List<PageRouteInfo>? children})
+      : super(
+          AboutRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AboutRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AboutScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [AddBudgetScreen]
+class AddBudgetRoute extends PageRouteInfo<void> {
+  const AddBudgetRoute({List<PageRouteInfo>? children})
+      : super(
+          AddBudgetRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AddBudgetRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AddBudgetScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [GoalAddScreen]
+class GoalAddRoute extends PageRouteInfo<void> {
+  const GoalAddRoute({List<PageRouteInfo>? children})
+      : super(
+          GoalAddRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'GoalAddRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const GoalAddScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [GoalsSettingsScreen]
+class GoalsSettingsRoute extends PageRouteInfo<GoalsSettingsRouteArgs> {
+  GoalsSettingsRoute({
+    Key? key,
+    required Goals res,
+    List<PageRouteInfo>? children,
+  }) : super(
+          GoalsSettingsRoute.name,
+          args: GoalsSettingsRouteArgs(
+            key: key,
+            res: res,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'GoalsSettingsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<GoalsSettingsRouteArgs>();
+      return GoalsSettingsScreen(
+        key: args.key,
+        res: args.res,
+      );
+    },
+  );
+}
+
+class GoalsSettingsRouteArgs {
+  const GoalsSettingsRouteArgs({
+    this.key,
+    required this.res,
+  });
+
+  final Key? key;
+
+  final Goals res;
+
+  @override
+  String toString() {
+    return 'GoalsSettingsRouteArgs{key: $key, res: $res}';
+  }
+}
+
+/// generated route for
 /// [HomeMainScreen]
 class HomeMainRoute extends PageRouteInfo<void> {
   const HomeMainRoute({List<PageRouteInfo>? children})
@@ -43,6 +146,77 @@ class HomeRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const HomeScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ItemsScreen]
+class ItemsRoute extends PageRouteInfo<ItemsRouteArgs> {
+  ItemsRoute({
+    Key? key,
+    required String title,
+    required String subtitle,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ItemsRoute.name,
+          args: ItemsRouteArgs(
+            key: key,
+            title: title,
+            subtitle: subtitle,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ItemsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ItemsRouteArgs>();
+      return ItemsScreen(
+        key: args.key,
+        title: args.title,
+        subtitle: args.subtitle,
+      );
+    },
+  );
+}
+
+class ItemsRouteArgs {
+  const ItemsRouteArgs({
+    this.key,
+    required this.title,
+    required this.subtitle,
+  });
+
+  final Key? key;
+
+  final String title;
+
+  final String subtitle;
+
+  @override
+  String toString() {
+    return 'ItemsRouteArgs{key: $key, title: $title, subtitle: $subtitle}';
+  }
+}
+
+/// generated route for
+/// [NewTransactionScreen]
+class NewTransactionRoute extends PageRouteInfo<void> {
+  const NewTransactionRoute({List<PageRouteInfo>? children})
+      : super(
+          NewTransactionRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'NewTransactionRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const NewTransactionScreen();
     },
   );
 }
@@ -83,4 +257,50 @@ class SettingsRoute extends PageRouteInfo<void> {
       return const SettingsScreen();
     },
   );
+}
+
+/// generated route for
+/// [SuccessfullyScreen]
+class SuccessfullyRoute extends PageRouteInfo<SuccessfullyRouteArgs> {
+  SuccessfullyRoute({
+    Key? key,
+    required String subtitle,
+    List<PageRouteInfo>? children,
+  }) : super(
+          SuccessfullyRoute.name,
+          args: SuccessfullyRouteArgs(
+            key: key,
+            subtitle: subtitle,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'SuccessfullyRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<SuccessfullyRouteArgs>();
+      return SuccessfullyScreen(
+        key: args.key,
+        subtitle: args.subtitle,
+      );
+    },
+  );
+}
+
+class SuccessfullyRouteArgs {
+  const SuccessfullyRouteArgs({
+    this.key,
+    required this.subtitle,
+  });
+
+  final Key? key;
+
+  final String subtitle;
+
+  @override
+  String toString() {
+    return 'SuccessfullyRouteArgs{key: $key, subtitle: $subtitle}';
+  }
 }

@@ -1,0 +1,47 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:balancer/Theme/providers/export_providers.dart';
+import 'package:balancer/box/goals/goals.dart';
+import 'package:balancer/generated/l10n.dart';
+
+import '../widget/widget.dart';
+
+@RoutePage()
+class GoalsSettingsScreen extends StatelessWidget {
+  const GoalsSettingsScreen({super.key, required this.res});
+
+  final Goals res;
+
+  bool less(int income, int expense) {
+    return income <= expense;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title:  Text(S.of(context).details),
+        leading: IconButton(
+            onPressed: () {
+              context.maybePop();
+              context.read<GoalsSettingsEditCubit>().toggleEditMode(isEditing: false);
+            },
+            icon: const Icon(Icons.arrow_back_ios)),
+        actions: [
+          BlocBuilder<GoalsSettingsEditCubit, GoalsSettingsEditState>(
+            builder: (context, state) {
+            final state = context.read<GoalsSettingsEditCubit>().state;
+              return state.when(noEdit: () => const SizedBox.shrink(), edit: ()=> TextButton(onPressed: () => context.read<GoalsSettingsEditCubit>().toggleEditMode(isEditing: false), child:  Text(S.of(context).close)));
+            },
+          )
+        ],
+      ),
+      body:  BlocBuilder<GoalsSettingsEditCubit, GoalsSettingsEditState>(
+        builder: (context, state) {
+          final state = context.read<GoalsSettingsEditCubit>().state;
+          return state.when(
+              noEdit: () => NoEdit(res: res), edit: () => Edit(res: res));
+        },
+      ),
+    );
+  }
+}

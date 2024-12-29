@@ -1,7 +1,8 @@
 import 'dart:developer';
 
-import 'package:balancer/constants.dart';
+import 'package:balancer/Theme/constants/constants.dart';
 import 'package:balancer/features/home/cubit/home_cubit.dart';
+import 'package:balancer/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,18 +26,34 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
 
   void _validateFields() {
     setState(() {
-      _amountColor = _amountController.text.isEmpty ? Colors.red : Colors.grey;
-      _dateColor = _selectedDate == null
-          ? Colors.grey
-          : Colors.grey; 
+      _amountColor =
+          _isValidAmount(_amountController.text) ? Colors.grey : Colors.red;
+      _dateColor = _selectedDate == null ? Colors.red : Colors.grey;
       _categoryColor = _selectedCategory == null ? Colors.red : Colors.grey;
 
       _selectedDate ??= DateTime.now();
     });
   }
 
-  bool _hasValidPrefix(String value) {
-    return value.startsWith('+') || value.startsWith('-');
+  bool _isValidAmount(String value) {
+    if (!value.startsWith('+') && !value.startsWith('-')) {
+      value = '+$value';
+    }
+
+    final RegExp regex = RegExp(r'^[+-]\d*\.?\d{0,2}$');
+    if (!regex.hasMatch(value)) {
+      return false;
+    }
+
+    String amountStr = value.substring(1);
+    double amount;
+    try {
+      amount = double.parse(amountStr.isEmpty ? '0' : amountStr);
+    } catch (e) {
+      return false;
+    }
+
+    return amount <= _maxAmount;
   }
 
   @override
@@ -62,7 +79,7 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
                         style: TextStyle(color: _amountColor),
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          hintText: '+/- Сумма*',
+                          hintText: S.of(context).plus_or_minus_amount,
                           hintStyle: TextStyle(color: _amountColor),
                           suffixText: '₽',
                           suffixStyle: TextStyle(color: _amountColor),
@@ -75,9 +92,9 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
                         ),
                         onChanged: (value) {
                           setState(() {
-                            _amountColor = (value.isEmpty || !_hasValidPrefix(value))
-                                ? Colors.red
-                                : Colors.grey;
+                            _amountColor = _isValidAmount(value)
+                                ? Colors.grey
+                                : Colors.red;
                           });
                         },
                       ),
@@ -124,7 +141,6 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
                       ),
                     ),
                     const SizedBox(height: 20),
-   
                     Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 5, horizontal: 15),
@@ -138,7 +154,7 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
                           value: _selectedCategory,
-                          hint: Text("Выберите категорию*",
+                          hint: Text(S.of(context).select_category,
                               style: TextStyle(color: _categoryColor)),
                           icon: const Icon(Icons.arrow_drop_down,
                               color: Colors.grey),
@@ -160,9 +176,6 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
                       ),
                     ),
                     const SizedBox(height: 20),
-        
-                    const SizedBox(height: 20),
-           
                     BlocBuilder<HomeCubit, HomeState>(
                       builder: (context, state) {
                         if (state is AddNewBox) {
@@ -205,9 +218,9 @@ class _AddTransactionModelState extends State<AddTransactionModel> {
                               height: 50,
                               padding: const EdgeInsets.all(10),
                               alignment: Alignment.center,
-                              child: const Text(
-                                'Добавить новую транзакцию',
-                                style: TextStyle(color: Colors.white),
+                              child:  Text(
+                                S.of(context).add_new_transaction,
+                                style: const TextStyle(color: Colors.white),
                               ),
                             ),
                           );

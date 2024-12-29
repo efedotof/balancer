@@ -26,12 +26,4 @@ class FilterSelected extends HomeState {
   List<Object?> get props => [selectedIndex];
 }
 
-class TransactionsFiltered extends HomeState {
-  final List<Transaction> transactions;
-
-  const TransactionsFiltered({required this.transactions});
-
-  @override
-  List<Object> get props => [transactions];
-}
 
