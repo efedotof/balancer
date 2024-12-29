@@ -1,5 +1,6 @@
 <img  width = '100%' heigth = '300' src ='https://github.com/user-attachments/assets/90ce1354-a7e5-4943-9fd0-bf7129f05a3f' />
 # Description
+
 Balancer is a simple and convenient app for tracking your finances. In today’s world, where money can slip through your fingers, it's crucial to have a tool that helps you manage your finances. Balancer is your reliable assistant in this matter.
 
 With Balancer, you can easily log your expenses manually, categorize them, and always stay aware of where your money is going. This app allows you to track all your financial transactions, whether it's daily purchases, major expenses, or regular payments.
