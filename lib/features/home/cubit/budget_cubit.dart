@@ -12,9 +12,11 @@ part 'budget_state.dart';
 part 'budget_cubit.freezed.dart';
 
 class BudgetCubit extends Cubit<BudgetState> {
-  BudgetCubit({required GoalsInterface goalsInterface
-  ,required BudgetInterface interface})
-      : _goalsInterface = goalsInterface, _interface = interface,
+  BudgetCubit(
+      {required GoalsInterface goalsInterface,
+      required BudgetInterface interface})
+      : _goalsInterface = goalsInterface,
+        _interface = interface,
         super(const BudgetState.initial()) {
     getBudget();
   }
@@ -22,11 +24,10 @@ class BudgetCubit extends Cubit<BudgetState> {
   final BudgetInterface _interface;
   final GoalsInterface _goalsInterface;
 
- Future<void> getBudget() async {
+  Future<void> getBudget() async {
     try {
       final box = Hive.box<Budget>('Budget_box');
       final now = DateTime.now();
-
 
       if (now.day == 1) {
         emit(const BudgetState.empty());
@@ -43,7 +44,6 @@ class BudgetCubit extends Cubit<BudgetState> {
             spent: budget.spent,
             left: budget.left,
           ));
-
         } else {
           debugPrint('error');
         }
@@ -53,86 +53,85 @@ class BudgetCubit extends Cubit<BudgetState> {
     }
   }
 
+  Future<void> addBudget(
+    BuildContext context, {
+    required double amountBudget,
+    required double spent,
+    required double left,
+    required double expenses,
+  }) async {
+    try {
+      _interface.boxAdd(amountBudget, spent, left, expenses);
 
+      final box = Hive.box<Budget>('Budget_box');
+      final budget = box.isNotEmpty ? box.getAt(box.length - 1) : null;
 
-
-Future<void> addBudget(
-  BuildContext context, {
-  required int amountBudget,
-  int? spent,
-  int? left,
-  int? expenses,
-}) async {
-  try {
-    // Добавляем бюджет в хранилище
-    _interface.boxAdd(amountBudget, spent, left, expenses);
-
-    // Получаем последний добавленный бюджет
-    final box = Hive.box<Budget>('Budget_box');
-    final budget = box.isNotEmpty ? box.getAt(box.length - 1) : null;
-
-    if (budget == null) {
-      debugPrint('Ошибка: Не удалось получить последний бюджет.');
-      return;
-    }
-
-    // Обновляем состояние
-    emit(BudgetState.updateBudget(
-      budgetAmount: budget.amountBudget,
-      spent: budget.spent,
-      left: budget.left,
-    ));
-
-    // Получаем цели с процентами от бюджета
-    final goalsWithPercentage = await _goalsInterface.getGoalsWithPercentageOfTheBudget();
-
-    for (var goal in goalsWithPercentage) {
-      final percentage = goal.percentageOfTheBudget ?? 0;
-      final allocatedAmount = (amountBudget * percentage / 100).toInt();
-
-      if (context.mounted) {
-        // Добавляем транзакцию к цели
-        await _goalsInterface.addTransactionToGoal(
-          goal,
-          [allocatedAmount],
-          [S.of(context).budgetAllocation],
-          [DateTime.now()],
-          TransactionCategory.income,
-        );
+      if (budget == null) {
+        debugPrint('Ошибка: Не удалось получить последний бюджет.');
+        return;
       }
 
-      debugPrint('Распределено $allocatedAmount на цель: ${goal.nameGoals}');
+      emit(BudgetState.updateBudget(
+        budgetAmount: budget.amountBudget,
+        spent: budget.spent,
+        left: budget.left,
+      ));
+
+      final goalsWithPercentage =
+          await _goalsInterface.getGoalsWithPercentageOfTheBudget();
+      if (goalsWithPercentage.isNotEmpty) {
+        for (var goal in goalsWithPercentage) {
+          final percentage = goal.percentageOfTheBudget ?? 0;
+          final allocatedAmount = (amountBudget * percentage / 100);
+
+          if (context.mounted) {
+            await _goalsInterface.addTransactionToGoal(
+              goal: goal,
+              amounts: [allocatedAmount],
+              namesTrans: [S.of(context).budgetAllocation],
+              dates: [DateTime.now()],
+              arbDateTransName: ['budgetAllocation'],
+              category: TransactionCategory.income,
+              incomeOrExpenses: List.filled(1, false),
+            );
+          }
+
+          debugPrint(
+              'Распределено $allocatedAmount на цель: ${goal.nameGoals}');
+        }
+
+        double allocatedAmountTotal = goalsWithPercentage.fold(
+          0,
+          (sum, goal) =>
+              sum +
+              ((amountBudget * (goal.percentageOfTheBudget ?? 0) / 100)
+                  .toInt()),
+        );
+
+        if (allocatedAmountTotal != 0) {
+          _interface.replaceBudgetValues(
+            amount: allocatedAmountTotal,
+            category: TransactionCategory.expenses,
+          );
+          updateBudget();
+        }
+      }
+    } catch (e, stackTrace) {
+      debugPrint('Ошибка в addBudget: $e\n$stackTrace');
     }
-
-    // Обновляем значения бюджета
-    int allocatedAmountTotal = goalsWithPercentage.fold(
-      0,
-      (sum, goal) => sum + ((amountBudget * (goal.percentageOfTheBudget ?? 0) / 100).toInt()),
-    );
-
-    _interface.replaceBudgetValues(
-      newAmountBudget: budget.amountBudget - allocatedAmountTotal,
-      newLeft: (budget.left ?? 0) - allocatedAmountTotal,
-      newSpent: (budget.spent ?? 0) + allocatedAmountTotal,
-    );
-    updateBudget();
-  } catch (e, stackTrace) {
-    debugPrint('Ошибка в addBudget: $e\n$stackTrace');
   }
-}
-
 
   Future<void> updateBudget() async {
     try {
-     final box = Hive.box<Budget>('Budget_box');
-      final budget = box.getAt(box.length - 1); 
-      if(budget != null){
-          emit(BudgetState.updateBudget(
-           budgetAmount: budget.amountBudget,
+      final box = Hive.box<Budget>('Budget_box');
+      final budget = box.getAt(box.length - 1);
+      if (budget != null) {
+        emit(BudgetState.updateBudget(
+          budgetAmount: budget.amountBudget,
           spent: budget.spent,
-          left: budget.left,));  
+          left: budget.left,
+        ));
       }
-    
     } catch (e) {
       debugPrint('error to update budget: $e');
     }

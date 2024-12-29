@@ -8,7 +8,7 @@ part of 'statistics.dart';
 
 class StatisticsAdapter extends TypeAdapter<Statistics> {
   @override
-  final int typeId = 3;
+  final int typeId = 0;
 
   @override
   Statistics read(BinaryReader reader) {
@@ -17,8 +17,8 @@ class StatisticsAdapter extends TypeAdapter<Statistics> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Statistics(
-      amountExpenses: fields[0] as int,
-      amountIncome: fields[1] as int,
+      amountExpenses: fields[0] as double,
+      amountIncome: fields[1] as double,
     );
   }
 

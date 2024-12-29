@@ -1,4 +1,5 @@
 import 'package:balancer/box/incomeAndExpense/repository/income_and_expense_interface.dart';
+import 'package:balancer/features/new_transaction/widget/category.dart';
 import 'package:bloc/bloc.dart';
 import 'package:easy_pie_chart/easy_pie_chart.dart';
 import 'package:flutter/material.dart';
@@ -35,8 +36,8 @@ class ChartCubit extends Cubit<ChartState> {
   }
 
 
-  Map<String, int> _adjustCategoryStats(Map<String, int> stats, String category) {
-    Map<String, int> adjustedStats = {};
+  Map<String, double> _adjustCategoryStats(Map<String, double> stats, String category) {
+    Map<String, double> adjustedStats = {};
 
     stats.forEach((name, amount) {
       adjustedStats[name] = amount; 
@@ -46,9 +47,9 @@ class ChartCubit extends Cubit<ChartState> {
   }
 
 
-  String getCenterText(Map<String, int> stats, String category) {
+  String getCenterText(Map<String, double> stats, String category) {
     bool allZero = stats.values.every((value) => value == 0);
-    int total = stats.values.reduce((a, b) => a + b);
+    double total = stats.values.reduce((a, b) => a + b);
 
     if (allZero) {
       return 'No data'; 
@@ -58,7 +59,7 @@ class ChartCubit extends Cubit<ChartState> {
   }
 
 
-  List<PieData> generatePieData(Map<String, int> stats, List<Color> sectionColors) {
+  List<PieData> generatePieData(Map<String, double> stats, List<Color> sectionColors) {
     int colorIndex = 0;
     return stats.entries.map((entry) {
       final color = sectionColors[colorIndex % sectionColors.length];
@@ -71,9 +72,12 @@ class ChartCubit extends Cubit<ChartState> {
   }
 
 
-  List<Widget> colorCategoryWidgets(Map<String, int> stats, int total, List<Color> sectionColors) {
+  List<Widget> colorCategoryWidgets(BuildContext context, Map<String, double> stats, double total, List<Color> sectionColors) {
     int colorIndex = 0;
+    
+    
     return stats.entries.map((entry) {
+    debugPrint(entry.key);
       final color = sectionColors[colorIndex % sectionColors.length];
       colorIndex++;
       double percentage = (entry.value / total) * 100;
@@ -85,7 +89,7 @@ class ChartCubit extends Cubit<ChartState> {
             color: color,
           ),
           const SizedBox(width: 8),
-          Text(entry.key), 
+          Text(name(context, entry.key)), 
           const SizedBox(width: 8),
           Text('${percentage.toStringAsFixed(1)}%'), 
         ],

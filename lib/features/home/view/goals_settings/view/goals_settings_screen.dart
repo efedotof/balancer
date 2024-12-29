@@ -6,8 +6,8 @@ import 'package:balancer/generated/l10n.dart';
 import '../widget/widget.dart';
 
 @RoutePage()
-class GoalsAddBudgetScreen extends StatelessWidget {
-  const GoalsAddBudgetScreen({super.key, required this.res});
+class GoalsSettingsScreen extends StatelessWidget {
+  const GoalsSettingsScreen({super.key, required this.res});
 
   final Goals res;
 
@@ -23,21 +23,21 @@ class GoalsAddBudgetScreen extends StatelessWidget {
         leading: IconButton(
             onPressed: () {
               context.maybePop();
-              context.read<GoalsAddEditCubit>().toggleEditMode(isEditing: false);
+              context.read<GoalsSettingsEditCubit>().toggleEditMode(isEditing: false);
             },
             icon: const Icon(Icons.arrow_back_ios)),
         actions: [
-          BlocBuilder<GoalsAddEditCubit, GoalsAddEditState>(
+          BlocBuilder<GoalsSettingsEditCubit, GoalsSettingsEditState>(
             builder: (context, state) {
-            final state = context.read<GoalsAddEditCubit>().state;
-              return state.when(noEdit: () => const SizedBox.shrink(), edit: ()=> TextButton(onPressed: () => context.read<GoalsAddEditCubit>().toggleEditMode(isEditing: false), child:  Text(S.of(context).close)));
+            final state = context.read<GoalsSettingsEditCubit>().state;
+              return state.when(noEdit: () => const SizedBox.shrink(), edit: ()=> TextButton(onPressed: () => context.read<GoalsSettingsEditCubit>().toggleEditMode(isEditing: false), child:  Text(S.of(context).close)));
             },
           )
         ],
       ),
-      body:  BlocBuilder<GoalsAddEditCubit, GoalsAddEditState>(
+      body:  BlocBuilder<GoalsSettingsEditCubit, GoalsSettingsEditState>(
         builder: (context, state) {
-          final state = context.read<GoalsAddEditCubit>().state;
+          final state = context.read<GoalsSettingsEditCubit>().state;
           return state.when(
               noEdit: () => NoEdit(res: res), edit: () => Edit(res: res));
         },

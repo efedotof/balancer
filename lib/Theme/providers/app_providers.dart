@@ -53,7 +53,7 @@ class AppProviders {
           create: (context) => GoalsCubit(interface: goalsRepository),
         ),
         BlocProvider(
-          create: (context) => GoalSettingsCubit(),
+          create: (context) => GoalAddCubit(),
         ),
         BlocProvider(
           create: (context) => NewTransactionCubit(),
@@ -74,7 +74,7 @@ class AppProviders {
           create: (context) => AddNewTransactionsToGoalCubit(),
         ),
          BlocProvider(
-          create: (context) => GoalsAddEditCubit(interface: goalsRepository),
+          create: (context) => GoalsSettingsEditCubit(interface: goalsRepository),
         ),
          BlocProvider(
           create: (context) => LanguageCubit(interface: languageRepository),

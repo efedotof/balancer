@@ -2,13 +2,13 @@ abstract interface class StatisticsInterface {
   Future initBox() async {}
 
   Future boxAdd(
-    int amountExpenses,
-    int amountIncome,
+    double amountExpenses,
+    double amountIncome,
   ) async {}
 
   Future removeBox(int index) async {}
 
   Future removeAllBox() async {}
   Future<void> updateAmounts(
-      int index, int additionalExpenses, int additionalIncome);
+      int index, double additionalExpenses, double additionalIncome);
 }

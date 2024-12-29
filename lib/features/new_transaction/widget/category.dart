@@ -37,6 +37,40 @@ extension TransactionCategoryTitleIncomeOrExpenses on TransactionCategory {
   }
 }
 
+  
+
+
+
+
+String name(BuildContext context, String category) {
+  final categoryMap = {
+    'TransactionCategoryTitle.salary': S.of(context).salary,
+    'TransactionCategoryTitle.gift': S.of(context).gift,
+    'TransactionCategoryTitle.investmentIncome': S.of(context).investmentIncome,
+    'TransactionCategoryTitle.freelance': S.of(context).freelance,
+    'TransactionCategoryTitle.otherIncome': S.of(context).otherIncome,
+    'TransactionCategoryTitle.groceries': S.of(context).groceries,
+    'TransactionCategoryTitle.transport': S.of(context).transport,
+    'TransactionCategoryTitle.entertainment': S.of(context).entertainment,
+    'TransactionCategoryTitle.health': S.of(context).health,
+    'TransactionCategoryTitle.utilities': S.of(context).utilities,
+    'TransactionCategoryTitle.rent': S.of(context).rent,
+    'TransactionCategoryTitle.shopping': S.of(context).shopping,
+    'TransactionCategoryTitle.education': S.of(context).education,
+    'TransactionCategoryTitle.travel': S.of(context).travel,
+    'TransactionCategoryTitle.savings': S.of(context).savings,
+    'TransactionCategoryTitle.otherExpense': S.of(context).otherExpense,
+    'budgetAllocation': S.of(context).budgetAllocation,
+    'to_the_goal':S.of(context).to_the_goal,
+  };
+
+  return categoryMap[category] ?? ''; 
+}
+
+
+
+
+
 extension TransactionCategoryTitleExtension on TransactionCategoryTitle {
   String name(BuildContext context) {
     switch (this) {
@@ -75,6 +109,7 @@ extension TransactionCategoryTitleExtension on TransactionCategoryTitle {
     }
   }
 }
+
 
 
 IconData getIcon(TransactionCategoryTitle category) {

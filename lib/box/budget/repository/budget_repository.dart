@@ -1,4 +1,5 @@
 import 'package:balancer/box/budget/budget.dart';
+import 'package:balancer/features/new_transaction/widget/category.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -33,10 +34,10 @@ class BudgetRepository implements BudgetInterface {
 
   @override
   Future<void> boxAdd(
-      int amountBudget, int? spent, int? left, int? expenses) async {
+      double amountBudget, double spent, double left, double expenses) async {
     var box = Hive.box<Budget>(boxInitName);
     Budget? lastBudget = box.isNotEmpty ? box.getAt(box.length - 1) : null;
-    int updatedAmountBudget = amountBudget + (lastBudget?.amountBudget ?? 0);
+    double updatedAmountBudget = amountBudget + (lastBudget?.amountBudget ?? 0);
 
     box.add(Budget(
       amountBudget: updatedAmountBudget,
@@ -59,14 +60,14 @@ class BudgetRepository implements BudgetInterface {
   }
 
   @override
-  Future<void> replaceSpentToBox(int newSpent) async {
+  Future<void> replaceSpentToBox(double newSpent) async {
     var box = Hive.box<Budget>(boxInitName);
     var budgets = box.values.toList();
 
     if (budgets.isNotEmpty) {
       var lastBudget = budgets.last;
 
-      var updatedSpent = (lastBudget.spent ?? 0) + newSpent;
+      var updatedSpent = (lastBudget.spent) + newSpent;
       var updatedAmountBudget = (lastBudget.amountBudget) - newSpent;
 
       updatedSpent = updatedSpent < 0 ? 0 : updatedSpent;
@@ -86,54 +87,66 @@ class BudgetRepository implements BudgetInterface {
 
   @override
   Future<void> replaceBudgetValues({
-    int? newAmountBudget,
-    int? newSpent,
-    int? newLeft,
-    int? newExpenses,
+    required double amount,
+    required TransactionCategory category,
   }) async {
-    var box = Hive.box<Budget>(boxInitName);
-    var budgets = box.values.toList();
-
-    if (budgets.isNotEmpty) {
-      var lastBudget = budgets.last;
-
-      newSpent ??= lastBudget.spent;
-      newAmountBudget ??= lastBudget.amountBudget;
-      newLeft ??= lastBudget.left;
-
-      box.putAt(
-        budgets.length - 1,
-        Budget(
-          amountBudget: newAmountBudget,
-          spent: newSpent,
-          left: newLeft,
-          expenses: newExpenses ?? lastBudget.expenses,
-        ),
-      );
+    try {
+      var box = Hive.box<Budget>(boxInitName);
+      var lastKey = box.keys.last;
+      var lastValue = box.get(lastKey);
+      if (category == TransactionCategory.income && lastValue != null) {
+        final updateAmount = lastValue.amountBudget + amount;
+        // final updateLeft = lastValue.left > 0? lastValue.left - amount: 0;
+        final updateSpent = lastValue.spent > 0 ? lastValue.spent - amount : 0;
+        // debugPrint('lastValue.spent: ${lastValue.spent}');
+        box.putAt(
+          box.length - 1,
+          Budget(
+            amountBudget: updateAmount,
+            spent: updateSpent.toDouble(),
+            left: lastValue.left,
+            expenses: lastValue.expenses,
+          ),
+        );
+      } else if (lastValue != null) {
+        final updateAmount = lastValue.amountBudget - amount;
+        final updateLeft = lastValue.left - amount;
+        final updateSpent = lastValue.spent + amount;
+        box.putAt(
+          box.length - 1,
+          Budget(
+            amountBudget: updateAmount,
+            spent: updateSpent,
+            left: updateLeft,
+            expenses: lastValue.expenses,
+          ),
+        );
+      }
+    } catch (e) {
+      debugPrint('error: $e');
     }
   }
 
   @override
-  Future<void> updateLeftAndSpent(int value) async {
+  Future<void> updateLeftAndSpent(double value) async {
     var box = Hive.box<Budget>(boxInitName);
-    var budgets = box.values.toList();
+    var lastKey = box.keys.last;
+    var lastValue = box.get(lastKey);
 
-    if (budgets.isNotEmpty) {
-      var lastBudget = budgets.last;
-
-      var updatedAmountBudget = (lastBudget.amountBudget) + value;
-      var updatedSpent = (lastBudget.spent ?? 0) - value;
+    if (lastValue != null) {
+      var updatedAmountBudget = (lastValue.amountBudget - 100) + value;
+      var updatedSpent = (lastValue.spent) - value;
 
       updatedAmountBudget = updatedAmountBudget < 0 ? 0 : updatedAmountBudget;
       updatedSpent = updatedSpent < 0 ? 0 : updatedSpent;
 
       box.putAt(
-        budgets.length - 1,
+        box.length - 1,
         Budget(
           amountBudget: updatedAmountBudget,
           spent: updatedSpent,
-          left: lastBudget.left,
-          expenses: lastBudget.expenses,
+          left: lastValue.left,
+          expenses: lastValue.expenses,
         ),
       );
     }

@@ -19,19 +19,19 @@ mixin _$TotalState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(int total) changeTotal,
+    required TResult Function(double total) changeTotal,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(int total)? changeTotal,
+    TResult? Function(double total)? changeTotal,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(int total)? changeTotal,
+    TResult Function(double total)? changeTotal,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -119,7 +119,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(int total) changeTotal,
+    required TResult Function(double total) changeTotal,
   }) {
     return initial();
   }
@@ -128,7 +128,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(int total)? changeTotal,
+    TResult? Function(double total)? changeTotal,
   }) {
     return initial?.call();
   }
@@ -137,7 +137,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(int total)? changeTotal,
+    TResult Function(double total)? changeTotal,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -188,7 +188,7 @@ abstract class _$$ChangeTotalImplCopyWith<$Res> {
           _$ChangeTotalImpl value, $Res Function(_$ChangeTotalImpl) then) =
       __$$ChangeTotalImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int total});
+  $Res call({double total});
 }
 
 /// @nodoc
@@ -210,7 +210,7 @@ class __$$ChangeTotalImplCopyWithImpl<$Res>
       total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
     ));
   }
 }
@@ -221,7 +221,7 @@ class _$ChangeTotalImpl implements _ChangeTotal {
   const _$ChangeTotalImpl({required this.total});
 
   @override
-  final int total;
+  final double total;
 
   @override
   String toString() {
@@ -251,7 +251,7 @@ class _$ChangeTotalImpl implements _ChangeTotal {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(int total) changeTotal,
+    required TResult Function(double total) changeTotal,
   }) {
     return changeTotal(total);
   }
@@ -260,7 +260,7 @@ class _$ChangeTotalImpl implements _ChangeTotal {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(int total)? changeTotal,
+    TResult? Function(double total)? changeTotal,
   }) {
     return changeTotal?.call(total);
   }
@@ -269,7 +269,7 @@ class _$ChangeTotalImpl implements _ChangeTotal {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(int total)? changeTotal,
+    TResult Function(double total)? changeTotal,
     required TResult orElse(),
   }) {
     if (changeTotal != null) {
@@ -311,9 +311,9 @@ class _$ChangeTotalImpl implements _ChangeTotal {
 }
 
 abstract class _ChangeTotal implements TotalState {
-  const factory _ChangeTotal({required final int total}) = _$ChangeTotalImpl;
+  const factory _ChangeTotal({required final double total}) = _$ChangeTotalImpl;
 
-  int get total;
+  double get total;
 
   /// Create a copy of TotalState
   /// with the given fields replaced by the non-null parameter values.

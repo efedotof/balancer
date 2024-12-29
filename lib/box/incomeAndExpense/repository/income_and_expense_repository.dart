@@ -58,15 +58,16 @@ class IncomeAndExpenseRepository implements IncomeAndExpenseInterface {
   @override
   Future boxAddExpense({
     required DateTime time,
-    required int amountExpense,
+    required double amountExpense,
     required List<Transactions> transExpense,
     required String? subtitle,
-    required List<int>? iconD
+    required List<int>? iconD,
+    List<String>? arbDate,
   }) async {
     var box = Hive.box<Expense>(boxInitNameExpense);
     debugPrint('transExpense ^ $transExpense');
 
-    List<int> amounts = [];
+    List<double> amounts = [];
     List<String> names = [];
     List<DateTime> dates = [];
 
@@ -84,21 +85,23 @@ class IncomeAndExpenseRepository implements IncomeAndExpenseInterface {
       names: names,
       dates: dates,
       iconD: iconD,
+      arbDate: arbDate,
     ));
   }
 
   @override
   Future boxAddIncome({
     required DateTime time,
-    required int amountIncome,
+    required double amountIncome,
     required List<Transactions> transIncome,
     required String? subtitle,
-    required List<int>? iconD
+    required List<int>? iconD,
+    List<String>? arbDate,
   }) async {
     var box = Hive.box<Income>(boxInitName);
     debugPrint('transIncome ^ $transIncome');
 
-    List<int> amounts = [];
+    List<double> amounts = [];
     List<String> names = [];
     List<DateTime> dates = [];
 
@@ -116,24 +119,23 @@ class IncomeAndExpenseRepository implements IncomeAndExpenseInterface {
       names: names,
       dates: dates,
       iconD: iconD,
+      arbDate: arbDate!,
     ));
   }
 
 @override
-Future<Map<String, int>> getIncomeStats() async {
+Future<Map<String, double>> getIncomeStats() async {
   var box = Hive.box<Income>(boxInitName);
-  Map<String, int> categorySums = {};
+  Map<String, double> categorySums = {};
 
   for (var income in box.values) {
     for (int i = 0; i < income.names.length; i++) {
       var name = income.names[i];
       var amount = income.amounts[i];
 
-      // Если name уже есть в categorySums, прибавляем amount
       if (categorySums.containsKey(name)) {
         categorySums[name] = categorySums[name]! + amount;
       } else {
-        // Если name нет, создаем новую запись
         categorySums[name] = amount;
       }
     }
@@ -144,20 +146,18 @@ Future<Map<String, int>> getIncomeStats() async {
 }
 
 @override
-Future<Map<String, int>> getExpenseStats() async {
+Future<Map<String, double>> getExpenseStats() async {
   var box = Hive.box<Expense>(boxInitNameExpense);
-  Map<String, int> categorySums = {};
+  Map<String, double> categorySums = {};
 
   for (var expense in box.values) {
     for (int i = 0; i < expense.names.length; i++) {
       var name = expense.names[i];
       var amount = expense.amounts[i];
 
-      // Если name уже есть в categorySums, прибавляем amount
       if (categorySums.containsKey(name)) {
         categorySums[name] = categorySums[name]! + amount;
       } else {
-        // Если name нет, создаем новую запись
         categorySums[name] = amount;
       }
     }

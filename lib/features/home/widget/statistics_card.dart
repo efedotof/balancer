@@ -35,10 +35,10 @@ class StatisticsCard extends StatelessWidget {
                 child: Text(
                   balanceCard,
                   style: const TextStyle(color: Colors.black, fontSize: 20),
-                  overflow: TextOverflow.ellipsis, // Добавить для обрезки текста
+                  overflow: TextOverflow.ellipsis, 
                 ),
               ),
-              // Иконка в контейнере
+             
               GestureDetector(
               onTap: onTaps,
                 child: Container(

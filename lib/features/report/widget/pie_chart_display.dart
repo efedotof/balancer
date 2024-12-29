@@ -18,12 +18,12 @@ class PieChartDisplay extends StatelessWidget {
       builder: (context, state) {
         return state.maybeWhen(
           loaded: (incomeStats, expenseStats) {
-            Map<String, int> stats =
+            Map<String, double> stats =
                 selectedCategory == TransactionCategory.expenses
                     ? expenseStats
                     : incomeStats;
 
-            int total = stats.values.reduce((a, b) => a + b);
+            double total = stats.values.reduce((a, b) => a + b);
             String centerText = context.read<ChartCubit>().getCenterText(
                   stats,
                   selectedCategory == TransactionCategory.expenses
@@ -65,7 +65,7 @@ class PieChartDisplay extends StatelessWidget {
                     direction: Axis.horizontal,
                     spacing: 10,
                     runSpacing: 10,
-                    children: context.read<ChartCubit>().colorCategoryWidgets(
+                    children: context.read<ChartCubit>().colorCategoryWidgets(context,
                       stats,
                       total,
                       sectionColors,

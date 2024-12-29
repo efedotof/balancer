@@ -9,8 +9,6 @@ final dartTheme = ThemeData(
     backgroundColor: Color(0xFF313C42)
 
   ),
-
-
   colorScheme: ColorScheme.fromSeed(
       seedColor: _primaryColor, brightness: Brightness.dark),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -30,10 +28,10 @@ final dartTheme = ThemeData(
     displayMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
     labelLarge: TextStyle(
         fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-         labelSmall: TextStyle(color: Colors.black, fontSize: 25)
+        labelSmall: TextStyle(color: Colors.white, fontSize: 25)
   ),
   cardTheme: const CardTheme(
-    color: Color(0xFF333333),
+    color: Color(0xFF333333)
   ),
   appBarTheme: const AppBarTheme(
     color: Color(0xFF1F1F1F),

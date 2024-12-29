@@ -48,47 +48,47 @@ class AddBudgetRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [GoalSettingsScreen]
-class GoalSettingsRoute extends PageRouteInfo<void> {
-  const GoalSettingsRoute({List<PageRouteInfo>? children})
+/// [GoalAddScreen]
+class GoalAddRoute extends PageRouteInfo<void> {
+  const GoalAddRoute({List<PageRouteInfo>? children})
       : super(
-          GoalSettingsRoute.name,
+          GoalAddRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'GoalSettingsRoute';
+  static const String name = 'GoalAddRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const GoalSettingsScreen();
+      return const GoalAddScreen();
     },
   );
 }
 
 /// generated route for
-/// [GoalsAddBudgetScreen]
-class GoalsAddBudgetRoute extends PageRouteInfo<GoalsAddBudgetRouteArgs> {
-  GoalsAddBudgetRoute({
+/// [GoalsSettingsScreen]
+class GoalsSettingsRoute extends PageRouteInfo<GoalsSettingsRouteArgs> {
+  GoalsSettingsRoute({
     Key? key,
     required Goals res,
     List<PageRouteInfo>? children,
   }) : super(
-          GoalsAddBudgetRoute.name,
-          args: GoalsAddBudgetRouteArgs(
+          GoalsSettingsRoute.name,
+          args: GoalsSettingsRouteArgs(
             key: key,
             res: res,
           ),
           initialChildren: children,
         );
 
-  static const String name = 'GoalsAddBudgetRoute';
+  static const String name = 'GoalsSettingsRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<GoalsAddBudgetRouteArgs>();
-      return GoalsAddBudgetScreen(
+      final args = data.argsAs<GoalsSettingsRouteArgs>();
+      return GoalsSettingsScreen(
         key: args.key,
         res: args.res,
       );
@@ -96,8 +96,8 @@ class GoalsAddBudgetRoute extends PageRouteInfo<GoalsAddBudgetRouteArgs> {
   );
 }
 
-class GoalsAddBudgetRouteArgs {
-  const GoalsAddBudgetRouteArgs({
+class GoalsSettingsRouteArgs {
+  const GoalsSettingsRouteArgs({
     this.key,
     required this.res,
   });
@@ -108,7 +108,7 @@ class GoalsAddBudgetRouteArgs {
 
   @override
   String toString() {
-    return 'GoalsAddBudgetRouteArgs{key: $key, res: $res}';
+    return 'GoalsSettingsRouteArgs{key: $key, res: $res}';
   }
 }
 

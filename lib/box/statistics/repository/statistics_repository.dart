@@ -33,7 +33,7 @@ class StatisticsRepository implements StatisticsInterface {
   }
 
   @override
-  Future<void> boxAdd(int amountExpenses, int amountIncome) async {
+  Future<void> boxAdd(double amountExpenses, double amountIncome) async {
     var box = Hive.box<Statistics>(boxInitName);
     box.add(Statistics(amountExpenses: amountExpenses, amountIncome: amountIncome, ));
   }
@@ -51,7 +51,7 @@ class StatisticsRepository implements StatisticsInterface {
   }
 
   @override
-  Future<void> updateAmounts(int index, int additionalExpenses, int additionalIncome) async {
+  Future<void> updateAmounts(int index, double additionalExpenses, double additionalIncome) async {
     var box = Hive.box<Statistics>(boxInitName);
     final statistics = box.getAt(index);
 

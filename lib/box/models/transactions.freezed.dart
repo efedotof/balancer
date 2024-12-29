@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Transactions {
-  int get amount => throw _privateConstructorUsedError;
+  double get amount => throw _privateConstructorUsedError;
   String get nameTrans => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
 
@@ -33,7 +33,7 @@ abstract class $TransactionsCopyWith<$Res> {
           Transactions value, $Res Function(Transactions) then) =
       _$TransactionsCopyWithImpl<$Res, Transactions>;
   @useResult
-  $Res call({int amount, String nameTrans, DateTime date});
+  $Res call({double amount, String nameTrans, DateTime date});
 }
 
 /// @nodoc
@@ -59,7 +59,7 @@ class _$TransactionsCopyWithImpl<$Res, $Val extends Transactions>
       amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       nameTrans: null == nameTrans
           ? _value.nameTrans
           : nameTrans // ignore: cast_nullable_to_non_nullable
@@ -80,7 +80,7 @@ abstract class _$$TransactionsImplCopyWith<$Res>
       __$$TransactionsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int amount, String nameTrans, DateTime date});
+  $Res call({double amount, String nameTrans, DateTime date});
 }
 
 /// @nodoc
@@ -104,7 +104,7 @@ class __$$TransactionsImplCopyWithImpl<$Res>
       amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       nameTrans: null == nameTrans
           ? _value.nameTrans
           : nameTrans // ignore: cast_nullable_to_non_nullable
@@ -124,7 +124,7 @@ class _$TransactionsImpl implements _Transactions {
       {required this.amount, required this.nameTrans, required this.date});
 
   @override
-  final int amount;
+  final double amount;
   @override
   final String nameTrans;
   @override
@@ -160,12 +160,12 @@ class _$TransactionsImpl implements _Transactions {
 
 abstract class _Transactions implements Transactions {
   const factory _Transactions(
-      {required final int amount,
+      {required final double amount,
       required final String nameTrans,
       required final DateTime date}) = _$TransactionsImpl;
 
   @override
-  int get amount;
+  double get amount;
   @override
   String get nameTrans;
   @override

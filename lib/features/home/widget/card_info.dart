@@ -73,24 +73,24 @@ class CardInfo extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         if (spent != null && left != null)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Flexible(
-                                child: Text(
+                          SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
                                   spent!,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),
-                              ),
-                              Flexible(
-                                child: Text(
+                                const SizedBox(width: 10,),
+                                Text(
                                   left!,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                       ],
                     )

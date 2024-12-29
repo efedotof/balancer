@@ -1,5 +1,6 @@
 import 'package:balancer/Theme/providers/export_providers.dart';
 import 'package:balancer/box/goals/goals.dart';
+import 'package:balancer/features/new_transaction/widget/category.dart';
 import 'package:balancer/generated/l10n.dart';
 
 class Edit extends StatefulWidget {
@@ -19,8 +20,11 @@ class _EditState extends State<Edit> {
   void initState() {
     super.initState();
     nameController = TextEditingController(text: widget.res.nameGoals);
-    amountController = TextEditingController(text: widget.res.goalsAmount.toString());
-    periodicalRate = widget.res.percentageOfTheBudget != null? widget.res.percentageOfTheBudget!.toDouble(): 0.0;
+    amountController =
+        TextEditingController(text: widget.res.goalsAmount.toString());
+    periodicalRate = widget.res.percentageOfTheBudget != null
+        ? widget.res.percentageOfTheBudget!.toDouble()
+        : 0.0;
   }
 
   @override
@@ -91,10 +95,12 @@ class _EditState extends State<Edit> {
                     value: homeCubit
                         .calculateProgress(
                           widget.res.goalsFilled.toDouble(),
-                          double.tryParse(amountController.text) ?? widget.res.goalsAmount.toDouble(),
+                          double.tryParse(amountController.text) ??
+                              widget.res.goalsAmount.toDouble(),
                         )
                         .clamp(0.0, 1.0),
-                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
+                    valueColor:
+                        const AlwaysStoppedAnimation<Color>(Colors.blue),
                     backgroundColor: Colors.grey[200],
                     minHeight: 8,
                   ),
@@ -102,7 +108,8 @@ class _EditState extends State<Edit> {
                 const SizedBox(height: 12),
                 Text(
                   '${S.of(context).periodicRate}: ${periodicalRate.toStringAsFixed(0)}%',
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Slider(
                   value: periodicalRate,
@@ -117,16 +124,20 @@ class _EditState extends State<Edit> {
                   },
                 ),
                 const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '${S.of(context).filled} ${widget.res.goalsFilled} ₽ / ${(homeCubit.calculateProgress(widget.res.goalsFilled.toDouble(), double.tryParse(amountController.text) ?? widget.res.goalsAmount.toDouble()) * 100).toInt()}%',
-                    ),
-                    Text(
-                      '${S.of(context).left} ${widget.res.spentAmount} ₽ / ${(homeCubit.calculateProgress(widget.res.spentAmount.toDouble(), double.tryParse(amountController.text) ?? widget.res.goalsAmount.toDouble()) * 100).toInt()}%',
-                    ),
-                  ],
+                SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '${S.of(context).filled} ${widget.res.goalsFilled.toStringAsFixed(2)} ₽ / ${(homeCubit.calculateProgress(widget.res.goalsFilled.toDouble(), double.tryParse(amountController.text) ?? widget.res.goalsAmount.toDouble()) * 100).toInt()}%',
+                      ),
+                      const SizedBox(width: 10,),
+                      Text(
+                        '${S.of(context).left} ${widget.res.spentAmount.toStringAsFixed(2)} ₽ / ${(homeCubit.calculateProgress(widget.res.spentAmount.toDouble(), double.tryParse(amountController.text) ?? widget.res.goalsAmount.toDouble()) * 100).toInt()}%',
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -137,29 +148,48 @@ class _EditState extends State<Edit> {
                 children: [
                   Text(
                     S.of(context).transactions,
-                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   Text(widget.res.namesTrans.length.toString()),
                 ],
               ),
               children: widget.res.amounts.isNotEmpty
-                  ? List.generate(
-                      widget.res.amounts.length,
-                      (index) => ListTile(
-                        title: Text(widget.res.namesTrans[index]),
-                        subtitle: Text(widget.res.dates[index].toString()),
-                        trailing: Text(
-                          '${widget.res.amounts[index]}₽',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    )
+                  ? (() {
+                      final sortedIndices = List<int>.generate(
+                          widget.res.dates.length, (i) => i)
+                        ..sort((a, b) =>
+                            widget.res.dates[b].compareTo(widget.res.dates[a]));
+
+                      return List.generate(
+                        sortedIndices.length,
+                        (sortedIndex) {
+                          final index = sortedIndices[sortedIndex];
+                          return ListTile(
+                            title: widget.res.arbDateNameTrans != null
+                                ? Text(name(context,
+                                    widget.res.arbDateNameTrans![index]))
+                                : Text(widget.res.namesTrans[index]),
+                            subtitle: Text(
+                              context
+                                  .read<ReportCubit>()
+                                  .formatDate(widget.res.dates[index]),
+                            ),
+                            trailing: Text(
+                              '${widget.res.incomeOrExpenses != null ? (widget.res.incomeOrExpenses![index] ? widget.res.amounts[index] : -widget.res.amounts[index]) : widget.res.amounts[index]} ₽',
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                          );
+                        },
+                      );
+                    })()
                   : [
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
                           S.of(context).thereHaveBeenNoOperationsYet,
-                          style: const TextStyle(fontSize: 16, color: Colors.grey),
+                          style:
+                              const TextStyle(fontSize: 16, color: Colors.grey),
                         ),
                       ),
                     ],
@@ -169,19 +199,21 @@ class _EditState extends State<Edit> {
               padding: const EdgeInsets.only(left: 17.0),
               child: Text(
                 S.of(context).settings,
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
             ),
             ListTile(
               onTap: () {
-                final newAmount = int.tryParse(amountController.text) ?? widget.res.goalsAmount;
-                context.read<GoalsAddEditCubit>().saveGoalChanges(
-                  context,
-                  goal: widget.res,
-                  newAmount: newAmount,
-                  newName: nameController.text,
-                  newPercentage: periodicalRate.toInt(),
-                );
+                final newAmount = double.tryParse(amountController.text) ??
+                    widget.res.goalsAmount;
+                context.read<GoalsSettingsEditCubit>().saveGoalChanges(
+                      context,
+                      goal: widget.res,
+                      newAmount: newAmount,
+                      newName: nameController.text,
+                      newPercentage: periodicalRate,
+                    );
               },
               title: Text(
                 S.of(context).save,
@@ -190,7 +222,9 @@ class _EditState extends State<Edit> {
               leading: const Icon(Icons.save, color: Colors.green),
             ),
             ListTile(
-              onTap: () => context.read<GoalsAddEditCubit>().deleateToGoals(context, goals: widget.res),
+              onTap: () => context
+                  .read<GoalsSettingsEditCubit>()
+                  .deleateToGoals(context, goals: widget.res),
               title: Text(
                 S.of(context).delete,
                 style: const TextStyle(color: Colors.red),

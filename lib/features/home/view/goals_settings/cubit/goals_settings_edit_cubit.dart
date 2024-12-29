@@ -7,35 +7,35 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'goals_add_edit_state.dart';
-part 'goals_add_edit_cubit.freezed.dart';
+part 'goals_settings_edit_state.dart';
+part 'goals_settings_edit_cubit.freezed.dart';
 
-class GoalsAddEditCubit extends Cubit<GoalsAddEditState> {
-  GoalsAddEditCubit({required GoalsInterface interface})
+class GoalsSettingsEditCubit extends Cubit<GoalsSettingsEditState> {
+  GoalsSettingsEditCubit({required GoalsInterface interface})
       : _interface = interface,
-        super(const GoalsAddEditState.noEdit());
+        super(const GoalsSettingsEditState.noEdit());
 
   final GoalsInterface _interface;
 
   void toggleEditMode({required bool isEditing}) {
     emit(isEditing
-        ? const GoalsAddEditState.edit()
-        : const GoalsAddEditState.noEdit());
+        ? const GoalsSettingsEditState.edit()
+        : const GoalsSettingsEditState.noEdit());
   }
 
   void uploadName({required Goals goal, required String newName}) {
     _interface.updateGoalName(goal, newName);
   }
 
-  void uploadAmount({required Goals goal, required int newAmount}) {
+  void uploadAmount({required Goals goal, required double newAmount}) {
     _interface.updateGoalAmount(goal, newAmount);
   }
 
 Future<void> saveGoalChanges(BuildContext context, {
   required Goals goal,
   required String newName,
-  required int newAmount,
-  required int newPercentage, 
+  required double newAmount,
+  required double newPercentage, 
 }) async {
   bool isUpdated = false;
 
@@ -76,6 +76,17 @@ Future<void> saveGoalChanges(BuildContext context, {
     context.maybePop();
     context.pushRoute(SuccessfullyRoute(subtitle: S.of(context).goalDeleted));
   }
+
+
+  Future<void> deleateToTransToGoals({required Goals goal, required BuildContext context, required int index}) async {
+    try {
+      _interface.removeTransactionFromGoal(goal: goal, index: index);
+    } catch (e) {
+      debugPrint('error $e');
+    }
+  
+  }
+
 
 
 }

@@ -8,7 +8,7 @@ part of 'goals.dart';
 
 class GoalsAdapter extends TypeAdapter<Goals> {
   @override
-  final int typeId = 1;
+  final int typeId = 3;
 
   @override
   Goals read(BinaryReader reader) {
@@ -18,21 +18,23 @@ class GoalsAdapter extends TypeAdapter<Goals> {
     };
     return Goals(
       nameGoals: fields[0] as String,
-      goalsAmount: fields[1] as int,
-      spentAmount: fields[2] as int,
-      goalsFilled: fields[3] as int,
-      percentageOfTheBudget: fields[4] as int?,
-      amounts: (fields[5] as List).cast<int>(),
+      goalsAmount: fields[1] as double,
+      spentAmount: fields[2] as double,
+      goalsFilled: fields[3] as double,
+      percentageOfTheBudget: fields[4] as double?,
+      amounts: (fields[5] as List).cast<double>(),
       namesTrans: (fields[6] as List).cast<String>(),
       dates: (fields[7] as List).cast<DateTime>(),
       iconCode: fields[8] as int,
+      arbDateNameTrans: (fields[9] as List?)?.cast<String>(),
+      incomeOrExpenses: (fields[10] as List?)?.cast<bool>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Goals obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.nameGoals)
       ..writeByte(1)
@@ -50,7 +52,11 @@ class GoalsAdapter extends TypeAdapter<Goals> {
       ..writeByte(7)
       ..write(obj.dates)
       ..writeByte(8)
-      ..write(obj.iconCode);
+      ..write(obj.iconCode)
+      ..writeByte(9)
+      ..write(obj.arbDateNameTrans)
+      ..writeByte(10)
+      ..write(obj.incomeOrExpenses);
   }
 
   @override

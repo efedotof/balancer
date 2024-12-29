@@ -44,16 +44,16 @@ class ItemsScreen extends StatelessWidget {
                         width: MediaQuery.of(context).size.width * 0.6,
                         child: TextField(
                           controller: controller,
-                          onChanged: (value){
-                          if(value != ''){
-                            context.read<BudgetProvider>().setAmountBudget(amountBudgetw: int.parse(value));
-                            context.read<BudgetProvider>().changeIsSumm();
+                          onChanged: (value) {
+                            if (value != '') {
+                              context.read<BudgetProvider>().setAmountBudget(
+                                  amountBudgetw: double.parse(value));
+                              context.read<BudgetProvider>().changeIsSumm();
 
-                            controller.text = value;
-                          }else{
-                            controller.text = '0';
-                          }
-                           
+                              controller.text = value;
+                            } else {
+                              controller.text = '0';
+                            }
                           },
                           style: const TextStyle(
                             overflow: TextOverflow.clip,
@@ -103,19 +103,25 @@ class ItemsScreen extends StatelessWidget {
                           max: budget,
                           value: selected,
                           onChanged: (value) {
-                          context.read<BudgetProvider>().setExpenses(expensesw: value.toInt());
+                            context
+                                .read<BudgetProvider>()
+                                .setExpenses(expensesw: value);
                             context
                                 .read<ItemsToBudgetCubit>()
                                 .updateSelectedValue(value);
-                            if(value > 0){
-                              context.read<BudgetProvider>().changePercantageSelector(value: true);
-                          }else{
-                             context.read<BudgetProvider>().changePercantageSelector(value: false);
-                          }
+                            if (value > 0) {
+                              context
+                                  .read<BudgetProvider>()
+                                  .changePercantageSelector(value: true);
+                            } else {
+                              context
+                                  .read<BudgetProvider>()
+                                  .changePercantageSelector(value: false);
+                            }
                           },
                         ),
                         Text(
-                          '${S.of(context).selected} ${selected.toStringAsFixed(2)} ₽ ${S.of(context).from} ${budget.toStringAsFixed(2)} ₽',
+                          '${S.of(context).selected} ${selected.toStringAsFixed(3)} ₽ ${S.of(context).from} ${budget.toStringAsFixed(3)} ₽',
                           style: const TextStyle(fontSize: 16),
                         ),
                       ],

@@ -1,4 +1,5 @@
 import 'package:balancer/features/new_transaction/cubit/add_row_cubit.dart';
+import 'package:balancer/features/new_transaction/providers/add_new_goals_provider.dart';
 import 'package:balancer/features/new_transaction/widget/category.dart';
 import 'package:balancer/features/new_transaction/widget/transaction_item.dart';
 import 'package:balancer/generated/l10n.dart';
@@ -20,7 +21,7 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
     emit(state.copyWith(selectedDate: dateTime));
   }
 
- void addCategory({required BuildContext context}) async {
+  void addCategory({required BuildContext context}) async {
   TransactionCategoryTitle selectedCategoryTitle =
       TransactionCategoryTitle.salary;
   TextEditingController amountController = TextEditingController();
@@ -148,6 +149,7 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
                         );
                         return;
                       }
+                      context.read<AddNewGoalsProvider>().updateTotal(newTotal: amount);
                       context.read<AddRowCubit>().addRow(
                             category: selectedCategoryTitle,
                             context,
@@ -155,7 +157,7 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
                               category: state.selectedCategory,
                               amount: amount,
                               categoryTitle:
-                                  selectedCategoryTitle.name(context),
+                                  selectedCategoryTitle.toString(),
                             ),
                           );
                       Navigator.pop(context);
@@ -183,4 +185,12 @@ class NewTransactionCubit extends Cubit<NewTransactionState> {
       TransactionCategoryTitle.otherIncome,
     ].contains(category);
   }
+
+
+  void clean(){
+    emit(NewTransactionState.initial());
+    
+  }
+
+
 }

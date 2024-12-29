@@ -8,7 +8,7 @@ part of 'income_model.dart';
 
 class IncomeAdapter extends TypeAdapter<Income> {
   @override
-  final int typeId = 4;
+  final int typeId = 1;
 
   @override
   Income read(BinaryReader reader) {
@@ -19,18 +19,19 @@ class IncomeAdapter extends TypeAdapter<Income> {
     return Income(
       subtitle: fields[5] as String?,
       time: fields[0] as DateTime,
-      amountIncome: fields[1] as int,
-      amounts: (fields[2] as List).cast<int>(),
+      amountIncome: fields[1] as double,
+      amounts: (fields[2] as List).cast<double>(),
       names: (fields[3] as List).cast<String>(),
       dates: (fields[4] as List).cast<DateTime>(),
       iconD: (fields[6] as List?)?.cast<int>(),
+      arbDate: (fields[7] as List?)?.cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Income obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.time)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class IncomeAdapter extends TypeAdapter<Income> {
       ..writeByte(5)
       ..write(obj.subtitle)
       ..writeByte(6)
-      ..write(obj.iconD);
+      ..write(obj.iconD)
+      ..writeByte(7)
+      ..write(obj.arbDate);
   }
 
   @override

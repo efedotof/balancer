@@ -2,36 +2,45 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 part 'goals.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 3)
 class Goals extends HiveObject {
 
   @HiveField(0)
   final String nameGoals;
 
   @HiveField(1)
-  final int goalsAmount;
+  final double goalsAmount;
 
   @HiveField(2)
-  final int spentAmount;
+  final double spentAmount;
 
   @HiveField(3)
-  final int goalsFilled;
+  final double goalsFilled;
 
   @HiveField(4)
-  final int? percentageOfTheBudget;
+  final double? percentageOfTheBudget;
 
 
   @HiveField(5)
-  final List<int> amounts;  
+  final List<double> amounts;  
 
   @HiveField(6)
   final List<String> namesTrans;  
 
   @HiveField(7)
   final List<DateTime> dates; 
+  
+
 
   @HiveField(8)
   final int iconCode;
+  
+  @HiveField(9)
+  final List<String>? arbDateNameTrans;
+  
+  @HiveField(10)
+  final List<bool>? incomeOrExpenses;
+
 
   Goals({
     required this.nameGoals,
@@ -43,6 +52,8 @@ class Goals extends HiveObject {
     required this.namesTrans,
     required this.dates,
     required this.iconCode,
+    this.arbDateNameTrans,
+    this.incomeOrExpenses,
   });
 
 }

@@ -1,5 +1,6 @@
 import 'package:balancer/Theme/providers/export_providers.dart';
 import 'package:balancer/box/goals/goals.dart';
+import 'package:balancer/features/new_transaction/widget/category.dart';
 import 'package:balancer/generated/l10n.dart';
 import 'package:lottie/lottie.dart';
 
@@ -11,15 +12,17 @@ class NoEdit extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-       res.goalsFilled >= res.goalsAmount?  Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: Lottie.asset(
-          repeat: false,
-            'assets/animation/confettie.json',
-          ),  
-        ): const SizedBox.shrink(),
+        res.goalsFilled >= res.goalsAmount
+            ? Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Lottie.asset(
+                  repeat: false,
+                  'assets/animation/confettie.json',
+                ),
+              )
+            : const SizedBox.shrink(),
         Padding(
           padding: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width * 0.05),
@@ -72,8 +75,8 @@ class NoEdit extends StatelessWidget {
                       child: LinearProgressIndicator(
                         value: context
                             .read<HomeCubit>()
-                            .calculateProgress(res.goalsFilled.toDouble(),
-                                res.goalsAmount.toDouble())
+                            .calculateProgress(res.goalsFilled,
+                                res.goalsAmount)
                             .clamp(0.0, 1.0),
                         valueColor:
                             const AlwaysStoppedAnimation<Color>(Colors.blue),
@@ -84,14 +87,18 @@ class NoEdit extends StatelessWidget {
                     const SizedBox(
                       height: 12,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                            '${S.of(context).filled} ${res.goalsFilled} ₽/ ${(context.read<HomeCubit>().calculateProgress(res.goalsFilled.toDouble(), res.goalsAmount.toDouble()) * 100).toInt()}%'),
-                        Text(
-                            '${S.of(context).left} ${res.spentAmount}₽/ ${(context.read<HomeCubit>().calculateProgress(res.spentAmount.toDouble(), res.goalsAmount.toDouble()) * 100).toInt()}%'),
-                      ],
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                              '${S.of(context).filled} ${res.goalsFilled.toStringAsFixed(2)} ₽/ ${(context.read<HomeCubit>().calculateProgress(res.goalsFilled.toDouble(), res.goalsAmount) * 100)}%'),
+                              const SizedBox(width: 10),
+                          Text(
+                              '${S.of(context).left} ${res.spentAmount.toStringAsFixed(2)} ₽/ ${(context.read<HomeCubit>().calculateProgress(res.spentAmount.toDouble(), res.goalsAmount) * 100)}%'),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -116,18 +123,34 @@ class NoEdit extends StatelessWidget {
                     ],
                   ),
                   children: res.amounts.isNotEmpty
-                      ? List.generate(
-                          res.amounts.length,
-                          (index) => ListTile(
-                            title: Text(res.namesTrans[index]),
-                            subtitle: Text(res.dates[index].toString()),
-                            trailing: Text(
-                              res.amounts[index].toString(),
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        )
+                      ? (() {
+                          final sortedIndices = List<int>.generate(
+                              res.dates.length, (i) => i)
+                            ..sort(
+                                (a, b) => res.dates[b].compareTo(res.dates[a]));
+
+                          return List.generate(
+                            sortedIndices.length,
+                            (sortedIndex) {
+                              final index = sortedIndices[sortedIndex];
+                              return ListTile(
+                                title: res.arbDateNameTrans != null
+                                    ? Text(name(
+                                        context, res.arbDateNameTrans![index]))
+                                    : Text(res.namesTrans[index]),
+                                subtitle: Text(
+                                  context
+                                      .read<ReportCubit>()
+                                      .formatDate(res.dates[index]),
+                                ),
+                                trailing: Text(
+                                  '${res.incomeOrExpenses != null ? (res.incomeOrExpenses![index] ? res.amounts[index] : -res.amounts[index]) : res.amounts[index]} ₽',
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                              );
+                            },
+                          );
+                        })()
                       : [
                           Padding(
                             padding: const EdgeInsets.all(16.0),
@@ -152,7 +175,7 @@ class NoEdit extends StatelessWidget {
                 ),
                 ListTile(
                   onTap: () => context
-                      .read<GoalsAddEditCubit>()
+                      .read<GoalsSettingsEditCubit>()
                       .toggleEditMode(isEditing: true),
                   title: Text(S.of(context).edit,
                       style: const TextStyle(color: Colors.green)),
@@ -160,7 +183,7 @@ class NoEdit extends StatelessWidget {
                 ),
                 ListTile(
                   onTap: () => context
-                      .read<GoalsAddEditCubit>()
+                      .read<GoalsSettingsEditCubit>()
                       .deleateToGoals(context, goals: res),
                   title: Text(
                     S.of(context).delete,
@@ -172,7 +195,6 @@ class NoEdit extends StatelessWidget {
             ),
           ),
         ),
-       
       ],
     );
   }

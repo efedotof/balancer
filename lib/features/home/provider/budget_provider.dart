@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class BudgetProvider with ChangeNotifier {
-  int spent = 0;
-  int amountBudget = 0;
-  int left = 0;
+  double spent = 0;
+  double amountBudget = 0;
+  double left = 0;
 
-  int expenses = 0;
+  double expenses = 0;
 
   bool isLast = false;
   bool isSumm = false;
@@ -13,26 +13,25 @@ class BudgetProvider with ChangeNotifier {
 
   bool isStartToAdd = false;
 
-  void setSpent({required int spentw}) {
+  void setSpent({required double spentw}) {
     spent = spentw;
     notifyListeners();
   }
 
-  void setLeft({required int leftw}) {
+  void setLeft({required double leftw}) {
     left = leftw;
     notifyListeners();
   }
 
-  void setAmountBudget({required int amountBudgetw}) {
+  void setAmountBudget({required double amountBudgetw}) {
     amountBudget = amountBudgetw;
     notifyListeners();
   }
 
-  void setExpenses({required int expensesw}) {
+  void setExpenses({required double expensesw}) {
     expenses = expensesw;
     notifyListeners();
   }
-
 
 
   void changeIsLast(){

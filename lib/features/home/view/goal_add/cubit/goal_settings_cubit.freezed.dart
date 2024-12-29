@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'goal_settings_cubit.dart';
+part of 'goal_add_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -27,15 +27,15 @@ mixin _$GoalSettingsState {
   /// Create a copy of GoalSettingsState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $GoalSettingsStateCopyWith<GoalSettingsState> get copyWith =>
+  $GoalSettingsStateCopyWith<GoalAddState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $GoalSettingsStateCopyWith<$Res> {
   factory $GoalSettingsStateCopyWith(
-          GoalSettingsState value, $Res Function(GoalSettingsState) then) =
-      _$GoalSettingsStateCopyWithImpl<$Res, GoalSettingsState>;
+          GoalAddState value, $Res Function(GoalAddState) then) =
+      _$GoalSettingsStateCopyWithImpl<$Res, GoalAddState>;
   @useResult
   $Res call(
       {String title,
@@ -48,7 +48,7 @@ abstract class $GoalSettingsStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$GoalSettingsStateCopyWithImpl<$Res, $Val extends GoalSettingsState>
+class _$GoalSettingsStateCopyWithImpl<$Res, $Val extends GoalAddState>
     implements $GoalSettingsStateCopyWith<$Res> {
   _$GoalSettingsStateCopyWithImpl(this._value, this._then);
 
@@ -237,7 +237,7 @@ class _$GoalSettingsStateImpl implements _GoalSettingsState {
           this, _$identity);
 }
 
-abstract class _GoalSettingsState implements GoalSettingsState {
+abstract class _GoalSettingsState implements GoalAddState {
   const factory _GoalSettingsState(
       {required final String title,
       required final double amount,

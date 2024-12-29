@@ -20,9 +20,11 @@ mixin _$AddNewTransactionsToGoalState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() newTransactionsToEmpty,
-    required TResult Function(int iconD, String name, String target)
+    required TResult Function(
+            int iconD, String name, String target, String avalable)
         addNewTransactions,
-    required TResult Function(int iconD, String name, String target)
+    required TResult Function(
+            int iconD, String name, String target, String avalable)
         updateNewTransactions,
   }) =>
       throw _privateConstructorUsedError;
@@ -30,9 +32,9 @@ mixin _$AddNewTransactionsToGoalState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? newTransactionsToEmpty,
-    TResult? Function(int iconD, String name, String target)?
+    TResult? Function(int iconD, String name, String target, String avalable)?
         addNewTransactions,
-    TResult? Function(int iconD, String name, String target)?
+    TResult? Function(int iconD, String name, String target, String avalable)?
         updateNewTransactions,
   }) =>
       throw _privateConstructorUsedError;
@@ -40,8 +42,9 @@ mixin _$AddNewTransactionsToGoalState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? newTransactionsToEmpty,
-    TResult Function(int iconD, String name, String target)? addNewTransactions,
-    TResult Function(int iconD, String name, String target)?
+    TResult Function(int iconD, String name, String target, String avalable)?
+        addNewTransactions,
+    TResult Function(int iconD, String name, String target, String avalable)?
         updateNewTransactions,
     required TResult orElse(),
   }) =>
@@ -142,9 +145,11 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() newTransactionsToEmpty,
-    required TResult Function(int iconD, String name, String target)
+    required TResult Function(
+            int iconD, String name, String target, String avalable)
         addNewTransactions,
-    required TResult Function(int iconD, String name, String target)
+    required TResult Function(
+            int iconD, String name, String target, String avalable)
         updateNewTransactions,
   }) {
     return initial();
@@ -155,9 +160,9 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? newTransactionsToEmpty,
-    TResult? Function(int iconD, String name, String target)?
+    TResult? Function(int iconD, String name, String target, String avalable)?
         addNewTransactions,
-    TResult? Function(int iconD, String name, String target)?
+    TResult? Function(int iconD, String name, String target, String avalable)?
         updateNewTransactions,
   }) {
     return initial?.call();
@@ -168,8 +173,9 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? newTransactionsToEmpty,
-    TResult Function(int iconD, String name, String target)? addNewTransactions,
-    TResult Function(int iconD, String name, String target)?
+    TResult Function(int iconD, String name, String target, String avalable)?
+        addNewTransactions,
+    TResult Function(int iconD, String name, String target, String avalable)?
         updateNewTransactions,
     required TResult orElse(),
   }) {
@@ -270,9 +276,11 @@ class _$NewTransactionsToEmptyImpl implements _NewTransactionsToEmpty {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() newTransactionsToEmpty,
-    required TResult Function(int iconD, String name, String target)
+    required TResult Function(
+            int iconD, String name, String target, String avalable)
         addNewTransactions,
-    required TResult Function(int iconD, String name, String target)
+    required TResult Function(
+            int iconD, String name, String target, String avalable)
         updateNewTransactions,
   }) {
     return newTransactionsToEmpty();
@@ -283,9 +291,9 @@ class _$NewTransactionsToEmptyImpl implements _NewTransactionsToEmpty {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? newTransactionsToEmpty,
-    TResult? Function(int iconD, String name, String target)?
+    TResult? Function(int iconD, String name, String target, String avalable)?
         addNewTransactions,
-    TResult? Function(int iconD, String name, String target)?
+    TResult? Function(int iconD, String name, String target, String avalable)?
         updateNewTransactions,
   }) {
     return newTransactionsToEmpty?.call();
@@ -296,8 +304,9 @@ class _$NewTransactionsToEmptyImpl implements _NewTransactionsToEmpty {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? newTransactionsToEmpty,
-    TResult Function(int iconD, String name, String target)? addNewTransactions,
-    TResult Function(int iconD, String name, String target)?
+    TResult Function(int iconD, String name, String target, String avalable)?
+        addNewTransactions,
+    TResult Function(int iconD, String name, String target, String avalable)?
         updateNewTransactions,
     required TResult orElse(),
   }) {
@@ -358,7 +367,7 @@ abstract class _$$AddNewTransactionsImplCopyWith<$Res> {
           $Res Function(_$AddNewTransactionsImpl) then) =
       __$$AddNewTransactionsImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int iconD, String name, String target});
+  $Res call({int iconD, String name, String target, String avalable});
 }
 
 /// @nodoc
@@ -378,6 +387,7 @@ class __$$AddNewTransactionsImplCopyWithImpl<$Res>
     Object? iconD = null,
     Object? name = null,
     Object? target = null,
+    Object? avalable = null,
   }) {
     return _then(_$AddNewTransactionsImpl(
       iconD: null == iconD
@@ -392,6 +402,10 @@ class __$$AddNewTransactionsImplCopyWithImpl<$Res>
           ? _value.target
           : target // ignore: cast_nullable_to_non_nullable
               as String,
+      avalable: null == avalable
+          ? _value.avalable
+          : avalable // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -400,7 +414,10 @@ class __$$AddNewTransactionsImplCopyWithImpl<$Res>
 
 class _$AddNewTransactionsImpl implements _AddNewTransactions {
   const _$AddNewTransactionsImpl(
-      {required this.iconD, required this.name, required this.target});
+      {required this.iconD,
+      required this.name,
+      required this.target,
+      required this.avalable});
 
   @override
   final int iconD;
@@ -408,10 +425,12 @@ class _$AddNewTransactionsImpl implements _AddNewTransactions {
   final String name;
   @override
   final String target;
+  @override
+  final String avalable;
 
   @override
   String toString() {
-    return 'AddNewTransactionsToGoalState.addNewTransactions(iconD: $iconD, name: $name, target: $target)';
+    return 'AddNewTransactionsToGoalState.addNewTransactions(iconD: $iconD, name: $name, target: $target, avalable: $avalable)';
   }
 
   @override
@@ -421,11 +440,13 @@ class _$AddNewTransactionsImpl implements _AddNewTransactions {
             other is _$AddNewTransactionsImpl &&
             (identical(other.iconD, iconD) || other.iconD == iconD) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.target, target) || other.target == target));
+            (identical(other.target, target) || other.target == target) &&
+            (identical(other.avalable, avalable) ||
+                other.avalable == avalable));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, iconD, name, target);
+  int get hashCode => Object.hash(runtimeType, iconD, name, target, avalable);
 
   /// Create a copy of AddNewTransactionsToGoalState
   /// with the given fields replaced by the non-null parameter values.
@@ -441,12 +462,14 @@ class _$AddNewTransactionsImpl implements _AddNewTransactions {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() newTransactionsToEmpty,
-    required TResult Function(int iconD, String name, String target)
+    required TResult Function(
+            int iconD, String name, String target, String avalable)
         addNewTransactions,
-    required TResult Function(int iconD, String name, String target)
+    required TResult Function(
+            int iconD, String name, String target, String avalable)
         updateNewTransactions,
   }) {
-    return addNewTransactions(iconD, name, target);
+    return addNewTransactions(iconD, name, target, avalable);
   }
 
   @override
@@ -454,12 +477,12 @@ class _$AddNewTransactionsImpl implements _AddNewTransactions {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? newTransactionsToEmpty,
-    TResult? Function(int iconD, String name, String target)?
+    TResult? Function(int iconD, String name, String target, String avalable)?
         addNewTransactions,
-    TResult? Function(int iconD, String name, String target)?
+    TResult? Function(int iconD, String name, String target, String avalable)?
         updateNewTransactions,
   }) {
-    return addNewTransactions?.call(iconD, name, target);
+    return addNewTransactions?.call(iconD, name, target, avalable);
   }
 
   @override
@@ -467,13 +490,14 @@ class _$AddNewTransactionsImpl implements _AddNewTransactions {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? newTransactionsToEmpty,
-    TResult Function(int iconD, String name, String target)? addNewTransactions,
-    TResult Function(int iconD, String name, String target)?
+    TResult Function(int iconD, String name, String target, String avalable)?
+        addNewTransactions,
+    TResult Function(int iconD, String name, String target, String avalable)?
         updateNewTransactions,
     required TResult orElse(),
   }) {
     if (addNewTransactions != null) {
-      return addNewTransactions(iconD, name, target);
+      return addNewTransactions(iconD, name, target, avalable);
     }
     return orElse();
   }
@@ -522,11 +546,13 @@ abstract class _AddNewTransactions implements AddNewTransactionsToGoalState {
   const factory _AddNewTransactions(
       {required final int iconD,
       required final String name,
-      required final String target}) = _$AddNewTransactionsImpl;
+      required final String target,
+      required final String avalable}) = _$AddNewTransactionsImpl;
 
   int get iconD;
   String get name;
   String get target;
+  String get avalable;
 
   /// Create a copy of AddNewTransactionsToGoalState
   /// with the given fields replaced by the non-null parameter values.
@@ -542,7 +568,7 @@ abstract class _$$updateNewTransactionsImplCopyWith<$Res> {
           $Res Function(_$updateNewTransactionsImpl) then) =
       __$$updateNewTransactionsImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int iconD, String name, String target});
+  $Res call({int iconD, String name, String target, String avalable});
 }
 
 /// @nodoc
@@ -562,6 +588,7 @@ class __$$updateNewTransactionsImplCopyWithImpl<$Res>
     Object? iconD = null,
     Object? name = null,
     Object? target = null,
+    Object? avalable = null,
   }) {
     return _then(_$updateNewTransactionsImpl(
       iconD: null == iconD
@@ -576,6 +603,10 @@ class __$$updateNewTransactionsImplCopyWithImpl<$Res>
           ? _value.target
           : target // ignore: cast_nullable_to_non_nullable
               as String,
+      avalable: null == avalable
+          ? _value.avalable
+          : avalable // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -584,7 +615,10 @@ class __$$updateNewTransactionsImplCopyWithImpl<$Res>
 
 class _$updateNewTransactionsImpl implements _updateNewTransactions {
   const _$updateNewTransactionsImpl(
-      {required this.iconD, required this.name, required this.target});
+      {required this.iconD,
+      required this.name,
+      required this.target,
+      required this.avalable});
 
   @override
   final int iconD;
@@ -592,10 +626,12 @@ class _$updateNewTransactionsImpl implements _updateNewTransactions {
   final String name;
   @override
   final String target;
+  @override
+  final String avalable;
 
   @override
   String toString() {
-    return 'AddNewTransactionsToGoalState.updateNewTransactions(iconD: $iconD, name: $name, target: $target)';
+    return 'AddNewTransactionsToGoalState.updateNewTransactions(iconD: $iconD, name: $name, target: $target, avalable: $avalable)';
   }
 
   @override
@@ -605,11 +641,13 @@ class _$updateNewTransactionsImpl implements _updateNewTransactions {
             other is _$updateNewTransactionsImpl &&
             (identical(other.iconD, iconD) || other.iconD == iconD) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.target, target) || other.target == target));
+            (identical(other.target, target) || other.target == target) &&
+            (identical(other.avalable, avalable) ||
+                other.avalable == avalable));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, iconD, name, target);
+  int get hashCode => Object.hash(runtimeType, iconD, name, target, avalable);
 
   /// Create a copy of AddNewTransactionsToGoalState
   /// with the given fields replaced by the non-null parameter values.
@@ -625,12 +663,14 @@ class _$updateNewTransactionsImpl implements _updateNewTransactions {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() newTransactionsToEmpty,
-    required TResult Function(int iconD, String name, String target)
+    required TResult Function(
+            int iconD, String name, String target, String avalable)
         addNewTransactions,
-    required TResult Function(int iconD, String name, String target)
+    required TResult Function(
+            int iconD, String name, String target, String avalable)
         updateNewTransactions,
   }) {
-    return updateNewTransactions(iconD, name, target);
+    return updateNewTransactions(iconD, name, target, avalable);
   }
 
   @override
@@ -638,12 +678,12 @@ class _$updateNewTransactionsImpl implements _updateNewTransactions {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? newTransactionsToEmpty,
-    TResult? Function(int iconD, String name, String target)?
+    TResult? Function(int iconD, String name, String target, String avalable)?
         addNewTransactions,
-    TResult? Function(int iconD, String name, String target)?
+    TResult? Function(int iconD, String name, String target, String avalable)?
         updateNewTransactions,
   }) {
-    return updateNewTransactions?.call(iconD, name, target);
+    return updateNewTransactions?.call(iconD, name, target, avalable);
   }
 
   @override
@@ -651,13 +691,14 @@ class _$updateNewTransactionsImpl implements _updateNewTransactions {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? newTransactionsToEmpty,
-    TResult Function(int iconD, String name, String target)? addNewTransactions,
-    TResult Function(int iconD, String name, String target)?
+    TResult Function(int iconD, String name, String target, String avalable)?
+        addNewTransactions,
+    TResult Function(int iconD, String name, String target, String avalable)?
         updateNewTransactions,
     required TResult orElse(),
   }) {
     if (updateNewTransactions != null) {
-      return updateNewTransactions(iconD, name, target);
+      return updateNewTransactions(iconD, name, target, avalable);
     }
     return orElse();
   }
@@ -706,11 +747,13 @@ abstract class _updateNewTransactions implements AddNewTransactionsToGoalState {
   const factory _updateNewTransactions(
       {required final int iconD,
       required final String name,
-      required final String target}) = _$updateNewTransactionsImpl;
+      required final String target,
+      required final String avalable}) = _$updateNewTransactionsImpl;
 
   int get iconD;
   String get name;
   String get target;
+  String get avalable;
 
   /// Create a copy of AddNewTransactionsToGoalState
   /// with the given fields replaced by the non-null parameter values.

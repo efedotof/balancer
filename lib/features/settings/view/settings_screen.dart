@@ -39,7 +39,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Icons.language,
                       color: Colors.yellow,
                     ),
-                    // leading: Text(context.watch<LanguageCubit>().checkLocale()),
                     title:  Row(
                       children: [
                         Text(S.of(context).language),
@@ -54,8 +53,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 builder: (context, state) {
                   return Card(
                     child: ListTile(
-                      // leading: Icon(
-                      //     state.isDark ? Icons.light_mode : Icons.dark_mode),
                       title: Text(S.of(context).theme),
                       trailing: Switch(
                           value: state.isDark,

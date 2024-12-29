@@ -20,8 +20,9 @@ mixin _$StatisticsState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() empty,
-    required TResult Function(int amountExpense, int amountIncome) notEmpty,
-    required TResult Function(int amountExpense, int amountIncome)
+    required TResult Function(double amountExpense, double amountIncome)
+        notEmpty,
+    required TResult Function(double amountExpense, double amountIncome)
         uploadStatistics,
   }) =>
       throw _privateConstructorUsedError;
@@ -29,16 +30,18 @@ mixin _$StatisticsState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? empty,
-    TResult? Function(int amountExpense, int amountIncome)? notEmpty,
-    TResult? Function(int amountExpense, int amountIncome)? uploadStatistics,
+    TResult? Function(double amountExpense, double amountIncome)? notEmpty,
+    TResult? Function(double amountExpense, double amountIncome)?
+        uploadStatistics,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? empty,
-    TResult Function(int amountExpense, int amountIncome)? notEmpty,
-    TResult Function(int amountExpense, int amountIncome)? uploadStatistics,
+    TResult Function(double amountExpense, double amountIncome)? notEmpty,
+    TResult Function(double amountExpense, double amountIncome)?
+        uploadStatistics,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -133,8 +136,9 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() empty,
-    required TResult Function(int amountExpense, int amountIncome) notEmpty,
-    required TResult Function(int amountExpense, int amountIncome)
+    required TResult Function(double amountExpense, double amountIncome)
+        notEmpty,
+    required TResult Function(double amountExpense, double amountIncome)
         uploadStatistics,
   }) {
     return initial();
@@ -145,8 +149,9 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? empty,
-    TResult? Function(int amountExpense, int amountIncome)? notEmpty,
-    TResult? Function(int amountExpense, int amountIncome)? uploadStatistics,
+    TResult? Function(double amountExpense, double amountIncome)? notEmpty,
+    TResult? Function(double amountExpense, double amountIncome)?
+        uploadStatistics,
   }) {
     return initial?.call();
   }
@@ -156,8 +161,9 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? empty,
-    TResult Function(int amountExpense, int amountIncome)? notEmpty,
-    TResult Function(int amountExpense, int amountIncome)? uploadStatistics,
+    TResult Function(double amountExpense, double amountIncome)? notEmpty,
+    TResult Function(double amountExpense, double amountIncome)?
+        uploadStatistics,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -251,8 +257,9 @@ class _$EmptyImpl implements _Empty {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() empty,
-    required TResult Function(int amountExpense, int amountIncome) notEmpty,
-    required TResult Function(int amountExpense, int amountIncome)
+    required TResult Function(double amountExpense, double amountIncome)
+        notEmpty,
+    required TResult Function(double amountExpense, double amountIncome)
         uploadStatistics,
   }) {
     return empty();
@@ -263,8 +270,9 @@ class _$EmptyImpl implements _Empty {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? empty,
-    TResult? Function(int amountExpense, int amountIncome)? notEmpty,
-    TResult? Function(int amountExpense, int amountIncome)? uploadStatistics,
+    TResult? Function(double amountExpense, double amountIncome)? notEmpty,
+    TResult? Function(double amountExpense, double amountIncome)?
+        uploadStatistics,
   }) {
     return empty?.call();
   }
@@ -274,8 +282,9 @@ class _$EmptyImpl implements _Empty {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? empty,
-    TResult Function(int amountExpense, int amountIncome)? notEmpty,
-    TResult Function(int amountExpense, int amountIncome)? uploadStatistics,
+    TResult Function(double amountExpense, double amountIncome)? notEmpty,
+    TResult Function(double amountExpense, double amountIncome)?
+        uploadStatistics,
     required TResult orElse(),
   }) {
     if (empty != null) {
@@ -332,7 +341,7 @@ abstract class _$$NotEmptyImplCopyWith<$Res> {
           _$NotEmptyImpl value, $Res Function(_$NotEmptyImpl) then) =
       __$$NotEmptyImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int amountExpense, int amountIncome});
+  $Res call({double amountExpense, double amountIncome});
 }
 
 /// @nodoc
@@ -355,11 +364,11 @@ class __$$NotEmptyImplCopyWithImpl<$Res>
       amountExpense: null == amountExpense
           ? _value.amountExpense
           : amountExpense // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       amountIncome: null == amountIncome
           ? _value.amountIncome
           : amountIncome // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
     ));
   }
 }
@@ -371,9 +380,9 @@ class _$NotEmptyImpl implements _NotEmpty {
       {required this.amountExpense, required this.amountIncome});
 
   @override
-  final int amountExpense;
+  final double amountExpense;
   @override
-  final int amountIncome;
+  final double amountIncome;
 
   @override
   String toString() {
@@ -407,8 +416,9 @@ class _$NotEmptyImpl implements _NotEmpty {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() empty,
-    required TResult Function(int amountExpense, int amountIncome) notEmpty,
-    required TResult Function(int amountExpense, int amountIncome)
+    required TResult Function(double amountExpense, double amountIncome)
+        notEmpty,
+    required TResult Function(double amountExpense, double amountIncome)
         uploadStatistics,
   }) {
     return notEmpty(amountExpense, amountIncome);
@@ -419,8 +429,9 @@ class _$NotEmptyImpl implements _NotEmpty {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? empty,
-    TResult? Function(int amountExpense, int amountIncome)? notEmpty,
-    TResult? Function(int amountExpense, int amountIncome)? uploadStatistics,
+    TResult? Function(double amountExpense, double amountIncome)? notEmpty,
+    TResult? Function(double amountExpense, double amountIncome)?
+        uploadStatistics,
   }) {
     return notEmpty?.call(amountExpense, amountIncome);
   }
@@ -430,8 +441,9 @@ class _$NotEmptyImpl implements _NotEmpty {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? empty,
-    TResult Function(int amountExpense, int amountIncome)? notEmpty,
-    TResult Function(int amountExpense, int amountIncome)? uploadStatistics,
+    TResult Function(double amountExpense, double amountIncome)? notEmpty,
+    TResult Function(double amountExpense, double amountIncome)?
+        uploadStatistics,
     required TResult orElse(),
   }) {
     if (notEmpty != null) {
@@ -480,11 +492,11 @@ class _$NotEmptyImpl implements _NotEmpty {
 
 abstract class _NotEmpty implements StatisticsState {
   const factory _NotEmpty(
-      {required final int amountExpense,
-      required final int amountIncome}) = _$NotEmptyImpl;
+      {required final double amountExpense,
+      required final double amountIncome}) = _$NotEmptyImpl;
 
-  int get amountExpense;
-  int get amountIncome;
+  double get amountExpense;
+  double get amountIncome;
 
   /// Create a copy of StatisticsState
   /// with the given fields replaced by the non-null parameter values.
@@ -499,7 +511,7 @@ abstract class _$$UploadStatisticsImplCopyWith<$Res> {
           $Res Function(_$UploadStatisticsImpl) then) =
       __$$UploadStatisticsImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int amountExpense, int amountIncome});
+  $Res call({double amountExpense, double amountIncome});
 }
 
 /// @nodoc
@@ -522,11 +534,11 @@ class __$$UploadStatisticsImplCopyWithImpl<$Res>
       amountExpense: null == amountExpense
           ? _value.amountExpense
           : amountExpense // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       amountIncome: null == amountIncome
           ? _value.amountIncome
           : amountIncome // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
     ));
   }
 }
@@ -538,9 +550,9 @@ class _$UploadStatisticsImpl implements _UploadStatistics {
       {required this.amountExpense, required this.amountIncome});
 
   @override
-  final int amountExpense;
+  final double amountExpense;
   @override
-  final int amountIncome;
+  final double amountIncome;
 
   @override
   String toString() {
@@ -575,8 +587,9 @@ class _$UploadStatisticsImpl implements _UploadStatistics {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() empty,
-    required TResult Function(int amountExpense, int amountIncome) notEmpty,
-    required TResult Function(int amountExpense, int amountIncome)
+    required TResult Function(double amountExpense, double amountIncome)
+        notEmpty,
+    required TResult Function(double amountExpense, double amountIncome)
         uploadStatistics,
   }) {
     return uploadStatistics(amountExpense, amountIncome);
@@ -587,8 +600,9 @@ class _$UploadStatisticsImpl implements _UploadStatistics {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? empty,
-    TResult? Function(int amountExpense, int amountIncome)? notEmpty,
-    TResult? Function(int amountExpense, int amountIncome)? uploadStatistics,
+    TResult? Function(double amountExpense, double amountIncome)? notEmpty,
+    TResult? Function(double amountExpense, double amountIncome)?
+        uploadStatistics,
   }) {
     return uploadStatistics?.call(amountExpense, amountIncome);
   }
@@ -598,8 +612,9 @@ class _$UploadStatisticsImpl implements _UploadStatistics {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? empty,
-    TResult Function(int amountExpense, int amountIncome)? notEmpty,
-    TResult Function(int amountExpense, int amountIncome)? uploadStatistics,
+    TResult Function(double amountExpense, double amountIncome)? notEmpty,
+    TResult Function(double amountExpense, double amountIncome)?
+        uploadStatistics,
     required TResult orElse(),
   }) {
     if (uploadStatistics != null) {
@@ -648,11 +663,11 @@ class _$UploadStatisticsImpl implements _UploadStatistics {
 
 abstract class _UploadStatistics implements StatisticsState {
   const factory _UploadStatistics(
-      {required final int amountExpense,
-      required final int amountIncome}) = _$UploadStatisticsImpl;
+      {required final double amountExpense,
+      required final double amountIncome}) = _$UploadStatisticsImpl;
 
-  int get amountExpense;
-  int get amountIncome;
+  double get amountExpense;
+  double get amountIncome;
 
   /// Create a copy of StatisticsState
   /// with the given fields replaced by the non-null parameter values.

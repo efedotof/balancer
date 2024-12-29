@@ -43,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "amount": MessageLookupByLibrary.simpleMessage("Amount"),
         "analytics": MessageLookupByLibrary.simpleMessage("Analytics"),
         "application": MessageLookupByLibrary.simpleMessage("Application"),
+        "available": MessageLookupByLibrary.simpleMessage("Available:"),
         "balancer": MessageLookupByLibrary.simpleMessage("Balancer"),
         "balancerIsASimpleAndConvenientApplicationForTrackingYour":
             MessageLookupByLibrary.simpleMessage(
@@ -90,6 +91,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Invalid amount. Please enter a valid number."),
         "investmentIncome":
             MessageLookupByLibrary.simpleMessage("Investment Income"),
+        "itIsNecessaryToEnterDataNamePurposeAndMode":
+            MessageLookupByLibrary.simpleMessage(
+                "It is necessary to enter data: name, purpose, and mode"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "left": MessageLookupByLibrary.simpleMessage("Remaining"),
         "mainCategory": MessageLookupByLibrary.simpleMessage("Main Category:"),
@@ -104,6 +108,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No goals available."),
         "none": MessageLookupByLibrary.simpleMessage("None"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
+        "oopsyouMadeAMistakeTheAmountShouldExceed1Ruble":
+            MessageLookupByLibrary.simpleMessage(
+                "Oops...You made a mistake, the amount should exceed 1 ruble."),
         "otherExpense": MessageLookupByLibrary.simpleMessage("Other Expenses"),
         "otherIncome":
             MessageLookupByLibrary.simpleMessage("Other Sources of Income"),
@@ -150,6 +157,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No income recorded"),
         "title": MessageLookupByLibrary.simpleMessage("Title"),
         "to_create": MessageLookupByLibrary.simpleMessage("Create"),
+        "to_the_goal": MessageLookupByLibrary.simpleMessage("To the goal"),
+        "today": MessageLookupByLibrary.simpleMessage("Today"),
         "transaction_added":
             MessageLookupByLibrary.simpleMessage("Transaction added"),
         "transactions": MessageLookupByLibrary.simpleMessage("Transactions"),
@@ -169,6 +178,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "We suggest keeping your monthly expenses under 80% of your income, but you can set your own limit."),
         "whatsYourMonthlyIncome":
             MessageLookupByLibrary.simpleMessage("What’s Your Monthly Income?"),
+        "youCantWithdrawMoneyFromTheGoal": MessageLookupByLibrary.simpleMessage(
+            "You can\'t withdraw money from the goal."),
         "yourPersonalFinancialTrackerForManuallyRecordingExpensesAndBudget":
             MessageLookupByLibrary.simpleMessage(
                 "Your personal finance tracker for manually recording expenses and managing budgets.")

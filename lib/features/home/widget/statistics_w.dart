@@ -10,10 +10,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class StatisticsW extends StatelessWidget {
   const StatisticsW({super.key, required this.income, required this.expense});
 
-  final int income;
-  final int expense;
+  final double income;
+  final double expense;
 
-  bool less(int income, int expense) {
+  bool less(double income, double expense) {
     return income <= expense;
   }
 

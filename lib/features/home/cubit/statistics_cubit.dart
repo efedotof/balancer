@@ -37,8 +37,8 @@ class StatisticsCubit extends Cubit<StatisticsState> {
   }
 
   Future<void> addStatistics({
-    required int amountExpenses,
-    required int amountIncome,
+    required double amountExpenses,
+    required double amountIncome,
   }) async {
     try {
       _interface.boxAdd(
@@ -50,7 +50,7 @@ class StatisticsCubit extends Cubit<StatisticsState> {
     }
   }
 
- Future<void> uploadStatistics({required int amountExpenses,required  int amountIncome}) async {
+ Future<void> uploadStatistics({required double amountExpenses,required  double amountIncome}) async {
   try {
     var box = Hive.box<Statistics>('Statistics_box');
     final statistics = box.isNotEmpty ? box.getAt(0) : null;

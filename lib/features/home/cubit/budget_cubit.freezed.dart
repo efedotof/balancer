@@ -20,9 +20,9 @@ mixin _$BudgetState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() empty,
-    required TResult Function(int budgetAmount, int? spent, int? left)
+    required TResult Function(double budgetAmount, double spent, double left)
         isNotEmpty,
-    required TResult Function(int budgetAmount, int? spent, int? left)
+    required TResult Function(double budgetAmount, double spent, double left)
         updateBudget,
   }) =>
       throw _privateConstructorUsedError;
@@ -30,16 +30,20 @@ mixin _$BudgetState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? empty,
-    TResult? Function(int budgetAmount, int? spent, int? left)? isNotEmpty,
-    TResult? Function(int budgetAmount, int? spent, int? left)? updateBudget,
+    TResult? Function(double budgetAmount, double spent, double left)?
+        isNotEmpty,
+    TResult? Function(double budgetAmount, double spent, double left)?
+        updateBudget,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? empty,
-    TResult Function(int budgetAmount, int? spent, int? left)? isNotEmpty,
-    TResult Function(int budgetAmount, int? spent, int? left)? updateBudget,
+    TResult Function(double budgetAmount, double spent, double left)?
+        isNotEmpty,
+    TResult Function(double budgetAmount, double spent, double left)?
+        updateBudget,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -134,9 +138,9 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() empty,
-    required TResult Function(int budgetAmount, int? spent, int? left)
+    required TResult Function(double budgetAmount, double spent, double left)
         isNotEmpty,
-    required TResult Function(int budgetAmount, int? spent, int? left)
+    required TResult Function(double budgetAmount, double spent, double left)
         updateBudget,
   }) {
     return initial();
@@ -147,8 +151,10 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? empty,
-    TResult? Function(int budgetAmount, int? spent, int? left)? isNotEmpty,
-    TResult? Function(int budgetAmount, int? spent, int? left)? updateBudget,
+    TResult? Function(double budgetAmount, double spent, double left)?
+        isNotEmpty,
+    TResult? Function(double budgetAmount, double spent, double left)?
+        updateBudget,
   }) {
     return initial?.call();
   }
@@ -158,8 +164,10 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? empty,
-    TResult Function(int budgetAmount, int? spent, int? left)? isNotEmpty,
-    TResult Function(int budgetAmount, int? spent, int? left)? updateBudget,
+    TResult Function(double budgetAmount, double spent, double left)?
+        isNotEmpty,
+    TResult Function(double budgetAmount, double spent, double left)?
+        updateBudget,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -253,9 +261,9 @@ class _$EmptyStateImpl implements _EmptyState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() empty,
-    required TResult Function(int budgetAmount, int? spent, int? left)
+    required TResult Function(double budgetAmount, double spent, double left)
         isNotEmpty,
-    required TResult Function(int budgetAmount, int? spent, int? left)
+    required TResult Function(double budgetAmount, double spent, double left)
         updateBudget,
   }) {
     return empty();
@@ -266,8 +274,10 @@ class _$EmptyStateImpl implements _EmptyState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? empty,
-    TResult? Function(int budgetAmount, int? spent, int? left)? isNotEmpty,
-    TResult? Function(int budgetAmount, int? spent, int? left)? updateBudget,
+    TResult? Function(double budgetAmount, double spent, double left)?
+        isNotEmpty,
+    TResult? Function(double budgetAmount, double spent, double left)?
+        updateBudget,
   }) {
     return empty?.call();
   }
@@ -277,8 +287,10 @@ class _$EmptyStateImpl implements _EmptyState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? empty,
-    TResult Function(int budgetAmount, int? spent, int? left)? isNotEmpty,
-    TResult Function(int budgetAmount, int? spent, int? left)? updateBudget,
+    TResult Function(double budgetAmount, double spent, double left)?
+        isNotEmpty,
+    TResult Function(double budgetAmount, double spent, double left)?
+        updateBudget,
     required TResult orElse(),
   }) {
     if (empty != null) {
@@ -335,7 +347,7 @@ abstract class _$$IsNotEmptyImplCopyWith<$Res> {
           _$IsNotEmptyImpl value, $Res Function(_$IsNotEmptyImpl) then) =
       __$$IsNotEmptyImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int budgetAmount, int? spent, int? left});
+  $Res call({double budgetAmount, double spent, double left});
 }
 
 /// @nodoc
@@ -352,22 +364,22 @@ class __$$IsNotEmptyImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? budgetAmount = null,
-    Object? spent = freezed,
-    Object? left = freezed,
+    Object? spent = null,
+    Object? left = null,
   }) {
     return _then(_$IsNotEmptyImpl(
       budgetAmount: null == budgetAmount
           ? _value.budgetAmount
           : budgetAmount // ignore: cast_nullable_to_non_nullable
-              as int,
-      spent: freezed == spent
+              as double,
+      spent: null == spent
           ? _value.spent
           : spent // ignore: cast_nullable_to_non_nullable
-              as int?,
-      left: freezed == left
+              as double,
+      left: null == left
           ? _value.left
           : left // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double,
     ));
   }
 }
@@ -379,11 +391,11 @@ class _$IsNotEmptyImpl implements _IsNotEmpty {
       {required this.budgetAmount, required this.spent, required this.left});
 
   @override
-  final int budgetAmount;
+  final double budgetAmount;
   @override
-  final int? spent;
+  final double spent;
   @override
-  final int? left;
+  final double left;
 
   @override
   String toString() {
@@ -417,9 +429,9 @@ class _$IsNotEmptyImpl implements _IsNotEmpty {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() empty,
-    required TResult Function(int budgetAmount, int? spent, int? left)
+    required TResult Function(double budgetAmount, double spent, double left)
         isNotEmpty,
-    required TResult Function(int budgetAmount, int? spent, int? left)
+    required TResult Function(double budgetAmount, double spent, double left)
         updateBudget,
   }) {
     return isNotEmpty(budgetAmount, spent, left);
@@ -430,8 +442,10 @@ class _$IsNotEmptyImpl implements _IsNotEmpty {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? empty,
-    TResult? Function(int budgetAmount, int? spent, int? left)? isNotEmpty,
-    TResult? Function(int budgetAmount, int? spent, int? left)? updateBudget,
+    TResult? Function(double budgetAmount, double spent, double left)?
+        isNotEmpty,
+    TResult? Function(double budgetAmount, double spent, double left)?
+        updateBudget,
   }) {
     return isNotEmpty?.call(budgetAmount, spent, left);
   }
@@ -441,8 +455,10 @@ class _$IsNotEmptyImpl implements _IsNotEmpty {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? empty,
-    TResult Function(int budgetAmount, int? spent, int? left)? isNotEmpty,
-    TResult Function(int budgetAmount, int? spent, int? left)? updateBudget,
+    TResult Function(double budgetAmount, double spent, double left)?
+        isNotEmpty,
+    TResult Function(double budgetAmount, double spent, double left)?
+        updateBudget,
     required TResult orElse(),
   }) {
     if (isNotEmpty != null) {
@@ -491,13 +507,13 @@ class _$IsNotEmptyImpl implements _IsNotEmpty {
 
 abstract class _IsNotEmpty implements BudgetState {
   const factory _IsNotEmpty(
-      {required final int budgetAmount,
-      required final int? spent,
-      required final int? left}) = _$IsNotEmptyImpl;
+      {required final double budgetAmount,
+      required final double spent,
+      required final double left}) = _$IsNotEmptyImpl;
 
-  int get budgetAmount;
-  int? get spent;
-  int? get left;
+  double get budgetAmount;
+  double get spent;
+  double get left;
 
   /// Create a copy of BudgetState
   /// with the given fields replaced by the non-null parameter values.
@@ -512,7 +528,7 @@ abstract class _$$UpdateBudgetImplCopyWith<$Res> {
           _$UpdateBudgetImpl value, $Res Function(_$UpdateBudgetImpl) then) =
       __$$UpdateBudgetImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int budgetAmount, int? spent, int? left});
+  $Res call({double budgetAmount, double spent, double left});
 }
 
 /// @nodoc
@@ -529,22 +545,22 @@ class __$$UpdateBudgetImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? budgetAmount = null,
-    Object? spent = freezed,
-    Object? left = freezed,
+    Object? spent = null,
+    Object? left = null,
   }) {
     return _then(_$UpdateBudgetImpl(
       budgetAmount: null == budgetAmount
           ? _value.budgetAmount
           : budgetAmount // ignore: cast_nullable_to_non_nullable
-              as int,
-      spent: freezed == spent
+              as double,
+      spent: null == spent
           ? _value.spent
           : spent // ignore: cast_nullable_to_non_nullable
-              as int?,
-      left: freezed == left
+              as double,
+      left: null == left
           ? _value.left
           : left // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double,
     ));
   }
 }
@@ -556,11 +572,11 @@ class _$UpdateBudgetImpl implements _UpdateBudget {
       {required this.budgetAmount, required this.spent, required this.left});
 
   @override
-  final int budgetAmount;
+  final double budgetAmount;
   @override
-  final int? spent;
+  final double spent;
   @override
-  final int? left;
+  final double left;
 
   @override
   String toString() {
@@ -594,9 +610,9 @@ class _$UpdateBudgetImpl implements _UpdateBudget {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() empty,
-    required TResult Function(int budgetAmount, int? spent, int? left)
+    required TResult Function(double budgetAmount, double spent, double left)
         isNotEmpty,
-    required TResult Function(int budgetAmount, int? spent, int? left)
+    required TResult Function(double budgetAmount, double spent, double left)
         updateBudget,
   }) {
     return updateBudget(budgetAmount, spent, left);
@@ -607,8 +623,10 @@ class _$UpdateBudgetImpl implements _UpdateBudget {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? empty,
-    TResult? Function(int budgetAmount, int? spent, int? left)? isNotEmpty,
-    TResult? Function(int budgetAmount, int? spent, int? left)? updateBudget,
+    TResult? Function(double budgetAmount, double spent, double left)?
+        isNotEmpty,
+    TResult? Function(double budgetAmount, double spent, double left)?
+        updateBudget,
   }) {
     return updateBudget?.call(budgetAmount, spent, left);
   }
@@ -618,8 +636,10 @@ class _$UpdateBudgetImpl implements _UpdateBudget {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? empty,
-    TResult Function(int budgetAmount, int? spent, int? left)? isNotEmpty,
-    TResult Function(int budgetAmount, int? spent, int? left)? updateBudget,
+    TResult Function(double budgetAmount, double spent, double left)?
+        isNotEmpty,
+    TResult Function(double budgetAmount, double spent, double left)?
+        updateBudget,
     required TResult orElse(),
   }) {
     if (updateBudget != null) {
@@ -668,13 +688,13 @@ class _$UpdateBudgetImpl implements _UpdateBudget {
 
 abstract class _UpdateBudget implements BudgetState {
   const factory _UpdateBudget(
-      {required final int budgetAmount,
-      required final int? spent,
-      required final int? left}) = _$UpdateBudgetImpl;
+      {required final double budgetAmount,
+      required final double spent,
+      required final double left}) = _$UpdateBudgetImpl;
 
-  int get budgetAmount;
-  int? get spent;
-  int? get left;
+  double get budgetAmount;
+  double get spent;
+  double get left;
 
   /// Create a copy of BudgetState
   /// with the given fields replaced by the non-null parameter values.

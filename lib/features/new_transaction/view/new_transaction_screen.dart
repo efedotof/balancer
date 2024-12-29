@@ -16,6 +16,7 @@ class NewTransactionScreen extends StatelessWidget {
         leading: IconButton(onPressed: (){
           context.maybePop();
           context.read<AddRowCubit>().transToClean(context);
+          context.read<AddNewTransactionsToGoalCubit>().cleanToGoals(context);
         }, icon: const Icon(Icons.arrow_back_ios)),
         actions: [
           TextButton(
@@ -110,8 +111,8 @@ class NewTransactionScreen extends StatelessWidget {
                 ListTile(
                   leading: const Icon(Icons.calendar_today),
                   title: Text(state.selectedDate == null
-                      ? 'Today, ${TimeOfDay.now().format(context)}'
-                      : '${state.selectedDate!.toLocal()}'),
+                      ? '${S.of(context).today}, ${TimeOfDay.now().format(context)}'
+                      : context.read<ReportCubit>().formatDate(state.selectedDate!.toLocal())),
                   onTap: () async {
         
                     final selectedDate = await showDatePicker(
@@ -136,6 +137,7 @@ class NewTransactionScreen extends StatelessWidget {
                           selectedTime.minute,
                         );
                         if (context.mounted) {
+                        context.read<AddNewGoalsProvider>().updateDateTime(newTime:dateTime);
                           context
                               .read<NewTransactionCubit>()
                               .updateSelectedDateTime(dateTime);
@@ -155,9 +157,9 @@ class NewTransactionScreen extends StatelessWidget {
                         children: List.generate(transaction.length, (index) {
                           return ListTile(
                             leading: Icon(getIcon(category[index])),
-                            title: Text(transaction[index].categoryTitle),
+                            title: Text(name(context, transaction[index].categoryTitle)),
                             trailing: Text(
-                              "${transaction[index].amount.toInt()} ₽",
+                              "${transaction[index].amount} ₽",
                               style: const TextStyle(
                                 fontSize: 20,
                               ),
@@ -170,9 +172,9 @@ class NewTransactionScreen extends StatelessWidget {
                         children: List.generate(transaction.length, (index) {
                           return ListTile(
                             leading: Icon(getIcon(category[index])),
-                            title: Text(transaction[index].categoryTitle),
+                            title: Text(name(context, transaction[index].categoryTitle)),
                             trailing: Text(
-                              "${transaction[index].amount.toInt()} ₽",
+                              "${transaction[index].amount} ₽",
                               style: const TextStyle(
                                 fontSize: 20,
                               ),
@@ -201,16 +203,18 @@ class NewTransactionScreen extends StatelessWidget {
                     return state.when(
                       initial: () => const SizedBox.shrink(),
                       newTransactionsToEmpty: () => const SizedBox.shrink(),
-                      addNewTransactions: (icond, name, target) => ListTile(
+                      addNewTransactions: (icond, name, target, avalable) => ListTile(
                         title: Text(name),
                         subtitle: Text(target),
-                        trailing:
+                        leading:
                             Icon(IconData(icond, fontFamily: 'MaterialIcons')),
+                             trailing: Text('${S.of(context).available} $avalable₽', style: const TextStyle(fontSize: 16),),
                       ),
-                      updateNewTransactions: (icond, name, target) => ListTile(
+                      updateNewTransactions: (icond, name, target, avalable) => ListTile(
                           title: Text(name),
                           subtitle: Text(target),
-                          trailing: Icon(
+                           trailing: Text('${S.of(context).available} $avalable₽', style: const TextStyle(fontSize: 16),),
+                          leading: Icon(
                               IconData(icond, fontFamily: 'MaterialIcons'))),
                     );
                   },

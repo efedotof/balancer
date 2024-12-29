@@ -1,5 +1,5 @@
 import 'package:balancer/Theme/constants/constants.dart';
-import 'package:balancer/features/home/view/goal_setting/providers/goals_provider.dart';
+import 'package:balancer/features/home/view/goal_add/providers/goals_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

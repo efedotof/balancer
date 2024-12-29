@@ -1,8 +1,8 @@
-part of 'goal_settings_cubit.dart';
+part of 'goal_add_cubit.dart';
 
 @freezed
-class GoalSettingsState with _$GoalSettingsState {
-  const factory GoalSettingsState({
+class GoalAddState with _$GoalSettingsState {
+  const factory GoalAddState({
     required String title,
     required double amount,
     required IconData icon,
@@ -12,7 +12,7 @@ class GoalSettingsState with _$GoalSettingsState {
     @Default(false) bool isValid,
   }) = _GoalSettingsState;
 
-  factory GoalSettingsState.initial() => const GoalSettingsState(
+  factory GoalAddState.initial() => const GoalAddState(
         title: '',
         amount: 0,
         icon: Icons.abc,

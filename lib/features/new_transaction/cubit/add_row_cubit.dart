@@ -1,5 +1,5 @@
 import 'package:balancer/box/models/transactions.dart';
-import 'package:balancer/features/new_transaction/cubit/cubit/providers/add_new_goals_provider.dart';
+import 'package:balancer/features/new_transaction/providers/add_new_goals_provider.dart';
 import 'package:balancer/features/new_transaction/widget/category.dart';
 import 'package:balancer/features/new_transaction/widget/transaction_item.dart';
 import 'package:flutter/material.dart';
@@ -17,13 +17,13 @@ class AddRowCubit extends Cubit<AddRowState> {
   List<TransactionItem> transaction = [];
   List<Transactions> transactionsList = [];
   List<TransactionCategoryTitle> categorys = [];
-  int total = 0;
+
 
   void addRow(BuildContext context, {required TransactionItem transactions, required TransactionCategoryTitle category}) {
 
     transaction.add(transactions);
     transactionsList.add(Transactions(
-        amount: transactions.amount.toInt(),
+        amount: transactions.amount,
         nameTrans: transactions.categoryTitle,
         date: DateTime.now()));
     categorys.add(category);
@@ -35,7 +35,7 @@ class AddRowCubit extends Cubit<AddRowState> {
 
     context
         .read<TotalCubit>()
-        .changeTotalBudget(amountsTotal: transactions.amount.toInt());
+        .changeTotalBudget(context: context);
 
     debugPrint("Current transactionsList: ${transactionsList.length}");
   }
@@ -45,7 +45,7 @@ class AddRowCubit extends Cubit<AddRowState> {
     transactionsList.clear();
     categorys.clear();
     if(context.mounted){
-      context.read<AddNewGoalsProvider>().goalsSelectToClean();
+      context.read<AddNewGoalsProvider>().addNewGoalsToClean();
     }
     emit(const AddRowState.initial());
   }

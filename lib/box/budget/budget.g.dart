@@ -8,7 +8,7 @@ part of 'budget.dart';
 
 class BudgetAdapter extends TypeAdapter<Budget> {
   @override
-  final int typeId = 2;
+  final int typeId = 4;
 
   @override
   Budget read(BinaryReader reader) {
@@ -17,10 +17,10 @@ class BudgetAdapter extends TypeAdapter<Budget> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Budget(
-      amountBudget: fields[0] as int,
-      spent: fields[1] as int?,
-      left: fields[2] as int?,
-      expenses: fields[3] as int?,
+      amountBudget: fields[0] as double,
+      spent: fields[1] as double,
+      left: fields[2] as double,
+      expenses: fields[3] as double,
     );
   }
 

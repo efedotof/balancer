@@ -105,5 +105,11 @@
   "invalidAmountMustBeGreaterThanZero": "Недопустимая сумма должна быть больше нуля",
   "myGoals": "Мои цели",
   "target": "Цель",
-  "theme": "Тема"
+  "theme": "Тема",
+  "to_the_goal": "В цель",
+  "today": "Сегодня",
+  "youCantWithdrawMoneyFromTheGoal": "Вы не можете забрать из цели деньги.",
+  "available": "Доступно:",
+  "itIsNecessaryToEnterDataNamePurposeAndMode": "Необходимо внести данные: название, цель, и режим",
+  "oopsyouMadeAMistakeTheAmountShouldExceed1Ruble": "Упссс...Вы допустили ошибку сумма должна превышать 1 рубль"
 }

@@ -1,5 +1,5 @@
-import 'package:balancer/features/home/view/goal_setting/cubit/goal_settings_cubit.dart';
-import 'package:balancer/features/home/view/goal_setting/providers/goals_provider.dart';
+import 'package:balancer/features/home/view/goal_add/cubit/goal_add_cubit.dart';
+import 'package:balancer/features/home/view/goal_add/providers/goals_provider.dart';
 import 'package:balancer/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +9,7 @@ class GoalModeSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GoalSettingsCubit, GoalSettingsState>(
+    return BlocBuilder<GoalAddCubit, GoalAddState>(
       builder: (context, state) {
         final mode = state.mode;
         return Row(
@@ -18,7 +18,7 @@ class GoalModeSelector extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   context.read<GoalsProvider>().changeMode(newMode: GoalMode.manual);
-                  context.read<GoalSettingsCubit>().updateMode(GoalMode.manual);
+                  context.read<GoalAddCubit>().updateMode(GoalMode.manual);
                 },
                 child: Card(
                   color: mode == GoalMode.manual
@@ -36,7 +36,7 @@ class GoalModeSelector extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   context.read<GoalsProvider>().changeMode(newMode: GoalMode.percentage);
-                  context.read<GoalSettingsCubit>().updateMode(GoalMode.percentage);
+                  context.read<GoalAddCubit>().updateMode(GoalMode.percentage);
                 },
                 child: Card(
                   color: mode == GoalMode.percentage

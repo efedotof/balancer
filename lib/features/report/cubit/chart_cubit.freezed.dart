@@ -20,7 +20,7 @@ mixin _$ChartState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(
-            Map<String, int> incomeStats, Map<String, int> expenseStats)
+            Map<String, double> incomeStats, Map<String, double> expenseStats)
         loaded,
     required TResult Function(String message) error,
     required TResult Function() empty,
@@ -30,7 +30,7 @@ mixin _$ChartState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(
-            Map<String, int> incomeStats, Map<String, int> expenseStats)?
+            Map<String, double> incomeStats, Map<String, double> expenseStats)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function()? empty,
@@ -40,7 +40,7 @@ mixin _$ChartState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(
-            Map<String, int> incomeStats, Map<String, int> expenseStats)?
+            Map<String, double> incomeStats, Map<String, double> expenseStats)?
         loaded,
     TResult Function(String message)? error,
     TResult Function()? empty,
@@ -138,7 +138,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(
-            Map<String, int> incomeStats, Map<String, int> expenseStats)
+            Map<String, double> incomeStats, Map<String, double> expenseStats)
         loaded,
     required TResult Function(String message) error,
     required TResult Function() empty,
@@ -151,7 +151,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(
-            Map<String, int> incomeStats, Map<String, int> expenseStats)?
+            Map<String, double> incomeStats, Map<String, double> expenseStats)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function()? empty,
@@ -164,7 +164,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(
-            Map<String, int> incomeStats, Map<String, int> expenseStats)?
+            Map<String, double> incomeStats, Map<String, double> expenseStats)?
         loaded,
     TResult Function(String message)? error,
     TResult Function()? empty,
@@ -224,7 +224,8 @@ abstract class _$$LoadedImplCopyWith<$Res> {
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Map<String, int> incomeStats, Map<String, int> expenseStats});
+  $Res call(
+      {Map<String, double> incomeStats, Map<String, double> expenseStats});
 }
 
 /// @nodoc
@@ -247,11 +248,11 @@ class __$$LoadedImplCopyWithImpl<$Res>
       incomeStats: null == incomeStats
           ? _value._incomeStats
           : incomeStats // ignore: cast_nullable_to_non_nullable
-              as Map<String, int>,
+              as Map<String, double>,
       expenseStats: null == expenseStats
           ? _value._expenseStats
           : expenseStats // ignore: cast_nullable_to_non_nullable
-              as Map<String, int>,
+              as Map<String, double>,
     ));
   }
 }
@@ -260,24 +261,22 @@ class __$$LoadedImplCopyWithImpl<$Res>
 
 class _$LoadedImpl implements _Loaded {
   const _$LoadedImpl(
-      {required final Map<String, int> incomeStats,
-      required final Map<String, int> expenseStats})
+      {required final Map<String, double> incomeStats,
+      required final Map<String, double> expenseStats})
       : _incomeStats = incomeStats,
         _expenseStats = expenseStats;
 
-  final Map<String, int> _incomeStats;
+  final Map<String, double> _incomeStats;
   @override
-  Map<String, int> get incomeStats {
+  Map<String, double> get incomeStats {
     if (_incomeStats is EqualUnmodifiableMapView) return _incomeStats;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_incomeStats);
   }
 
-// Обновлено с TransactionCategoryTitle на String
-  final Map<String, int> _expenseStats;
-// Обновлено с TransactionCategoryTitle на String
+  final Map<String, double> _expenseStats;
   @override
-  Map<String, int> get expenseStats {
+  Map<String, double> get expenseStats {
     if (_expenseStats is EqualUnmodifiableMapView) return _expenseStats;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_expenseStats);
@@ -318,7 +317,7 @@ class _$LoadedImpl implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(
-            Map<String, int> incomeStats, Map<String, int> expenseStats)
+            Map<String, double> incomeStats, Map<String, double> expenseStats)
         loaded,
     required TResult Function(String message) error,
     required TResult Function() empty,
@@ -331,7 +330,7 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(
-            Map<String, int> incomeStats, Map<String, int> expenseStats)?
+            Map<String, double> incomeStats, Map<String, double> expenseStats)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function()? empty,
@@ -344,7 +343,7 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(
-            Map<String, int> incomeStats, Map<String, int> expenseStats)?
+            Map<String, double> incomeStats, Map<String, double> expenseStats)?
         loaded,
     TResult Function(String message)? error,
     TResult Function()? empty,
@@ -396,12 +395,11 @@ class _$LoadedImpl implements _Loaded {
 
 abstract class _Loaded implements ChartState {
   const factory _Loaded(
-      {required final Map<String, int> incomeStats,
-      required final Map<String, int> expenseStats}) = _$LoadedImpl;
+      {required final Map<String, double> incomeStats,
+      required final Map<String, double> expenseStats}) = _$LoadedImpl;
 
-  Map<String, int>
-      get incomeStats; // Обновлено с TransactionCategoryTitle на String
-  Map<String, int> get expenseStats;
+  Map<String, double> get incomeStats;
+  Map<String, double> get expenseStats;
 
   /// Create a copy of ChartState
   /// with the given fields replaced by the non-null parameter values.
@@ -480,7 +478,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(
-            Map<String, int> incomeStats, Map<String, int> expenseStats)
+            Map<String, double> incomeStats, Map<String, double> expenseStats)
         loaded,
     required TResult Function(String message) error,
     required TResult Function() empty,
@@ -493,7 +491,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(
-            Map<String, int> incomeStats, Map<String, int> expenseStats)?
+            Map<String, double> incomeStats, Map<String, double> expenseStats)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function()? empty,
@@ -506,7 +504,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(
-            Map<String, int> incomeStats, Map<String, int> expenseStats)?
+            Map<String, double> incomeStats, Map<String, double> expenseStats)?
         loaded,
     TResult Function(String message)? error,
     TResult Function()? empty,
@@ -611,7 +609,7 @@ class _$EmptyImpl implements _Empty {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(
-            Map<String, int> incomeStats, Map<String, int> expenseStats)
+            Map<String, double> incomeStats, Map<String, double> expenseStats)
         loaded,
     required TResult Function(String message) error,
     required TResult Function() empty,
@@ -624,7 +622,7 @@ class _$EmptyImpl implements _Empty {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(
-            Map<String, int> incomeStats, Map<String, int> expenseStats)?
+            Map<String, double> incomeStats, Map<String, double> expenseStats)?
         loaded,
     TResult? Function(String message)? error,
     TResult? Function()? empty,
@@ -637,7 +635,7 @@ class _$EmptyImpl implements _Empty {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(
-            Map<String, int> incomeStats, Map<String, int> expenseStats)?
+            Map<String, double> incomeStats, Map<String, double> expenseStats)?
         loaded,
     TResult Function(String message)? error,
     TResult Function()? empty,

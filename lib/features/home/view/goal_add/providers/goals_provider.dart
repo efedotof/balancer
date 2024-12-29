@@ -1,4 +1,4 @@
-import 'package:balancer/features/home/view/goal_setting/cubit/goal_settings_cubit.dart';
+import 'package:balancer/features/home/view/goal_add/cubit/goal_add_cubit.dart';
 import 'package:flutter/material.dart';
 
 class GoalsProvider with ChangeNotifier {
@@ -55,5 +55,21 @@ class GoalsProvider with ChangeNotifier {
     codes = 0;
     isValue = false;
     notifyListeners();
+  }
+
+  bool isSave() {
+    if (mode == GoalMode.manual) {
+      if (title == '' && amount == 0) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      if (title == '' && amount == 0 && percentage == 0.0) {
+        return false;
+      } else {
+        return true;
+      }
+    }
   }
 }

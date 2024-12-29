@@ -105,5 +105,11 @@
   "invalidAmountMustBeGreaterThanZero": "Invalid amount must be greater than Zero",
   "myGoals": "My goals",
   "target": "Target",
-  "theme": "Theme"
+  "theme": "Theme",
+  "to_the_goal": "To the goal",
+  "today": "Today",
+  "youCantWithdrawMoneyFromTheGoal": "You can't withdraw money from the goal.",
+  "available": "Available:",
+  "itIsNecessaryToEnterDataNamePurposeAndMode": "It is necessary to enter data: name, purpose, and mode",
+  "oopsyouMadeAMistakeTheAmountShouldExceed1Ruble": "Oops...You made a mistake, the amount should exceed 1 ruble."
 }

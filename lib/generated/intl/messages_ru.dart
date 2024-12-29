@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "amount": MessageLookupByLibrary.simpleMessage("Сумма"),
         "analytics": MessageLookupByLibrary.simpleMessage("Аналитика"),
         "application": MessageLookupByLibrary.simpleMessage("Приложение"),
+        "available": MessageLookupByLibrary.simpleMessage("Доступно:"),
         "balancer": MessageLookupByLibrary.simpleMessage("Balancer"),
         "balancerIsASimpleAndConvenientApplicationForTrackingYour":
             MessageLookupByLibrary.simpleMessage(
@@ -94,6 +95,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Неверная сумма. Пожалуйста, введите корректную сумму."),
         "investmentIncome":
             MessageLookupByLibrary.simpleMessage("Инвестиционный доход"),
+        "itIsNecessaryToEnterDataNamePurposeAndMode":
+            MessageLookupByLibrary.simpleMessage(
+                "Необходимо внести данные: название, цель, и режим"),
         "language": MessageLookupByLibrary.simpleMessage("Язык"),
         "left": MessageLookupByLibrary.simpleMessage("Осталось"),
         "mainCategory":
@@ -110,6 +114,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Нет подходящих целей"),
         "none": MessageLookupByLibrary.simpleMessage("Нет"),
         "ok": MessageLookupByLibrary.simpleMessage("ОК"),
+        "oopsyouMadeAMistakeTheAmountShouldExceed1Ruble":
+            MessageLookupByLibrary.simpleMessage(
+                "Упссс...Вы допустили ошибку сумма должна превышать 1 рубль"),
         "otherExpense": MessageLookupByLibrary.simpleMessage("Другие расходы"),
         "otherIncome":
             MessageLookupByLibrary.simpleMessage("Другие источники дохода"),
@@ -157,6 +164,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Доходы не записаны"),
         "title": MessageLookupByLibrary.simpleMessage("Название"),
         "to_create": MessageLookupByLibrary.simpleMessage("Создать"),
+        "to_the_goal": MessageLookupByLibrary.simpleMessage("В цель"),
+        "today": MessageLookupByLibrary.simpleMessage("Сегодня"),
         "transaction_added":
             MessageLookupByLibrary.simpleMessage("Транзакция добавлена"),
         "transactions": MessageLookupByLibrary.simpleMessage("Транзакции"),
@@ -177,6 +186,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Мы рекомендуем, чтобы ваши расходы не превышали 80% вашего дохода, но вы можете установить свой лимит."),
         "whatsYourMonthlyIncome":
             MessageLookupByLibrary.simpleMessage("Каков ваш месячный доход?"),
+        "youCantWithdrawMoneyFromTheGoal": MessageLookupByLibrary.simpleMessage(
+            "Вы не можете забрать из цели деньги."),
         "yourPersonalFinancialTrackerForManuallyRecordingExpensesAndBudget":
             MessageLookupByLibrary.simpleMessage(
                 "Ваш личный финансовый помощник для записи расходов и управления бюджетом.")

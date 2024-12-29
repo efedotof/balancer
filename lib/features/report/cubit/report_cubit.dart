@@ -33,4 +33,30 @@ class ReportCubit extends Cubit<ReportState> {
     return stats.map((key, value) => MapEntry(key.toString(), value.toDouble()));
   }
 
+   Map<String, List<T>> groupByMonth<T extends dynamic>(List<T> transactions) {
+    final Map<String, List<T>> grouped = {};
+    for (var transaction in transactions) {
+      final date = transaction.time; 
+      final month = DateFormat.yMMMM().format(date);
+      grouped.putIfAbsent(month, () => []).add(transaction);
+    }
+
+
+    final sortedKeys = grouped.keys.toList()
+      ..sort((a, b) {
+        final aDate = DateFormat.yMMMM().parse(a);
+        final bDate = DateFormat.yMMMM().parse(b);
+        return bDate.compareTo(aDate);
+      });
+
+    final sortedGrouped = {for (var key in sortedKeys) key: grouped[key]!};
+
+    sortedGrouped.forEach((key, value) {
+      value.sort((a, b) => b.time.compareTo(a.time));
+    });
+
+    return sortedGrouped;
+  }
+
+
 }

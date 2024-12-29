@@ -4,20 +4,20 @@ part 'budget.g.dart';
 
 
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 4)
 class Budget extends HiveObject {
 
   @HiveField(0)
-  int amountBudget;
+  double amountBudget;
 
   @HiveField(1)
-  int? spent;
+  double spent;
 
   @HiveField(2)
-  int? left;
+  double left;
 
   @HiveField(3)
-  int? expenses;
+  double expenses;
 
 
 

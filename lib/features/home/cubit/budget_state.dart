@@ -7,11 +7,11 @@ class BudgetState with _$BudgetState {
   const factory BudgetState.empty() = _EmptyState;
 
   const factory BudgetState.isNotEmpty(
-  {required int budgetAmount ,required int? spent, required int? left}
+  {required double budgetAmount ,required double spent, required double left}
   ) = _IsNotEmpty;
 
-  const factory BudgetState.updateBudget({required int budgetAmount,
-    required int? spent, required int? left
+  const factory BudgetState.updateBudget({required double budgetAmount,
+    required double spent, required double left
   
   }) = _UpdateBudget;
 

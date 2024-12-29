@@ -1,17 +1,17 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:balancer/features/home/view/goal_setting/cubit/goals_cubit.dart';
-import 'package:balancer/features/home/view/goal_setting/providers/goals_provider.dart';
+import 'package:balancer/features/home/view/goal_add/cubit/goals_cubit.dart';
+import 'package:balancer/features/home/view/goal_add/providers/goals_provider.dart';
 import 'package:balancer/generated/l10n.dart';
 import 'package:balancer/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'goal_settings_state.dart';
+part 'goal_add_state.dart';
 part 'goal_settings_cubit.freezed.dart';
 
-class GoalSettingsCubit extends Cubit<GoalSettingsState> {
-  GoalSettingsCubit() : super(GoalSettingsState.initial());
+class GoalAddCubit extends Cubit<GoalAddState> {
+  GoalAddCubit() : super(GoalAddState.initial());
 
   String title = '';
   double amount = 0.0;
@@ -65,22 +65,26 @@ class GoalSettingsCubit extends Cubit<GoalSettingsState> {
   void createTheBox(BuildContext context) {
     debugPrint('isValid: ${state.isValid}');
     final codes = context.read<GoalsProvider>().codes;
-    if (state.isValid) {
+    final isSaves = context.read<GoalsProvider>().isSave();
+    if (isSaves) {
       if (codes == 0) {
         context.read<GoalsProvider>().changeCodes(newCodes: icon.codePoint);
       }
       debugPrint('codes: ${context.read<GoalsProvider>().codes}');
       context.read<GoalsCubit>().addBox(
             title: title,
-            goalsAmount: amount.toInt(),
+            goalsAmount: amount,
             inCode: codes,
-            percentageOfBudget: context.read<GoalsProvider>().percentage != null ? (context.read<GoalsProvider>().percentage!).toInt() :null,
-            spentAmount: amount.toInt(),
+            percentageOfBudget: context.read<GoalsProvider>().percentage != null ? (context.read<GoalsProvider>().percentage!) :null,
+            spentAmount: amount,
           );
       context.read<GoalsProvider>().clear();
       context.maybePop();
       context.pushRoute(
           SuccessfullyRoute(subtitle: S.of(context).the_goal_has_been_created));
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(S.of(context).itIsNecessaryToEnterDataNamePurposeAndMode)));
+    
     }
   }
 }

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'goals_add_edit_cubit.dart';
+part of 'goals_settings_edit_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$GoalsAddEditState {
+mixin _$GoalsSettingsEditState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() noEdit,
@@ -57,23 +57,24 @@ mixin _$GoalsAddEditState {
 }
 
 /// @nodoc
-abstract class $GoalsAddEditStateCopyWith<$Res> {
-  factory $GoalsAddEditStateCopyWith(
-          GoalsAddEditState value, $Res Function(GoalsAddEditState) then) =
-      _$GoalsAddEditStateCopyWithImpl<$Res, GoalsAddEditState>;
+abstract class $GoalsSettingsEditStateCopyWith<$Res> {
+  factory $GoalsSettingsEditStateCopyWith(GoalsSettingsEditState value,
+          $Res Function(GoalsSettingsEditState) then) =
+      _$GoalsSettingsEditStateCopyWithImpl<$Res, GoalsSettingsEditState>;
 }
 
 /// @nodoc
-class _$GoalsAddEditStateCopyWithImpl<$Res, $Val extends GoalsAddEditState>
-    implements $GoalsAddEditStateCopyWith<$Res> {
-  _$GoalsAddEditStateCopyWithImpl(this._value, this._then);
+class _$GoalsSettingsEditStateCopyWithImpl<$Res,
+        $Val extends GoalsSettingsEditState>
+    implements $GoalsSettingsEditStateCopyWith<$Res> {
+  _$GoalsSettingsEditStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of GoalsAddEditState
+  /// Create a copy of GoalsSettingsEditState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -86,13 +87,13 @@ abstract class _$$NoEditImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$NoEditImplCopyWithImpl<$Res>
-    extends _$GoalsAddEditStateCopyWithImpl<$Res, _$NoEditImpl>
+    extends _$GoalsSettingsEditStateCopyWithImpl<$Res, _$NoEditImpl>
     implements _$$NoEditImplCopyWith<$Res> {
   __$$NoEditImplCopyWithImpl(
       _$NoEditImpl _value, $Res Function(_$NoEditImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GoalsAddEditState
+  /// Create a copy of GoalsSettingsEditState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -103,7 +104,7 @@ class _$NoEditImpl implements _NoEdit {
 
   @override
   String toString() {
-    return 'GoalsAddEditState.noEdit()';
+    return 'GoalsSettingsEditState.noEdit()';
   }
 
   @override
@@ -178,7 +179,7 @@ class _$NoEditImpl implements _NoEdit {
   }
 }
 
-abstract class _NoEdit implements GoalsAddEditState {
+abstract class _NoEdit implements GoalsSettingsEditState {
   const factory _NoEdit() = _$NoEditImpl;
 }
 
@@ -191,12 +192,12 @@ abstract class _$$EditImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$EditImplCopyWithImpl<$Res>
-    extends _$GoalsAddEditStateCopyWithImpl<$Res, _$EditImpl>
+    extends _$GoalsSettingsEditStateCopyWithImpl<$Res, _$EditImpl>
     implements _$$EditImplCopyWith<$Res> {
   __$$EditImplCopyWithImpl(_$EditImpl _value, $Res Function(_$EditImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GoalsAddEditState
+  /// Create a copy of GoalsSettingsEditState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -207,7 +208,7 @@ class _$EditImpl implements _Edit {
 
   @override
   String toString() {
-    return 'GoalsAddEditState.edit()';
+    return 'GoalsSettingsEditState.edit()';
   }
 
   @override
@@ -282,6 +283,6 @@ class _$EditImpl implements _Edit {
   }
 }
 
-abstract class _Edit implements GoalsAddEditState {
+abstract class _Edit implements GoalsSettingsEditState {
   const factory _Edit() = _$EditImpl;
 }

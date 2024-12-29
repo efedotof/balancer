@@ -1119,6 +1119,66 @@ class S {
       args: [],
     );
   }
+
+  /// `To the goal`
+  String get to_the_goal {
+    return Intl.message(
+      'To the goal',
+      name: 'to_the_goal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Today`
+  String get today {
+    return Intl.message(
+      'Today',
+      name: 'today',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can't withdraw money from the goal.`
+  String get youCantWithdrawMoneyFromTheGoal {
+    return Intl.message(
+      'You can\'t withdraw money from the goal.',
+      name: 'youCantWithdrawMoneyFromTheGoal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Available:`
+  String get available {
+    return Intl.message(
+      'Available:',
+      name: 'available',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `It is necessary to enter data: name, purpose, and mode`
+  String get itIsNecessaryToEnterDataNamePurposeAndMode {
+    return Intl.message(
+      'It is necessary to enter data: name, purpose, and mode',
+      name: 'itIsNecessaryToEnterDataNamePurposeAndMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Oops...You made a mistake, the amount should exceed 1 ruble.`
+  String get oopsyouMadeAMistakeTheAmountShouldExceed1Ruble {
+    return Intl.message(
+      'Oops...You made a mistake, the amount should exceed 1 ruble.',
+      name: 'oopsyouMadeAMistakeTheAmountShouldExceed1Ruble',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

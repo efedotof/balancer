@@ -33,8 +33,8 @@ class AppRouter extends RootStackRouter {
             AutoRoute(page: ItemsRoute.page, path: 'items_three'),
           ]
         ),
-         AutoRoute(page: GoalSettingsRoute.page, path: '/goal_setting'),
-         AutoRoute(page: GoalsAddBudgetRoute.page, path: '/goal_add_budget'),
+         AutoRoute(page: GoalAddRoute.page, path: '/goal_add'),
+         AutoRoute(page: GoalsSettingsRoute.page, path: '/goal_setting'),
         AutoRoute(page: SuccessfullyRoute.page, path: '/successfully'),
       ];
 }

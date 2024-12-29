@@ -5,14 +5,14 @@ part 'statistics.g.dart';
 
 
 
-@HiveType(typeId: 3)
+@HiveType(typeId: 0)
 class Statistics extends HiveObject {
 
   @HiveField(0)
-  int amountExpenses;
+  double amountExpenses;
 
   @HiveField(1)
-  int amountIncome;
+  double amountIncome;
 
 
   Statistics({
